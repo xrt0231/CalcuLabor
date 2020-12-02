@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <title>Admin Schedule</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+       <!-- Include the image-diff library -->
+      <script src="/js/quagga.min.js"></script>
+       <!-- Or use a CDN -->
+      <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
+      
+      
+      
+    </head>
+    <body>
+        <div class="container-fluid">
+            <h1>Scheduling Tool Page</h1>
+            
+            <div class="row">
+              <div class="col-sm-2" style="background-color:lightgrey;">
+                <br>
+                <button type="button" class="btn btn-primary btn-lg"onClick="location.href='/admin/hour.html'">Working Hour Tool</button>
+                <br>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg"onClick="location.href='/admin/dashboard.html'">Dashboard___</button>
+                <br>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg" onClick="location.href='/user.html'">Back to main</button>
+                <div style="height: 410px;"></div>
+              </div>
+              <div class="col-sm-10" style="background-color:gray;">
+                <br>
+                <form action="">
+                    <div class="form-group">
+                      <div id="scanner-container"></div>
+                      <input type="button" id="btn" value="Start/Stop the scanner" /><br>
+                      <label for="output">Inser Production Order #:</label>
+                      <input type="text" class="form-control" style="font-size: 25px;" id="MyInput" name="output">
+                      
+                    </div>
+                    <div class="form-group">
+                      <label for="process">Insert Process #:</label>
+                      <input type="text" class="form-control" style="font-size: 25px;" id="recordProcess" name="process">
+                      
+                    </div>
+                    <label for="output">Inser Output Qty:</label>
+                    <input type="text" class="form-control" style="font-size: 25px;" id="outputQty" name="outputQty"><br>
+                    
+                    <div class="form-group">
+                    </form>
+                      <br><br>
+                      
+                      <div id="chart"></div>
+                      
+                    </div>
+                    <button class="btn btn-default" type="submit" onclick="fetchData();"><i class="btn btn-primary"></i>CLICK THIS TO QUERY</button>
+                    </div>
+                  
+                  
+              </div>
+              
+            </div>
+          </div>
+          
+        <script src="/js/camera.js"></script>
+        
+        <script src="/js/gantt.js"></script>
+        <!-- <script src="/js/initialize-gantt.js"></script> -->
+
+        <script>
+
+          // fetch production order infomation from DB
+          function fetchData (){
+
+            var productionOrderNum =  document.getElementById('MyInput').value;
+            var recordProcess = document.getElementById('recordProcess').value;
+            var outputQty = document.getElementById('outputQty').value;
+            let today = new Date().toISOString().slice(0, 10);
+            let options = {
+                headers: {
+                    "Content-Type": "application/json"
+                     },
+                method: "POST", 
+                body: JSON.stringify({
+                    productionOrderNum:  productionOrderNum,
+                    recordProcess: recordProcess,
+                    outputQty:  outputQty,
+                    date: today
+                    })
+                
+               };
+            
+            fetch('/api/1.0/admin/productionOrderInfo', options)
+                .then(response => {
+                    let message = response.json();
+                    console.log('test');
+                    return message;
+                    })
+                .then(result => {
+                    if (result) {
+                        let record_process = result[0].record_process;
+                        let outputQty = result[0].output;
+                        
+                        console.log('test finished 3')
+                        document.getElementById('recordProcess').value = record_process;
+                        document.getElementById('outputQty').value = outputQty;
+                        } else {
+                          alert(result.msg);
+                          }
+                   });
+            }
+            
+            // fetch production order infomation from DB to make gantt chart
+            fetchGanttChart();
+            function fetchGanttChart (){
+
+              let today = new Date().toISOString().slice(0, 10);
+              let options = {
+                  headers: {
+                      "Content-Type": "application/json"
+                      },
+                  method: "POST", 
+                  body: JSON.stringify({
+                      date: today
+                      })
+                  
+                };
+
+              fetch('/api/1.0/admin/ganttchart', options)
+                  .then(response => {
+                      let message = response.json();
+                      console.log('test');
+                      return message;
+                      })
+                  .then(result => {
+                      if (result) {
+                          console.log('result start:::')
+                          console.log(result);
+                          console.log(result.length);
+
+                          //create gantt chart data
+
+
+                          } else {
+                            alert(result.msg);
+                            }
+                    });
+              }
+              
+        
+            
+      //         let data =  [
+      //     {
+      //         recordID: 1,
+      //         row: "Row for ID #1",
+      //         tooltip: "Tooltips here! Get your tooltips!",
+      //         start: "Wed Jun 03 2020 14:21:55",
+      //         end: "Wed Jun 03 2020 20:21:55",
+      //         // group: "This is a group with a new name",
+      //         // groupId: 1,
+      //         // subGroupId: 1,
+      //         // subGroup: "Subgroup #1"
+      //     },
+      //     {
+      //         recordID: 2,
+      //         row: "Row for ID #2",
+      //         tooltip: "Tooltip for row 2",
+      //         start: "Jun 03 2020 11:00:00",
+      //         end: "Jun 03 2020 15:23:43",
+      //         // group: "test",
+      //         // groupId: 1,
+      //         // subGroupId: 1,
+      //         // subGroup: "Subgroup #1"
+      //     },
+      //     {
+      //         recordID: 3,
+      //         row: "Row for ID #3",
+      //         tooltip: "Tooltip unique to this item",
+      //         start: "Wed Jun 03 2020 06:00:00",
+      //         end: "Wed Jun 03 2020 10:00:00",
+      //         // group: "test",
+      //         // groupId: 2,
+      //         // subGroupId: 1,
+      //         // subGroup: "Subgroup #2"
+      //     },
+      //     {
+      //         recordID: 4,
+      //         row: "Row for ID #4",
+      //         tooltip: "Tooltip after grouping",
+      //         start: "Wed Jun 03 2020 06:00:00",
+      //         end: "Wed Jun 03 2020 10:00:00",
+      //         // group: "test",
+      //         // groupId: 2,
+      //         // subGroupId: 1,
+      //         // subGroup: "Subgroup #2"
+      //     },
+      //     {
+      //         recordID: 5,
+      //         row: "Row for ID #5",
+      //         tooltip: "Tooltip after grouping",
+      //         start: "Wed Jun 03 2020 06:00:00",
+      //         end: "Wed Jun 03 2020 10:00:00",
+      //         group: "test",
+      //         // groupId: 2,
+      //         // subGroupId: 1,
+      //         // subGroup: "Subgroup #2"
+      //     }
+      // ];
+      
+      
+      //An API call to grab data
+      function refreshFunction() {
+          
+      return data;
+      }
+
+      //Parameters that the chart expects
+      let params = {
+      sidebarHeader: "Unused right now",
+      noDataFoundMessage: "No data found",
+      startTimeAlias: "start",
+      endTimeAlias: "end",
+      idAlias: "recordID",
+      rowAlias: "row",
+      linkAlias: null,
+      tooltipAlias: "tooltip",
+      // groupBy: "groupId,subGroupId",
+      // groupByAlias: "group,subGroup",
+      refreshFunction: refreshFunction
+      }
+
+      //Create the chart.
+      //On first render the chart will call its refreshData function on its own.
+      let ganttChart = new Gantt("chart", params);
+
+      //To refresh the chart's data
+      ganttChart.refreshData();
+</script>
+
+    </body>
+</html>

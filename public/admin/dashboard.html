@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <title>Admin Dashboard</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+      <!-- Load plotly.js into the DOM -->
+      <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+
+      <!-- Load Boostrap -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      
+    </head>
+    <body>
+      <div class="container-fluid">
+        <h1>Scheduling Tool Page</h1>
+        
+        <div class="row">
+          <div class="col-sm-2" style="background-color:lightgrey;">
+            <br>
+            <button type="button" class="btn btn-primary btn-lg"onClick="location.href='/admin/schedule.html'">Schedule Tool</button>
+            <br>
+            <br>
+            <button type="button" class="btn btn-primary btn-lg"onClick="location.href='/admin/hour.html'">Work Hour Tool</button>
+            <br>
+            <br>
+            <button type="button" class="btn btn-primary btn-lg" onClick="location.href='/user.html'">Back to main</button>
+            <div style="height: 410px;"></div>
+          </div>
+          <div class="col-sm-10" style="background-color:gray;">
+            <br>
+            <form action="">
+                 
+              <h3>Daily Efficiency Chart</h3>
+
+                <div class="form-group">
+                
+                  <label for="output">Input Start Time:</label>
+                  <input type="text" class="form-control" id="dateStart" name="dateStart">
+                  
+                </div>
+                <div class="form-group">
+                  <label for="process">Input End Time:</label>
+                  <input type="text" class="form-control" id="dateEnd" name="dateEnd">
+                  
+                </div>
+                  <label for="output">Input Process Name</label>
+                  <input type="text" class="form-control" id="process" name="process"><br>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-default" type="submit" onclick="fetchDailyPlot();"><i class="btn btn-primary"></i>Send Query</button> 
+                </div>
+              </form>
+              <button class="btn btn-default" type="submit" onclick="fetchDailyPlot();"><i class="btn btn-primary"></i>CLICK to Show Chart</button> 
+              <div id='dailyEfficiencyChart'><!-- Plotly chart will be drawn inside this DIV --></div>  
+          </div>
+          
+        </div>
+        
+      </div> 
+      
+    <script>
+    function fetchDailyPlot(){
+          var data = [
+        {
+          x: ['giraffes', 'orangutans', 'monkeys'],
+          y: [20, 14, 23],
+          type: 'bar'
+        }
+      ];
+
+      Plotly.newPlot('dailyEfficiencyChart', data);
+      }
+    </script>
+    
+    </body>
+</html>
