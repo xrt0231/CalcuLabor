@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      <title>Admin Schedule</title>
+      <title>Admin Production</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
@@ -12,21 +12,24 @@
       <script src="/js/quagga.min.js"></script>
        <!-- Or use a CDN -->
       <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
-      
-      
-      
     </head>
     <body>
         <div class="container-fluid">
-            <h1>Scheduling Query Page</h1>
+            <h1>Production Data</h1>
             
             <div class="row">
               <div class="col-sm-2" style="background-color:lightgrey;">
                 <br>
+                <button type="button" class="btn btn-primary btn-lg"onClick="location.href='/admin/schedule.html'">Production Query</button>
+                <br>
+                <br>
                 <button type="button" class="btn btn-primary btn-lg"onClick="location.href='/admin/hour.html'">Working Hour</button>
                 <br>
                 <br>
-                <button type="button" class="btn btn-primary btn-lg"onClick="location.href='/admin/dashboard.html'">Dashboard___</button>
+                <button type="button" class="btn btn-primary btn-lg"onClick="location.href='/admin/plan.html'">Production Plan</button>
+                <br>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg"onClick="location.href='/admin/dashboard.html'">Dashboard</button>
                 <br>
                 <br>
                 <button type="button" class="btn btn-primary btn-lg" onClick="location.href='/user.html'">Back to main</button>
@@ -38,22 +41,34 @@
                 <div id="scanner-container"></div>
                       
                 <form action="">
+
                     <div class="form-group">
-                      
                       <label for="output" style="font-size: 25px">Insert Production Order #:</label>
                       <input type="text" class="form-control" style="font-size: 25px;" id="MyInput" name="output">
-                      
                     </div>
+
                     <div class="form-group">
                       <label for="process" style="font-size: 25px">Process name:</label>
                       <input type="text" class="form-control" style="font-size: 25px;" id="recordProcess" name="process">
-                      
                     </div>
-                    <label for="output" style="font-size: 25px">Output Qty:</label>
-                    <input type="text" class="form-control" style="font-size: 25px;" id="outputQty" name="outputQty"><br>
-                    
+
                     <div class="form-group">
-                    </form>
+                        <label for="process" style="font-size: 25px">Start:</label>
+                        <input type="text" class="form-control" style="font-size: 25px;" id="start" name="start">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="process" style="font-size: 25px">End:</label>
+                        <input type="text" class="form-control" style="font-size: 25px;" id="End" name="End">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="output" style="font-size: 25px">Output Qty:</label>
+                        <input type="text" class="form-control" style="font-size: 25px;" id="outputQty" name="outputQty"><br>
+                    </div>
+
+                </form>
+
                     <label for="output" style="font-size: 25px">Today's production plan:</label> 
                     <div id="chart"></div>
                       
@@ -78,9 +93,9 @@
           function fetchData (){
 
             var productionOrderNum =  document.getElementById('MyInput').value;
-            var recordProcess = document.getElementById('recordProcess').value;
-            var outputQty = document.getElementById('outputQty').value;
-            let today = new Date().toISOString().slice(0, 10);
+            // var recordProcess = document.getElementById('recordProcess').value;
+            // var outputQty = document.getElementById('outputQty').value;
+            // let today = new Date().toISOString().slice(0, 10);
             let options = {
                 headers: {
                     "Content-Type": "application/json"
@@ -88,14 +103,14 @@
                 method: "POST", 
                 body: JSON.stringify({
                     productionOrderNum:  productionOrderNum,
-                    recordProcess: recordProcess,
-                    outputQty:  outputQty,
-                    date: today
+                    // recordProcess: recordProcess,
+                    // outputQty:  outputQty,
+                    // date: today
                     })
                 
                };
             
-            fetch('/api/1.0/admin/productionOrderInfo', options)
+            fetch('/api/1.0/admin/getProductionData', options)
                 .then(response => {
                     let message = response.json();
                     console.log('fetching...');

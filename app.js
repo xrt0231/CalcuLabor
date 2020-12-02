@@ -20,7 +20,8 @@ app.use('/api/' + API_VERSION,
         require('./server/routes/hour_route'),
         require('./server/routes/schedule_route'),
         // require('./server/routes/standard_route'),
-        require('./server/routes/user_route')
+        require('./server/routes/user_route'),
+        require('./server/routes/production_route')
     ]
 );
 
