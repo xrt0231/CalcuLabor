@@ -22,6 +22,20 @@ const getProductionData = async (req, res) => {
     
 };
 
+const updateProductionData = async (req, res) => {
+    // let productionOrderNum = req.body.productionOrderNum;
+    // let recordProcess = req.body.recordProcess;
+    // let outputQty = req.body.outputQty;
+    
+    // console.log(productionOrderNum);
+    // console.log(productionOrderNum.slice(2,12))
+    
+    const production = (await Production.updateProductionData());
+    res.send(production);
+    
+};
+
 module.exports = {
-    getProductionData
+    getProductionData,
+    updateProductionData
 };

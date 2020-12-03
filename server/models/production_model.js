@@ -15,6 +15,16 @@ const getProductionData = async(productionOrderNum)=> {
     
     return result;
  }
+
+//Get production order detail
+const updateProductionData = async()=> {
+
+//     let result = await query(`SELECT * FROM production_records where production_order_num = ${}`);
+    
+//     return result;
+ }
+ 
 module.exports = {
-    getProductionData
+    getProductionData,
+    updateProductionData
 };

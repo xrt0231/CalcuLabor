@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      <title>Admin Schedule</title>
+      <title>Admin Production</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
@@ -12,168 +12,220 @@
       <script src="/js/quagga.min.js"></script>
        <!-- Or use a CDN -->
       <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
-      
-      
-      
     </head>
     <body>
         <div class="container-fluid">
-            <h1>Working Hour Tool Page</h1>
+            
             
             <div class="row">
               <div class="col-sm-2" style="background-color:lightgrey;">
                 <br>
-                <button type="button" class="btn btn-primary btn-lg" onClick="location.href='/admin/schedule.html'">Schedule____</button>
+                <h1 style="text-align:center; font-weight: bold;">Working Hour Data</h1>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onClick="location.href='/admin/schedule.html'">Production Query</button>
                 <br>
                 <br>
-                <button type="button" class="btn btn-primary btn-lg" onClick="location.href='/admin/dashboard.html'">Dashboard___</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onClick="location.href='/admin/hour.html'">Working Hour</button>
                 <br>
                 <br>
-                <button type="button" class="btn btn-primary btn-lg" onClick="location.href='/user.html'">Back to main</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onClick="location.href='/admin/plan.html'">Production Plan</button>
+                <br>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onClick="location.href='/admin/dashboard.html'">Dashboard</button>
+                <br>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onClick="location.href='/user.html'">Back to main</button>
                 <div style="height: 410px;"></div>
               </div>
-              <div class="col-sm-10" style="background-color:gray;">
+              <div class="col-sm-10" style="background-color:lightgray;">
                 <br>
-                <button type="button" class="btn btn-primary btn-lg">Manual input PO#</button>
-                <div class="form-group">
-                    <br>
-                    <br>
-                    <label for="usr">Production Order #:</label>
-                    <input type="text" class="form-control" id="usr">
-                  </div>
-                <br>
-                <br>
-                <button type="button" class="btn btn-primary btn-lg">Camera input PO#</button>
+                <button class="btn btn-default btn-block" type="submit" style="font-size: 25px; font-weight: bold;" onclick="fetchData();">Click this to query</button><input type="button" class="btn btn-default btn-block" style="font-size: 25px; font-weight: bold" id="btn" value="Start/Stop the scanner" />
+                <button class="btn btn-default btn-block" type="submit" style="font-size: 25px; font-weight: bold;" onclick="fetchGanttChart();">Click this to chart</button>
                 <div id="scanner-container"></div>
-                <input type="button" id="btn" value="Start/Stop the scanner" />
-                Production order: <input type="text" id="MyInput" value="">
-                <br>
-                <br>
-                <button type="button" class="btn btn-primary btn-lg">Show schedule</button>
-                <div id="chart"></div>
+                      
+                <form action="">
+
+                    <div class="form-group">
+                      <label for="output" style="font-size: 25px">Employee #:</label>
+                      <input type="text" class="form-control" style="font-size: 25px;" id="MyInput" name="employeeId">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="process"style="font-size: 25px">Process name:</label><br>
+                      <select class="form-control" id="recordProcess" style="font-size: 25px; height: auto">
+                            <option ></option>
+                            <option >process_1</option>
+                            <option >process_2</option>
+                            <option >process_3</option>
+                            <option >process_4</option>
+                            <option >process_5</option>
+                            <option >process_6</option>
+                            <option >process_7</option>
+                            <option >process_8</option>
+                            <option >process_9</option>
+                            <option >process_10</option>
+                          </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="process" style="font-size: 25px">Start:</label>
+                        <input type="text" class="form-control" style="font-size: 25px;" id="start" name="start">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="process" style="font-size: 25px">End:</label>
+                        <input type="text" class="form-control" style="font-size: 25px;" id="end" name="end">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="output" style="font-size: 25px">TBD:</label>
+                        <input type="text" class="form-control" style="font-size: 25px;" id="" name=""><br>
+                    </div>
+
+                </form>
+
+                    <label for="output" style="font-size: 25px">Today's  plan:</label>
+                    
+                    <div id="chart"></div>
               </div>
+              
             </div>
           </div>
-          <br>
-          <br>
           <div id="chart"></div>
-      
-     
         <script src="/js/camera.js"></script>
         
         <script src="/js/gantt.js"></script>
         <!-- <script src="/js/initialize-gantt.js"></script> -->
 
         <script>
+
+          // fetch production order infomation from DB
+          function fetchData (){
+
+            var employeeId =  document.getElementById('MyInput').value;
+            var recordProcess = document.getElementById('recordProcess').value;
+            // var outputQty = document.getElementById('outputQty').value;
+            // let today = new Date().toISOString().slice(0, 10);
+            let options = {
+                headers: {
+                    "Content-Type": "application/json"
+                     },
+                method: "POST", 
+                body: JSON.stringify({
+                    employeeId: employeeId,
+                    // productionOrderNum:  productionOrderNum,
+                    recordProcess: recordProcess,
+                    // outputQty:  outputQty,
+                    // date: today
+                    })
+                
+               };
             
-      //         let data =  [
-      //     {
-      //         recordID: 1,
-      //         row: "Row for ID #1",
-      //         tooltip: "Tooltips here! Get your tooltips!",
-      //         start: "Wed Jun 03 2020 14:21:55",
-      //         end: "Wed Jun 03 2020 20:21:55",
-      //         // group: "This is a group with a new name",
-      //         // groupId: 1,
-      //         // subGroupId: 1,
-      //         // subGroup: "Subgroup #1"
-      //     },
-      //     {
-      //         recordID: 2,
-      //         row: "Row for ID #2",
-      //         tooltip: "Tooltip for row 2",
-      //         start: "Jun 03 2020 11:00:00",
-      //         end: "Jun 03 2020 15:23:43",
-      //         // group: "test",
-      //         // groupId: 1,
-      //         // subGroupId: 1,
-      //         // subGroup: "Subgroup #1"
-      //     },
-      //     {
-      //         recordID: 3,
-      //         row: "Row for ID #3",
-      //         tooltip: "Tooltip unique to this item",
-      //         start: "Wed Jun 03 2020 06:00:00",
-      //         end: "Wed Jun 03 2020 10:00:00",
-      //         // group: "test",
-      //         // groupId: 2,
-      //         // subGroupId: 1,
-      //         // subGroup: "Subgroup #2"
-      //     },
-      //     {
-      //         recordID: 4,
-      //         row: "Row for ID #4",
-      //         tooltip: "Tooltip after grouping",
-      //         start: "Wed Jun 03 2020 06:00:00",
-      //         end: "Wed Jun 03 2020 10:00:00",
-      //         // group: "test",
-      //         // groupId: 2,
-      //         // subGroupId: 1,
-      //         // subGroup: "Subgroup #2"
-      //     },
-      //     {
-      //         recordID: 5,
-      //         row: "Row for ID #5",
-      //         tooltip: "Tooltip after grouping",
-      //         start: "Wed Jun 03 2020 06:00:00",
-      //         end: "Wed Jun 03 2020 10:00:00",
-      //         group: "test",
-      //         // groupId: 2,
-      //         // subGroupId: 1,
-      //         // subGroup: "Subgroup #2"
-      //     }
-      // ];
-      
-      //
-      // let options = {
-      //   headers: {
-      //       "Content-Type": "application/json"
-      //   },
-      //   method: "POST",
-      //   body: JSON.stringify({access_token})
-      //  };
-      
-      // fetch(`/api/1.0/user/profile`, options)
-      //   .then(response => {
-      //       let message = response.json();
-      //       return message;
-      //   })
-      //   .then(result => {
-      //       if (result.data) {
-      //           main.innerHTML=`<h3>Welcome ${result.data.user.name}</h3><br><h4>email: ${result.data.user.email}</h4>`;
-      //       } else {
-      //           alert(result.msg);
-      //           window.location.href = `${protocol}//${domain}` + "/signIn.html";
-      //       }
-      //   });
-
-      //This could be an API call to grab data
-      function refreshFunction() {
+            fetch('/api/1.0/admin/getHour', options)
+                .then(response => {
+                    let message = response.json();
+                    console.log('fetching...');
+                    return message;
+                    })
+                .then(result => {
+                    if (result) {
+                        console.log(result[0]);
+                        let record_process = result[0].record_process;
+                        // let outputQty = result[0].output;
+                        var start = new Date(result[0].start);
+                        let end = new Date(result[0].end);
+                        
+                        console.log('API fetch success...')
+                        // document.getElementById('recordProcess').value = record_process;
+                        // document.getElementById('outputQty').value = outputQty;
+                        document.getElementById('start').value = start.toLocaleDateString() + start.toLocaleTimeString();
+                        document.getElementById('end').value = end.toLocaleDateString() + end.toLocaleTimeString();
+                        } else {
+                          alert(result.msg);
+                          }
+                   });
+            }
+            
+            // fetch production order infomation from DB to make gantt chart
+            
           
-      return data;
-      }
+            // fetchGanttChart();
+            
+            function fetchGanttChart (){
+              let data = [];
+              let today = new Date().toISOString().slice(0, 10);
+              var employeeId =  document.getElementById('MyInput').value;
+              // var recordProcess = document.getElementById('recordProcess').value;
 
-      //Parameters that the chart expects
-      let params = {
-      sidebarHeader: "Unused right now",
-      noDataFoundMessage: "No data found",
-      startTimeAlias: "start",
-      endTimeAlias: "end",
-      idAlias: "recordID",
-      rowAlias: "row",
-      linkAlias: null,
-      tooltipAlias: "tooltip",
-      // groupBy: "groupId,subGroupId",
-      // groupByAlias: "group,subGroup",
-      refreshFunction: refreshFunction
-      }
+              let options = {
+                  headers: {
+                      "Content-Type": "application/json"
+                      },
+                  method: "POST", 
+                  body: JSON.stringify({
+                      // date: today
+                      employeeId: employeeId,
+                      })
+                  
+                };
+                
+              fetch('/api/1.0/admin/getHourChart', options)
+                  .then(response => {
+                      let message = response.json();
+                      console.log('test');
+                      return message;
+                      })
+                  .then(result => {
+                      if (result) {
+                          
+                          console.log("API fetch success...");
 
-      //Create the chart.
-      //On first render the chart will call its refreshData function on its own.
-      let ganttChart = new Gantt("chart", params);
+                          //create gantt chart data
+                          let workHourData = {}
+                          for (let i=0; i<result.length; i+=1){
+                            workHourData = {
+                              recordID: i+1,
+                              row: `${result[i].record_process}`,
+                              tooltip: `${result[i].material_num}, ${result[i].record_process}, ${result[i].start}, ${result[i].end}`,
+                              start: `${result[i].start}`,
+                              end: `${result[i].end}`,
+                             }
+                              data.push(workHourData);
+                           }
+                           //An API call to grab data
+                          function refreshFunction() {
+                              
+                              return data;
+                              }
+                        
+                              //Parameters that the chart expects
+                              let params = {
+                              sidebarHeader: "Unused right now",
+                              noDataFoundMessage: "No data found",
+                              startTimeAlias: "start",
+                              endTimeAlias: "end",
+                              idAlias: "recordID",
+                              rowAlias: "row",
+                              linkAlias: null,
+                              tooltipAlias: "tooltip",
+                              // groupBy: "groupId,subGroupId",
+                              // groupByAlias: "group,subGroup",
+                              refreshFunction: refreshFunction
+                              }
+                        
+                              //Create the chart.
+                              //On first render the chart will call its refreshData function on its own.
+                              let ganttChart = new Gantt("chart", params);
+                        
+                              //To refresh the chart's data
+                              ganttChart.refreshData();
+                                              
 
-      //To refresh the chart's data
-      ganttChart.refreshData();
+                            } else {
+                              alert(result.msg);
+                              }
+                        });
+              }
 </script>
 
     </body>
