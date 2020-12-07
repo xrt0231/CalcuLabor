@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      <title>Admin Schedule</title>
+      <title>Admin Production Plan</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
@@ -12,58 +12,85 @@
       <script src="/js/quagga.min.js"></script>
        <!-- Or use a CDN -->
       <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
-      
-      
-      
     </head>
     <body>
         <div class="container-fluid">
-            <h1>Scheduling Query Page</h1>
+            
             
             <div class="row">
               <div class="col-sm-2" style="background-color:lightgrey;">
                 <br>
-                <button type="button" class="btn btn-primary btn-lg"onClick="location.href='/admin/hour.html'">Working Hour</button>
+                <h1 style="text-align:center; font-weight: bold;">Production Plan</h1>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onClick="location.href='/admin/production.html'">Production Data Enrty</button>
                 <br>
                 <br>
-                <button type="button" class="btn btn-primary btn-lg"onClick="location.href='/admin/dashboard.html'">Dashboard___</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onClick="location.href='/admin/hour.html'">Working Hour Entry</button>
                 <br>
                 <br>
-                <button type="button" class="btn btn-primary btn-lg" onClick="location.href='/user.html'">Back to main</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onClick="location.href='/admin/dashboard.html'">Dashboard</button>
+                <br>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onClick="location.href='/user.html'">Back to main</button>
                 <div style="height: 410px;"></div>
               </div>
-              <div class="col-sm-10" style="background-color:gray;">
+              <div class="col-sm-10" style="background-color:lightgray;">
                 <br>
-                <button class="btn btn-default" type="submit" style="font-size: 25px;" onclick="fetchData();">Click this to query</button><input type="button" class="btn btn-default" style="font-size: 25px;" id="btn" value="Start/Stop the scanner" /><br>
+                <button class="btn btn-default btn-block" type="submit" style="font-size: 25px; font-weight: bold;" onclick="fetchData();">Click this to query</button>
+                <input type="button" class="btn btn-default btn-block" style="font-size: 25px; font-weight: bold" id="btn" value="Start/Stop the scanner" />
+                <button class="btn btn-default btn-block" type="submit" style="font-size: 25px; font-weight: bold;" onclick="fetchGanttChart();">Get gantt chart</button>
+                <button class="btn btn-default btn-block" type="submit" style="font-size: 25px; font-weight: bold;" onclick="createProductionOrder();">Create Production Order</button><br>
                 <div id="scanner-container"></div>
                       
                 <form action="">
+
                     <div class="form-group">
-                      
-                      <label for="output" style="font-size: 25px">Insert Production Order #:</label>
+                      <label for="output" style="font-size: 25px">Production Order #:</label>
                       <input type="text" class="form-control" style="font-size: 25px;" id="MyInput" name="output">
-                      
                     </div>
+
+                    <div class="form-group">
+                      <label for="output" style="font-size: 25px">Material #:</label>
+                      <input type="text" class="form-control" style="font-size: 25px;" id="materialNum" name="materialNum">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="output" style="font-size: 25px">Production Group:</label>
+                      <input type="text" class="form-control" style="font-size: 25px;" id="productionGroup" name="productionGroup">
+                    </div>
+
                     <div class="form-group">
                       <label for="process" style="font-size: 25px">Process name:</label>
                       <input type="text" class="form-control" style="font-size: 25px;" id="recordProcess" name="process">
-                      
                     </div>
-                    <label for="output" style="font-size: 25px">Output Qty:</label>
-                    <input type="text" class="form-control" style="font-size: 25px;" id="outputQty" name="outputQty"><br>
-                    
+
                     <div class="form-group">
-                    </form>
+                        <label for="process" style="font-size: 25px">Start:</label>
+                        <input type="text" class="form-control" style="font-size: 25px;" id="start" name="start">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="process" style="font-size: 25px">End:</label>
+                        <input type="text" class="form-control" style="font-size: 25px;" id="end" name="end">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="output" style="font-size: 25px">Output Qty:</label>
+                        <input type="text" class="form-control" style="font-size: 25px;" id="outputQty" name="outputQty"><br>
+                    </div>
+
+                </form>
+
                     <label for="output" style="font-size: 25px">Today's production plan:</label> 
-                    <div id="chart"></div>
-                      
+                    
+                    <div id="chart"></div>  
                     </div>
                     
                     </div>
                   
                   
               </div>
-              
+                
             </div>
           </div>
           <div id="chart"></div>
@@ -78,9 +105,9 @@
           function fetchData (){
 
             var productionOrderNum =  document.getElementById('MyInput').value;
-            var recordProcess = document.getElementById('recordProcess').value;
-            var outputQty = document.getElementById('outputQty').value;
-            let today = new Date().toISOString().slice(0, 10);
+            // var recordProcess = document.getElementById('recordProcess').value;
+            // var outputQty = document.getElementById('outputQty').value;
+            // let today = new Date().toISOString().slice(0, 10);
             let options = {
                 headers: {
                     "Content-Type": "application/json"
@@ -88,14 +115,14 @@
                 method: "POST", 
                 body: JSON.stringify({
                     productionOrderNum:  productionOrderNum,
-                    recordProcess: recordProcess,
-                    outputQty:  outputQty,
-                    date: today
+                    // recordProcess: recordProcess,
+                    // outputQty:  outputQty,
+                    // date: today
                     })
                 
                };
             
-            fetch('/api/1.0/admin/productionOrderInfo', options)
+            fetch('/api/1.0/admin/getProductionData', options)
                 .then(response => {
                     let message = response.json();
                     console.log('fetching...');
@@ -105,10 +132,14 @@
                     if (result) {
                         let record_process = result[0].record_process;
                         let outputQty = result[0].output;
+                        let start = new Date(result[0].start);
+                        let end = new Date(result[0].end);
                         
                         console.log('API fetch success...')
                         document.getElementById('recordProcess').value = record_process;
                         document.getElementById('outputQty').value = outputQty;
+                        document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
+                        document.getElementById('end').value = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
                         } else {
                           alert(result.msg);
                           }
@@ -116,81 +147,123 @@
             }
             
             // fetch production order infomation from DB to make gantt chart
-            
-            
-            fetchGanttChart();
-            let data = [];
-            function fetchGanttChart (){
-
-              let today = new Date().toISOString().slice(0, 10);
-              let options = {
-                  headers: {
-                      "Content-Type": "application/json"
-                      },
-                  method: "POST", 
-                  body: JSON.stringify({
-                      date: today
-                      })
+            function fetchGanttChart() {
+              let data = [];
+                let today = new Date().toISOString().slice(0, 10);
+                let options = {
+                    headers: {
+                        "Content-Type": "application/json"
+                        },
+                    method: "POST", 
+                    body: JSON.stringify({
+                        date: today
+                        })
+                    
+                  };
                   
-                };
-                
-              fetch('/api/1.0/admin/ganttchart', options)
-                  .then(response => {
-                      let message = response.json();
-                      console.log('test');
-                      return message;
-                      })
-                  .then(result => {
-                      if (result) {
+                fetch('/api/1.0/admin/ganttchart', options)
+                    .then(response => {
+                        let message = response.json();
+                        console.log('test');
+                        return message;
+                        })
+                    .then(result => {
+                        if (result) {
+                            
+                            console.log("API fetch success...");
+
+                            //create gantt chart data
+                            let ganttdata = {}
+                            for (let i=0; i<result.length; i+=1){
+                                ganttdata = {
+                                recordID: i+1,
+                                row: `${result[i].production_order_num}`,
+                                tooltip: `${result[i].material_num}, ${result[i].record_process}, ${result[i].start}, ${result[i].end}`,
+                                start: `${result[i].start}`,
+                                end: `${result[i].end}`,
+                              }
+                                data.push(ganttdata);
+                            }
+                            //An API call to grab data
+                            function refreshFunction() {
+                                
+                                return data;
+                                }
                           
-                          console.log("API fetch success...");
+                                //Parameters that the chart expects
+                                let params = {
+                                sidebarHeader: "Unused right now",
+                                noDataFoundMessage: "No data found",
+                                startTimeAlias: "start",
+                                endTimeAlias: "end",
+                                idAlias: "recordID",
+                                rowAlias: "row",
+                                linkAlias: null,
+                                tooltipAlias: "tooltip",
+                                // groupBy: "groupId,subGroupId",
+                                // groupByAlias: "group,subGroup",
+                                refreshFunction: refreshFunction
+                                }
+                          
+                                //Create the chart.
+                                //On first render the chart will call its refreshData function on its own.
+                                let ganttChart = new Gantt("chart", params);
+                          
+                                //To refresh the chart's data
+                                ganttChart.refreshData();
+                                                
+                              } else {
+                                alert(result.msg);
+                                }
+                          });
+                }
 
-                          //create gantt chart data
-                          let ganttdata = {}
-                          for (let i=0; i<result.length; i+=1){
-                              ganttdata = {
-                              recordID: i+1,
-                              row: `${result[i].production_order_num}`,
-                              tooltip: `${result[i].material_num}, ${result[i].record_process}, ${result[i].start}, ${result[i].end}`,
-                              start: `${result[i].start}`,
-                              end: `${result[i].end}`,
-                             }
-                              data.push(ganttdata);
-                           }
-                           //An API call to grab data
-                          function refreshFunction() {
+                function createProductionOrder() {
+
+                  let data = [];
+
+                  let productionOrderNum =  document.getElementById('MyInput').value;
+                  let materialNum = document.getElementById('materialNum').value;
+                  let productionGroup = document.getElementById('productionGroup').value;
+                  let recordProcess = document.getElementById('recordProcess').value;
+                  let start = document.getElementById('start').value;
+                  let end = document.getElementById('end').value;
+                  let outputQty = document.getElementById('outputQty').value;
+
+                  let options = {
+                      headers: {
+                          "Content-Type": "application/json"
+                          },
+                      method: "POST", 
+                      body: JSON.stringify({
+                          productionOrderNum: productionOrderNum,
+                          materialNum: materialNum,
+                          productionGroup: productionGroup,
+                          recordProcess: recordProcess,
+                          start: start,
+                          end: end,
+                          outputQty: outputQty,
+                          })
+                      
+                    };
+                    
+                  fetch('/api/1.0/admin/createProductionOrder', options)
+                      .then(response => {
+                          let message = response.json();
+                          console.log('test');
+                          return message;
+                          })
+                      .then(result => {
+                          if (result) {
                               
-                              return data;
-                              }
-                        
-                              //Parameters that the chart expects
-                              let params = {
-                              sidebarHeader: "Unused right now",
-                              noDataFoundMessage: "No data found",
-                              startTimeAlias: "start",
-                              endTimeAlias: "end",
-                              idAlias: "recordID",
-                              rowAlias: "row",
-                              linkAlias: null,
-                              tooltipAlias: "tooltip",
-                              // groupBy: "groupId,subGroupId",
-                              // groupByAlias: "group,subGroup",
-                              refreshFunction: refreshFunction
-                              }
-                        
-                              //Create the chart.
-                              //On first render the chart will call its refreshData function on its own.
-                              let ganttChart = new Gantt("chart", params);
-                        
-                              //To refresh the chart's data
-                              ganttChart.refreshData();
-                                              
+                              console.log("API fetch success...");
+                                } else {
+                                  alert(result.msg);
+                                  }
+                            });
 
-                            } else {
-                              alert(result.msg);
-                              }
-                        });
-              }
+                }
+        
 </script>
 
     </body>

@@ -3,7 +3,8 @@ const router = require('express').Router();
 
 const {
     getGanttChart,
-    productionOrderInfo
+    productionOrderInfo,
+    createProductionOrder
 } = require('../controllers/schedule_controller');
 
 router.route('/admin/ganttchart')
@@ -11,5 +12,8 @@ router.route('/admin/ganttchart')
 
 router.route('/admin/productionOrderInfo')
     .post(productionOrderInfo);
+    
+router.route('/admin/createProductionOrder')
+    .post(createProductionOrder);
 
 module.exports = router;

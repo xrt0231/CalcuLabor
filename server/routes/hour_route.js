@@ -3,7 +3,8 @@ const router = require('express').Router();
 
 const {
     getHour,
-    getHourChart
+    getHourChart,
+    clockInOut
 } = require('../controllers/hour_controller');
 
 router.route('/admin/getHour')
@@ -11,5 +12,8 @@ router.route('/admin/getHour')
 
 router.route('/admin/getHourChart')
     .post(getHourChart);
+
+router.route('/admin/clockInOut')
+    .post(clockInOut);
 
 module.exports = router;

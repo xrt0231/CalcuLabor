@@ -15,7 +15,16 @@ const productionOrderInfo = async(productionOrderNum, recordProcess, outputQty)=
     
     return result;
  }
+
+ const createProductionOrder = async(productionOrderNum, materialNum, productionGroup, recordProcess, start, end, outputQty)=> {
+    console.log(productionOrderNum, materialNum, productionGroup, recordProcess, start, end, outputQty);
+    let result = await query(`INSERT INTO production_plan (production_order_num, material_num, production_group, record_process, start, end, output) VALUES (${productionOrderNum}, ${materialNum}, ${productionGroup}, '${recordProcess}', '${start}', '${end}', ${outputQty})`);
+    console.log(result);
+    return result;
+ } 
+
 module.exports = {
     getGanttChart,
-    productionOrderInfo
+    productionOrderInfo,
+    createProductionOrder
 };

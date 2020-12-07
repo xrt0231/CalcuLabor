@@ -7,6 +7,7 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const app = express();
 const fetch = require('node-fetch');
+
 const Quagga = require('quagga').default;
 
 app.use(express.static('public'));
@@ -19,7 +20,7 @@ app.use('/api/' + API_VERSION,
         require('./server/routes/dashboard_route'),
         require('./server/routes/hour_route'),
         require('./server/routes/schedule_route'),
-        // require('./server/routes/standard_route'),
+        require('./server/routes/standard_route'),
         require('./server/routes/user_route'),
         require('./server/routes/production_route')
     ]
