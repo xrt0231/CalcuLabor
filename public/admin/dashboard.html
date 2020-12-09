@@ -1,81 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      <title>Admin Dashboard</title>
+      <title>Dashboard</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-      <!-- Load plotly.js into the DOM -->
-      <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-
-      <!-- Load Boostrap -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-      
+       <!-- Include the image-diff library -->
+      <script src="/js/quagga.min.js"></script>
+       <!-- Or use a CDN -->
+      <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     </head>
     <body>
-      <div class="container-fluid">
-        <h1>Scheduling Tool Page</h1>
-        
-        <div class="row">
-          <div class="col-sm-2" style="background-color:lightgrey;">
-            <br>
-            <button type="button" class="btn btn-primary btn-lg"onClick="location.href='/admin/schedule.html'">Schedule Tool</button>
-            <br>
-            <br>
-            <button type="button" class="btn btn-primary btn-lg"onClick="location.href='/admin/hour.html'">Work Hour Tool</button>
-            <br>
-            <br>
-            <button type="button" class="btn btn-primary btn-lg" onClick="location.href='/user.html'">Back to main</button>
-            <div style="height: 410px;"></div>
-          </div>
-          <div class="col-sm-10" style="background-color:gray;">
-            <br>
-            <form action="">
-                 
-              <h3>Daily Efficiency Chart</h3>
+        <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-2" style="background-color:lightgrey;">
+                <br>
+                <h1 style="text-align:center; font-weight: bold;">Dashboard</h1>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/admin/schedule.html'">Production Plan Enrty</button>
+                <br>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/admin/hour.html'">Working Hour Entry</button>
+                <br>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/admin/dashboard.html'">Dashboard</button>
+                <br>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/user.html'">Back to main</button>
+                <div style="height: 410px;"></div>
+              </div>
+            <div class="col-sm-5" style="background-color:lightgray;">
+                <br>
+                <button class="btn btn-default btn-block" type="submit" style="font-size: 25px; font-weight: bold;" onclick="dashboard1();">Process Efficiency by Date</button><br>
+                <div id="scanner-container"></div>    
+                <form action="">
 
-                <div class="form-group">
+                    <div class="form-group">
+                      <label for="output" style="font-size: 25px">Process #:</label>
+                      <select class="form-control" id="recordProcess" style="font-size: 25px; height: auto">
+                        <option ></option>
+                        <option >process_1</option>
+                        <option >process_2</option>
+                        <option >process_3</option>
+                        <option >process_4</option>
+                        <option >process_5</option>
+                        <option >process_6</option>
+                        <option >process_7</option>
+                        <option >process_8</option>
+                        <option >process_9</option>
+                        <option >process_10</option>
+                      </select>
+                      <!-- <input type="text" class="form-control" style="font-size: 25px;" id="MyInput" name="output"> -->
+                    </div>
+
+                    <div class="form-group">
+                      <label for="process" style="font-size: 25px">Start Date (YYYY/MM/DD):</label>
+                      <input type="text" class="form-control" style="font-size: 25px;" id="startDate" name="process">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="process" style="font-size: 25px">End Date (YYYY/MM/DD):</label>
+                        <input type="text" class="form-control" style="font-size: 25px;" id="endDate" name="start">
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <label for="output" style="font-size: 25px">function(TBD):</label>
+                        <input type="text" class="form-control" style="font-size: 25px;" id="outputQty" name="outputQty"><br>
+                    </div> -->
+                </form>
+
+                    <label for="output" style="font-size: 25px">Dashboard 1:</label> 
+                    
+                    <div id="myDiv1"></div>   
+              </div>
+              <div class="col-sm-5" style="background-color:lightgray;">
+                <br>
                 
-                  <label for="output">Input Start Time:</label>
-                  <input type="text" class="form-control" id="dateStart" name="dateStart">
+                <div id="scanner-container"></div>    
+                <button class="btn btn-default btn-block" type="submit" style="font-size: 25px; font-weight: bold;" onclick="dashboard2();">Daily Efficiency by Prcocess</button><br>
+                <form action="">
                   
-                </div>
-                <div class="form-group">
-                  <label for="process">Input End Time:</label>
-                  <input type="text" class="form-control" id="dateEnd" name="dateEnd">
-                  
-                </div>
-                  <label for="output">Input Process Name</label>
-                  <input type="text" class="form-control" id="process" name="process"><br>
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-default" type="submit" onclick="fetchDailyPlot();"><i class="btn btn-primary"></i>Send Query</button> 
-                </div>
-              </form>
-              <button class="btn btn-default" type="submit" onclick="fetchDailyPlot();"><i class="btn btn-primary"></i>CLICK to Show Chart</button> 
-              <div id='dailyEfficiencyChart'><!-- Plotly chart will be drawn inside this DIV --></div>
-          </div>
-          
-        </div>
-        
-      </div> 
-      
-    <script>
-    function fetchDailyPlot(){
-          var data = [
-        {
-          x: ['giraffes', 'orangutans', 'monkeys'],
-          y: [20, 14, 23],
-          type: 'bar'
-        }
-      ];
+                    <div class="form-group">
+                      <!-- <label for="output" style="font-size: 25px">Process #:</label>
+                      <select class="form-control" id="recordProcess" style="font-size: 25px; height: auto">
+                        <option ></option>
+                        <option >process_1</option>
+                        <option >process_2</option>
+                        <option >process_3</option>
+                        <option >process_4</option>
+                        <option >process_5</option>
+                        <option >process_6</option>
+                        <option >process_7</option>
+                        <option >process_8</option>
+                        <option >process_9</option>
+                        <option >process_10</option>
+                      </select> -->
+                      <!-- <input type="text" class="form-control" style="font-size: 25px;" id="MyInput" name="output"> -->
+                    </div>
+                    <div style="padding: 85px;"></div>
+                    <div class="form-group">
+                      <label for="process" style="font-size: 25px">Query Date (YYYY/MM/DD):</label>
+                      <input type="text" class="form-control" style="font-size: 25px;" id="startDate2" name="startDate2">
+                    </div>
 
-      Plotly.newPlot('dailyEfficiencyChart', data);
-      }
-    </script>
-    
+                    <!-- <div class="form-group">
+                        <label for="process" style="font-size: 25px">End Date (YYYY/MM/DD):</label>
+                        <input type="text" class="form-control" style="font-size: 25px;" id="endDate" name="start">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="output" style="font-size: 25px">function(TBD):</label>
+                        <input type="text" class="form-control" style="font-size: 25px;" id="outputQty" name="outputQty"><br>
+                    </div>
+                </form> -->
+
+                    <label for="output" style="font-size: 25px">Dashboard 2:</label> 
+                    
+                    <div id="myDiv2"></div>         
+        </div>
+                  
+
+          
+          <div id="chart"></div>
+        <script src="/js/camera.js"></script>
+        
+        <script src="/js/gantt.js"></script>
+        <!-- <script src="/js/initialize-gantt.js"></script> -->
+
+        <script>
+
+                //Define process return multiple days efficiency
+                function dashboard1() {
+
+                  let x = [];
+                  let y = [];
+                  let startDate =  document.getElementById('startDate').value;
+                  let endDate = document.getElementById('endDate').value;
+                  let recordProcess = document.getElementById('recordProcess').value;
+
+                  let options = {
+                      headers: {
+                          "Content-Type": "application/json"
+                          },
+                      method: "POST", 
+                      body: JSON.stringify({
+                          
+                          startDate: startDate,
+                          endDate: endDate,
+                          recordProcess: recordProcess
+                          
+                          })
+                      
+                    };
+                    
+                  fetch('/api/1.0/admin/dashboard1', options)
+                      .then(response => {
+                          let message = response.json();
+                          console.log('test');
+                          return message;
+                          })
+                      .then(result => {
+                          if (result) {
+                              console.log("API fetch success...");
+                              for (let i=0; i<result.length; i+=1){
+                                x.push(result[i].date);
+                                y.push(result[i].efficiency)+'%';
+                              }
+                              var data = [
+                                          {
+                                            x: x,
+                                            y: y,
+                                            type: 'bar'
+                                          }
+                                        ];
+
+                              Plotly.newPlot('myDiv1', data);
+                              
+                              
+                              } else {
+                                  alert(result.msg);
+                                  }
+                            });
+
+                }
+                
+                //Define date return multiple process efficiency
+                function dashboard2() {
+
+                  let x = [];
+                  let y = [];
+                  let startDate =  document.getElementById('startDate2').value;
+
+                  let options = {
+                      headers: {
+                          "Content-Type": "application/json"
+                          },
+                      method: "POST", 
+                      body: JSON.stringify({
+                          
+                          startDate: startDate
+                          
+                          })
+                      
+                    };
+                    
+                  fetch('/api/1.0/admin/dashboard2', options)
+                      .then(response => {
+                          let message = response.json();
+                          console.log('test');
+                          return message;
+                          })
+                      .then(result => {
+                          if (result) {
+                              console.log("API fetch success...");
+                              for (let i=0; i<result.length; i+=1){
+                                x.push(result[i].process_refer);
+                                y.push(result[i].efficiency)+'%';
+                              }
+                              var data = [
+                                          {
+                                            x: x,
+                                            y: y,
+                                            type: 'bar'
+                                          }
+                                        ];
+
+                              Plotly.newPlot('myDiv2', data);
+                              
+                              
+                              } else {
+                                  alert(result.msg);
+                                  }
+                            });
+
+                  }
+        
+</script>
+
     </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      <title>Admin Working Hour</title>
+      <title>Working Hour</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
@@ -22,16 +22,16 @@
                 <br>
                 <h1 style="text-align:center; font-weight: bold;">Working Hour Data</h1>
                 <br>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onClick="location.href='/admin/schedule.html'">Production Plan Entry</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/admin/schedule.html'">Production Plan Entry</button>
                 <br>
                 <br>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onClick="location.href='/admin/production.html'">Production Data Entry</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/admin/production.html'">Production Data Entry</button>
                 <br>
                 <br>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onClick="location.href='/admin/dashboard.html'">Dashboard</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/admin/dashboard.html'">Dashboard</button>
                 <br>
                 <br>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onClick="location.href='/user.html'">Back to main</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/user.html'">Back to main</button>
                 <div style="height: 410px;"></div>
               </div>
               <div class="col-sm-10" style="background-color:lightgray;">
@@ -75,14 +75,9 @@
                         <input type="text" class="form-control" style="font-size: 25px;" id="end" name="end">
                     </div>
 
-                    <div class="form-group">
-                        <label for="output" style="font-size: 25px">TBD:</label>
-                        <input type="text" class="form-control" style="font-size: 25px;" id="" name=""><br>
-                    </div>
-
                 </form>
 
-                    <label for="output" style="font-size: 25px">Today's  plan:</label>
+                    <label for="output" style="font-size: 25px">Today's Working Log:</label>
                     
                     <div id="chart"></div>
               </div>
@@ -130,14 +125,14 @@
                         console.log(result[0]);
                         let record_process = result[0].record_process;
                         // let outputQty = result[0].output;
-                        var start = new Date(result[0].start);
-                        let end = new Date(result[0].end);
+                        var start = new Date(result[0].recentStart);
+                        let end = new Date(result[0].recentEnd);
                         
                         console.log('API fetch success...')
                         // document.getElementById('recordProcess').value = record_process;
                         // document.getElementById('outputQty').value = outputQty;
-                        document.getElementById('start').value = start.toLocaleDateString() + start.toLocaleTimeString();
-                        document.getElementById('end').value = end.toLocaleDateString() + end.toLocaleTimeString();
+                        document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
+                        document.getElementById('end').value = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
                         } else {
                           alert(result.msg);
                           }
@@ -151,8 +146,8 @@
             
             function fetchGanttChart (){
               let data = [];
-              let today = new Date().toISOString().slice(0, 10);
               var employeeId =  document.getElementById('MyInput').value;
+              let today = new Date().toISOString().slice(0, 10);
               // var recordProcess = document.getElementById('recordProcess').value;
 
               let options = {
@@ -161,7 +156,7 @@
                       },
                   method: "POST", 
                   body: JSON.stringify({
-                      // date: today
+                      date: today,
                       employeeId: employeeId,
                       })
                   
@@ -228,10 +223,10 @@
               // fetch to clock in/out from DB
             function clockInOut (){
 
-                var employeeId =  document.getElementById('MyInput').value;
-                var recordProcess = document.getElementById('recordProcess').value;
-                var start = document.getElementById('start').value;
-                var end = document.getElementById('end').value;
+                var employeeId =  document.getElementById('MyInput');
+                var recordProcess = document.getElementById('recordProcess');
+                var start = document.getElementById('start');
+                var end = document.getElementById('end');
                 // let today = new Date().toISOString().slice(0, 10);
                 let options = {
                     headers: {
@@ -239,16 +234,19 @@
                         },
                     method: "POST", 
                     body: JSON.stringify({
-                        employeeId: employeeId,
-                        // productionOrderNum:  productionOrderNum,
-                        recordProcess: recordProcess,
-                        start: start,
-                        end: end
-                        // outputQty:  outputQty,
+                        employeeId: employeeId.value,
+                        recordProcess: recordProcess.value,
+                        start: start.value,
+                        end: end.value,
                         // date: today
                         })
                     
                   };
+                  
+                  employeeId.value = '';
+                  recordProcess.value = '';
+                  start.value = '';
+                  end.value = '';
 
                 fetch('/api/1.0/admin/clockInOut', options)
                     .then(response => {

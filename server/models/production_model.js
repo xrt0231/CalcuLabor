@@ -1,13 +1,5 @@
 const {transaction, commit, rollback, query} = require('./mysqlcon');
 
-//Get production order detail from DB
-// const getProductionData = async(date)=> {
-
-//     let result = await query(`SELECT * FROM production_plan`);
-    
-//     return result;
-// }
-
 //Get production order detail
 const getProductionData = async(productionOrderNum)=> {
 

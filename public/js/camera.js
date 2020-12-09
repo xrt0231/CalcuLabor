@@ -68,6 +68,7 @@
                 var code = result.codeResult.code;
                 code = code.slice(2,12);
                 document.getElementById('MyInput').value = code;
+                
                 console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
             });
         }

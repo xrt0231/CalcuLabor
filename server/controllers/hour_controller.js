@@ -6,22 +6,7 @@ var moment = require('moment-timezone');
 const getHour = async (req, res) => {
     let employeeId = req.body.employeeId;
     let recordProcess =req.body.recordProcess;
-    const hour = (await Hour.getHour(employeeId, recordProcess));
-    res.send(hour);
-};
-
-//Getting working hour data for ganttchart
-const getHourChart = async (req, res) => {
-    let employeeId = req.body.employeeId;
-    console.log(employeeId);
-    // let recordProcess =req.body.recordProcess;
-    const hour = (await Hour.getHourChart(employeeId));
-    res.send(hour);
-};
-
-const clockInOut = async (req, res) => {
-    let employeeId = req.body.employeeId;
-    let recordProcess = req.body.recordProcess;
+    
     //Get star time from UI and convert to DATETIME format 
     let startGet = new Date(`${req.body.start}`);
     let start = moment(startGet).format("YYYY-MM-DD HH:mm:ss");
@@ -29,8 +14,32 @@ const clockInOut = async (req, res) => {
     //Get end time from UI and convert to DATETIME format 
     let endGet = new Date(`${req.body.end}`);
     let end = moment(endGet).format("YYYY-MM-DD HH:mm:ss");
+    
+    const hour = (await Hour.getHour(employeeId, recordProcess, start, end));
+    res.send(hour);
+};
 
-    const hour = (await Hour.clockInOut(recordProcess, start, end, employeeId));
+//Getting working hour data for ganttchart
+const getHourChart = async (req, res) => {
+    let employeeId = req.body.employeeId;
+    let date = req.body.date;
+    console.log(employeeId);
+    // let recordProcess =req.body.recordProcess;
+    const hour = (await Hour.getHourChart(employeeId, date));
+    res.send(hour);
+};
+
+const clockInOut = async (req, res) => {
+    let employeeId = req.body.employeeId;
+    let recordProcess = req.body.recordProcess;
+    
+    //Get start/end work time from UI and convert to DATETIME format 
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+
+    const hour = (await Hour.clockInOut(employeeId, recordProcess, dateTime));
     res.send(hour);
 }
 
