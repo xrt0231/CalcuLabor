@@ -1,11 +1,12 @@
 const router = require('express').Router();
+
 // const {wrapAsync} = require('../../util/util');
 
 const {
-    getUser
+    signUp
 } = require('../controllers/user_controller');
 
-router.route('/user')
-    .get(getUser);
+router.route('/signUp')
+    .get(signUp);
 
 module.exports = router;
