@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      <title>Admin Production Data</title>
+      <title>Production Data</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
@@ -12,28 +12,156 @@
       <script src="/js/quagga.min.js"></script>
        <!-- Or use a CDN -->
       <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
+      <!--  jQuery -->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+      <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+      <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+      <!-- Bootstrap Date-Picker Plugin -->
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+     
     </head>
     <body>
+      <nav class="navbar navbar-default">
+       
         <div class="container-fluid">
+          
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+           
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             
+              <span class="sr-only">Toggle navigation   </span>
+             
+              <span class="icon-bar"> </span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              
+            </button>
+           
+            <a class="navbar-brand" href="#">ampec system</a>
             
-            <div class="row">
-              <div class="col-sm-2" style="background-color:lightgrey;">
-                <br>
-                <h1 style="text-align:center; font-weight: bold;">Production Data</h1>
-                <br>
-                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/admin/schedule.html'">Production Plan Enrty</button>
-                <br>
-                <br>
-                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/admin/hour.html'">Working Hour Entry</button>
-                <br>
-                <br>
-                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/admin/dashboard.html'">Dashboard</button>
-                <br>
-                <br>
-                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/user.html'">Back to main</button>
-                <div style="height: 410px;"></div>
+          </div>
+      
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+              <li><a href="#">Link</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manual<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/admin/schedule.html">Production Plan Input</a></li>
+                  <li><a href="/admin/production.html">Production Data Update</a></li>
+                  <li><a href="/admin/hour.html">Working Hour Input</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="/admin/dashboard.html">Dashboard</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="/nav.html">Navigator</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="navbar-form navbar-left">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
               </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+              
+            </form>
+            
+           
+            
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">Link</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+        
+      </nav>
+
+      <div class="container-fluid">
+
+      <div class="col-lg-6" style="height: 500px;">
+        <div class="card mx-5">
+
+          <div class="form-group col-md-6">
+            <label>Production Order #</label>
+            <input type="text" class="form-control" id="MyInput">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Process Name</label>
+            <input type="text" class="form-control" id="recordProcess">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Actual Output</label>
+            <input type="text" class="form-control" id="outputQty">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Other</label>
+            <input type="text" class="form-control" id="outputQty">
+          </div>
+
+          <div class="bootstrap-iso">
+            <div class="form-group col-md-6">
+              <label class="control-label" for="date">Start Date</label>
+              <input class="form-control" id="start" name="date" placeholder="MM/DD/YYY" type="text"/>
+            </div>
+          <!-- Default input -->
+            <div class="form-group col-md-6">
+              <label class="control-label" for="date">End Date</label>
+              <input class="form-control" id="end" name="date" placeholder="MM/DD/YYY" type="text"/>
+            </div>
+            <div class="form-group col-md-12">
+              <button class="btn btn-primary btn-md" type="submit" onclick="fetchData();"><img src="/logo/question-octagon.svg" alt="" width="25" height="20" title="Bootstrap"></button> 
+              <button class="btn btn-primary btn-md" type="submit" onclick="createProductionOrder();">Update</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6" style="height: 500px;">
+        <div class="card mx-5"><br>
+          <div id="scanner-container"></div>
+          <input class="btn btn-primary btn-md" id="btn" value="BC scanner"><img src="/logo/upc-scan.svg" alt="" width="25" height="20" title="Bootstrap">
+        </div>
+      </div>
+
+      <div class="col-lg-6" style="height: 500px;">
+        <div class="card mx-5">
+          <button class="btn btn-primary btn-md" type="submit" onclick="fetchGanttChart();"><img src="/logo/bar-chart-steps.svg" alt="" width="25" height="20" title="Bootstrap"></button>
+          <label for="output" style="font-size: 25px">Today's production plan:</label> 
+          <div id="chart"></div>  
+        </div>
+      </div>
+      
+      <!-- <div class="col-lg-6" style="height: 500px;">
+        <div class="card mx-5">
+          <label for="output" style="font-size: 25px">Insert Production Order #:</label>
+        </div>
+      </div>
+
+      </div> -->
+                
+        <!-- <div class="container-fluid"> -->
+            
+            
+            
               <div class="col-sm-10" style="background-color:lightgray;">
                 <br>
                 <button class="btn btn-default btn-block" type="submit" style="font-size: 25px; font-weight: bold;" onclick="fetchData();">Click this to query</button>
@@ -91,171 +219,184 @@
 
         <script>
 
-          // fetch production order infomation from DB
-          function fetchData (){
+              //Date picker function
+              $(document).ready(function(){
+                var date_input=$('input[name="date"]'); //our date input has the name "date"
+                var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+                var options={
+                  format: 'mm/dd/yyyy',
+                  container: container,
+                  todayHighlight: true,
+                  autoclose: true,
+                };
+                date_input.datepicker(options);
+              })  
 
-            var productionOrderNum =  document.getElementById('MyInput').value;
-            // var recordProcess = document.getElementById('recordProcess').value;
-            // var outputQty = document.getElementById('outputQty').value;
-            // let today = new Date().toISOString().slice(0, 10);
-            let options = {
-                headers: {
-                    "Content-Type": "application/json"
-                     },
-                method: "POST", 
-                body: JSON.stringify({
-                    productionOrderNum:  productionOrderNum,
-                    // recordProcess: recordProcess,
-                    // outputQty:  outputQty,
-                    // date: today
-                    })
-                
-               };
-            
-            fetch('/api/1.0/admin/getProductionData', options)
-                .then(response => {
-                    let message = response.json();
-                    console.log('fetching...');
-                    return message;
-                    })
-                .then(result => {
-                    if (result) {
-                        let record_process = result[0].record_process;
-                        let outputQty = result[0].output;
-                        let start = new Date(result[0].start);
-                        let end = new Date(result[0].end);
-                        
-                        console.log('API fetch success...')
-                        document.getElementById('recordProcess').value = record_process;
-                        document.getElementById('outputQty').value = outputQty;
-                        document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
-                        document.getElementById('end').value = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
-                        } else {
-                          alert(result.msg);
-                          }
-                   });
-            }
-            
-            // fetch production order infomation from DB to make gantt chart
-            function fetchGanttChart() {
-              let data = [];
-                let today = new Date().toISOString().slice(0, 10);
+              // fetch production order infomation from DB
+              function fetchData (){
+
+                var productionOrderNum =  document.getElementById('MyInput').value;
+                // var recordProcess = document.getElementById('recordProcess').value;
+                // var outputQty = document.getElementById('outputQty').value;
+                // let today = new Date().toISOString().slice(0, 10);
                 let options = {
                     headers: {
                         "Content-Type": "application/json"
                         },
                     method: "POST", 
                     body: JSON.stringify({
-                        date: today
+                        productionOrderNum:  productionOrderNum,
+                        // recordProcess: recordProcess,
+                        // outputQty:  outputQty,
+                        // date: today
                         })
                     
                   };
-                  
-                fetch('/api/1.0/admin/ganttchart', options)
+                
+                fetch('/api/1.0/admin/getProductionData', options)
                     .then(response => {
                         let message = response.json();
-                        console.log('test');
+                        console.log('fetching...');
                         return message;
                         })
                     .then(result => {
                         if (result) {
+                            let record_process = result[0].record_process;
+                            let outputQty = result[0].output;
+                            let start = new Date(result[0].start);
+                            let end = new Date(result[0].end);
                             
-                            console.log("API fetch success...");
-
-                            //create gantt chart data
-                            let ganttdata = {}
-                            for (let i=0; i<result.length; i+=1){
-                                ganttdata = {
-                                recordID: i+1,
-                                row: `${result[i].production_order_num}`,
-                                tooltip: `${result[i].material_num}, ${result[i].record_process}, ${result[i].start}, ${result[i].end}`,
-                                start: `${result[i].start}`,
-                                end: `${result[i].end}`,
+                            console.log('API fetch success...')
+                            document.getElementById('recordProcess').value = record_process;
+                            document.getElementById('outputQty').value = outputQty;
+                            document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
+                            document.getElementById('end').value = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
+                            } else {
+                              alert(result.msg);
                               }
-                                data.push(ganttdata);
-                            }
-                            //An API call to grab data
-                            function refreshFunction() {
-                                
-                                return data;
-                                }
-                          
-                                //Parameters that the chart expects
-                                let params = {
-                                sidebarHeader: "Unused right now",
-                                noDataFoundMessage: "No data found",
-                                startTimeAlias: "start",
-                                endTimeAlias: "end",
-                                idAlias: "recordID",
-                                rowAlias: "row",
-                                linkAlias: null,
-                                tooltipAlias: "tooltip",
-                                // groupBy: "groupId,subGroupId",
-                                // groupByAlias: "group,subGroup",
-                                refreshFunction: refreshFunction
-                                }
-                          
-                                //Create the chart.
-                                //On first render the chart will call its refreshData function on its own.
-                                let ganttChart = new Gantt("chart", params);
-                          
-                                //To refresh the chart's data
-                                ganttChart.refreshData();
-                                                
-                              } else {
-                                alert(result.msg);
-                                }
-                          });
+                      });
                 }
-
-                function updateProductionData() {
-
+                
+                // fetch production order infomation from DB to make gantt chart
+                function fetchGanttChart() {
                   let data = [];
+                    let today = new Date().toISOString().slice(0, 10);
+                    let options = {
+                        headers: {
+                            "Content-Type": "application/json"
+                            },
+                        method: "POST", 
+                        body: JSON.stringify({
+                            date: today
+                            })
+                        
+                      };
+                      
+                    fetch('/api/1.0/admin/ganttchart', options)
+                        .then(response => {
+                            let message = response.json();
+                            console.log('test');
+                            return message;
+                            })
+                        .then(result => {
+                            if (result) {
+                                
+                                console.log("API fetch success...");
 
-                  let productionOrderNum =  document.getElementById('MyInput');
-                  let recordProcess = document.getElementById('recordProcess');
-                  let start = document.getElementById('start');
-                  let end = document.getElementById('end');
-                  let outputQty = document.getElementById('outputQty');
-
-                  let options = {
-                      headers: {
-                          "Content-Type": "application/json"
-                          },
-                      method: "POST", 
-                      body: JSON.stringify({
-                          productionOrderNum: productionOrderNum.value,
-                          recordProcess: recordProcess.value,
-                          start: start.value,
-                          end: end.value,
-                          outputQty: outputQty.value,
-                          })
-                    
-                    };
-                  productionOrderNum.value = '';
-                  recordProcess.value = '';
-                  start.value = '';
-                  end.value = '';
-                  outputQty.value = '';
-
-                  fetch('/api/1.0/admin/updateProductionData', options)
-                      .then(response => {
-                          let message = response.json();
-                          console.log('test');
-                          return message;
-                          })
-                      .then(result => {
-                          if (result) {
-                              
-                              console.log("API fetch success...");
-                                } else {
-                                  alert(result.msg);
+                                //create gantt chart data
+                                let ganttdata = {}
+                                for (let i=0; i<result.length; i+=1){
+                                    ganttdata = {
+                                    recordID: i+1,
+                                    row: `${result[i].production_order_num}`,
+                                    tooltip: `${result[i].material_num}, ${result[i].record_process}, ${result[i].start}, ${result[i].end}`,
+                                    start: `${result[i].start}`,
+                                    end: `${result[i].end}`,
                                   }
-                            });
+                                    data.push(ganttdata);
+                                }
+                                //An API call to grab data
+                                function refreshFunction() {
+                                    
+                                    return data;
+                                    }
+                              
+                                    //Parameters that the chart expects
+                                    let params = {
+                                    sidebarHeader: "Unused right now",
+                                    noDataFoundMessage: "No data found",
+                                    startTimeAlias: "start",
+                                    endTimeAlias: "end",
+                                    idAlias: "recordID",
+                                    rowAlias: "row",
+                                    linkAlias: null,
+                                    tooltipAlias: "tooltip",
+                                    // groupBy: "groupId,subGroupId",
+                                    // groupByAlias: "group,subGroup",
+                                    refreshFunction: refreshFunction
+                                    }
+                              
+                                    //Create the chart.
+                                    //On first render the chart will call its refreshData function on its own.
+                                    let ganttChart = new Gantt("chart", params);
+                              
+                                    //To refresh the chart's data
+                                    ganttChart.refreshData();
+                                                    
+                                  } else {
+                                    alert(result.msg);
+                                    }
+                              });
+                    }
 
-                }
+                    function updateProductionData() {
+
+                      let data = [];
+
+                      let productionOrderNum =  document.getElementById('MyInput');
+                      let recordProcess = document.getElementById('recordProcess');
+                      let start = document.getElementById('start');
+                      let end = document.getElementById('end');
+                      let outputQty = document.getElementById('outputQty');
+
+                      let options = {
+                          headers: {
+                              "Content-Type": "application/json"
+                              },
+                          method: "POST", 
+                          body: JSON.stringify({
+                              productionOrderNum: productionOrderNum.value,
+                              recordProcess: recordProcess.value,
+                              start: start.value,
+                              end: end.value,
+                              outputQty: outputQty.value,
+                              })
+                        
+                        };
+                      productionOrderNum.value = '';
+                      recordProcess.value = '';
+                      start.value = '';
+                      end.value = '';
+                      outputQty.value = '';
+
+                      fetch('/api/1.0/admin/updateProductionData', options)
+                          .then(response => {
+                              let message = response.json();
+                              console.log('test');
+                              return message;
+                              })
+                          .then(result => {
+                              if (result) {
+                                  
+                                  console.log("API fetch success...");
+                                    } else {
+                                      alert(result.msg);
+                                      }
+                                });
+
+                    }
         
-</script>
+        </script>
 
     </body>
 </html>

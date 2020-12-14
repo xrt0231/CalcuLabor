@@ -13,18 +13,17 @@
        <!-- Or use a CDN -->
       <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
       <!--  jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
-<!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
-<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+      <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+      <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
 
-<!-- Bootstrap Date-Picker Plugin -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+      <!-- Bootstrap Date-Picker Plugin -->
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
     </head>
-    <body>
-
-
+      <body>
       <nav class="navbar navbar-default">
        
         <div class="container-fluid">
@@ -61,7 +60,7 @@
                   <li role="separator" class="divider"></li>
                   <li><a href="/admin/dashboard.html">Dashboard</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="/nav.html">Back to Main</a></li>
+                  <li><a href="/nav.html">Navigator</a></li>
                 </ul>
               </li>
             </ul>
@@ -70,7 +69,9 @@
                 <input type="text" class="form-control" placeholder="Search">
               </div>
               <button type="submit" class="btn btn-default">Submit</button>
+              
             </form>
+            
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#">Link</a></li>
               <li class="dropdown">
@@ -86,20 +87,24 @@
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
+        
       </nav>
        
       <!-- Extended default form grid -->
-
-    <div class="form-group col-md-3">  
+     
+    <div class="form-group col-md-6">  
     <form>
       <!-- Grid row -->
       <div class="form-row">
         <!-- Default input -->
         <div id="scanner-container"></div>
+        <input class="btn btn-primary btn-md" id="btn" value="BC scanner"><img src="/logo/upc-scan.svg" alt="" width="25" height="20" title="Bootstrap"><br>
         <div class="form-group col-md-6">
-          <label>Production Order #</label>
+      
+      <label>Production Order #</label>
           <input type="text" class="form-control" id="MyInput">
         </div>
+        
         <!-- Default input -->
         <div class="form-group col-md-6">
           <label>Material #</label>
@@ -123,28 +128,28 @@
       </div>
       
       <!-- Grid row -->
-      <div class="form-row">
-        <!-- Default input -->
-        <div class="bootstrap-iso">
-        <div class="form-group col-md-6">
-          <label class="control-label" for="date">Start Date</label>
-          <input class="form-control" id="start" name="date" placeholder="MM/DD/YYY" type="text"/>
-        </div>
-        <!-- Default input -->
-        
-        <div class="form-group col-md-6">
-          <label class="control-label" for="date">End Date</label>
-          <input class="form-control" id="end" name="date" placeholder="MM/DD/YYY" type="text"/>
-        </div>
-        </div>
-        <div class="form-group col-md-12">
-        <button class="btn btn-primary btn-md" type="submit" onclick="fetchData();">Query</button> 
-        <input type="button" class="btn btn-primary btn-md" id="btn" value="Start/Stop the scanner"></button> 
-        <button class="btn btn-primary btn-md" type="submit" onclick="createProductionOrder();">Create</button>
-         
-        </div>
-      </div>
-      </div>
+      
+        <div class="form-row">
+              <!-- Default input -->
+              <div class="bootstrap-iso">
+
+              <div class="form-group col-md-6">
+                <label class="control-label" for="date">Start Date</label>
+                <input class="form-control" id="start" name="date" placeholder="MM/DD/YYY" type="text"/>
+              </div>
+            <!-- Default input -->
+            
+              <div class="form-group col-md-6">
+                <label class="control-label" for="date">End Date</label>
+                <input class="form-control" id="end" name="date" placeholder="MM/DD/YYY" type="text"/>
+              </div>
+            </div>
+              <div class="form-group col-md-12">
+                <button class="btn btn-primary btn-md" type="submit" onclick="fetchData();"><img src="/logo/question-octagon.svg" alt="" width="25" height="20" title="Bootstrap"></button> 
+                <button class="btn btn-primary btn-md" type="submit" onclick="createProductionOrder();">Create</button>
+              </div>
+          </div>
+          </div>
            </div>
          </div>    
         </div>
@@ -152,8 +157,9 @@
       </form>
       </div>
     
-      <div class="form-group col-md-9">
-        <button class="btn btn-primary btn-md" type="submit" onclick="fetchGanttChart();">Gantt chart</button> 
+      <div class="form-group col-md-6">
+        <button class="btn btn-primary btn-md" type="submit" onclick="fetchGanttChart();"><img src="/logo/bar-chart-steps.svg" alt="" width="25" height="20" title="Bootstrap"></button>
+        
         <label for="output" style="font-size: 25px">Today's production plan:</label> 
         <div id="chart"></div>  
       </div>
@@ -169,74 +175,7 @@
         </div>
       </div>
  
-    <!-- Extended default form grid -->
-   
-        <!-- <div class="container-fluid">
-            
-            
-            <div class="row">
-              <div class="col-sm-2" style="background-color:lightgrey;">
-               
-                
-                
-              </div>
-              <div class="col-sm-10" style="background-color:lightgray;">
-                <br>
-                
-                
-                
-                
-               
-                      
-                <form action="">
-
-                    <div class="form-group">
-                      <label for="output" style="font-size: 25px">Production Order #:</label>
-                      <input type="text" class="form-control" style="font-size: 25px;" id="MyInput" name="output">
-                    </div>
-
-                    <div class="form-group">
-                      <label for="output" style="font-size: 25px">Material #:</label>
-                      <input type="text" class="form-control" style="font-size: 25px;" id="materialNum" name="materialNum">
-                    </div>
-
-                    <div class="form-group">
-                      <label for="output" style="font-size: 25px">Production Group:</label>
-                      <input type="text" class="form-control" style="font-size: 25px;" id="productionGroup" name="productionGroup">
-                    </div>
-
-                    <div class="form-group">
-                      <label for="process" style="font-size: 25px">Process name:</label>
-                      <input type="text" class="form-control" style="font-size: 25px;" id="recordProcess" name="process">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="process" style="font-size: 25px">Start:</label>
-                        <input type="text" class="form-control" style="font-size: 25px;" id="start" name="start">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="process" style="font-size: 25px">End:</label>
-                        <input type="text" class="form-control" style="font-size: 25px;" id="end" name="end">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="output" style="font-size: 25px">Output Qty:</label>
-                        <input type="text" class="form-control" style="font-size: 25px;" id="outputQty" name="outputQty"><br>
-                    </div>
-
-                </form>
-
-                    
-                    </div>
-                    
-                    </div>
-                  
-                  
-              </div>
-                
-            </div>
-          </div> -->
+    
           <div id="chart"></div>
         <script src="/js/camera.js"></script>
         

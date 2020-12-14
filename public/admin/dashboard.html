@@ -1,137 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-      <title>Dashboard</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="canonical" href="https://getbootstrap.com/docs/3.3/examples/dashboard/">
+
+    <title>Dashboard Template for Bootstrap</title>
+
+ 
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="/dashboard.css" rel="stylesheet"> -->
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+    
+    <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
        <!-- Include the image-diff library -->
-      <script src="/js/quagga.min.js"></script>
+      <!-- <script src="/js/quagga.min.js"></script> -->
        <!-- Or use a CDN -->
       <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
       <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    </head>
-    <body>
-        <div class="container-fluid">
-            <div class="row">
-              <div class="col-sm-2" style="background-color:lightgrey;">
-                <br>
-                <h1 style="text-align:center; font-weight: bold;">Dashboard</h1>
-                <br>
-                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/admin/schedule.html'">Production Plan Enrty</button>
-                <br>
-                <br>
-                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/admin/hour.html'">Working Hour Entry</button>
-                <br>
-                <br>
-                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/admin/dashboard.html'">Dashboard</button>
-                <br>
-                <br>
-                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;" onClick="location.href='/user.html'">Back to main</button>
-                <div style="height: 410px;"></div>
-              </div>
-            <div class="col-sm-5" style="background-color:lightgray;">
-                <br>
-                <button class="btn btn-default btn-block" type="submit" style="font-size: 25px; font-weight: bold;" onclick="dashboard1();">Process Efficiency by Date</button><br>
-                <div id="scanner-container"></div>    
-                <form action="">
+      <!-- Bootstrap Date-Picker Plugin -->
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+      
+   
 
-                    <div class="form-group">
-                      <label for="output" style="font-size: 25px">Process #:</label>
-                      <select class="form-control" id="recordProcess" style="font-size: 25px; height: auto">
-                        <option ></option>
-                        <option >process_1</option>
-                        <option >process_2</option>
-                        <option >process_3</option>
-                        <option >process_4</option>
-                        <option >process_5</option>
-                        <option >process_6</option>
-                        <option >process_7</option>
-                        <option >process_8</option>
-                        <option >process_9</option>
-                        <option >process_10</option>
-                      </select>
-                      <!-- <input type="text" class="form-control" style="font-size: 25px;" id="MyInput" name="output"> -->
-                    </div>
 
-                    <div class="form-group">
-                      <label for="process" style="font-size: 25px">Start Date (YYYY/MM/DD):</label>
-                      <input type="text" class="form-control" style="font-size: 25px;" id="startDate" name="process">
-                    </div>
+  </head>
 
-                    <div class="form-group">
-                        <label for="process" style="font-size: 25px">End Date (YYYY/MM/DD):</label>
-                        <input type="text" class="form-control" style="font-size: 25px;" id="endDate" name="start">
-                    </div>
+  <body>
 
-                    <!-- <div class="form-group">
-                        <label for="output" style="font-size: 25px">function(TBD):</label>
-                        <input type="text" class="form-control" style="font-size: 25px;" id="outputQty" name="outputQty"><br>
-                    </div> -->
-                </form>
-
-                    <label for="output" style="font-size: 25px">Dashboard 1:</label> 
-                    
-                    <div id="myDiv1"></div>   
-              </div>
-              <div class="col-sm-5" style="background-color:lightgray;">
-                <br>
-                
-                <div id="scanner-container"></div>    
-                <button class="btn btn-default btn-block" type="submit" style="font-size: 25px; font-weight: bold;" onclick="dashboard2();">Daily Efficiency by Prcocess</button><br>
-                <form action="">
-                  
-                    <div class="form-group">
-                      <!-- <label for="output" style="font-size: 25px">Process #:</label>
-                      <select class="form-control" id="recordProcess" style="font-size: 25px; height: auto">
-                        <option ></option>
-                        <option >process_1</option>
-                        <option >process_2</option>
-                        <option >process_3</option>
-                        <option >process_4</option>
-                        <option >process_5</option>
-                        <option >process_6</option>
-                        <option >process_7</option>
-                        <option >process_8</option>
-                        <option >process_9</option>
-                        <option >process_10</option>
-                      </select> -->
-                      <!-- <input type="text" class="form-control" style="font-size: 25px;" id="MyInput" name="output"> -->
-                    </div>
-                    <div style="padding: 85px;"></div>
-                    <div class="form-group">
-                      <label for="process" style="font-size: 25px">Query Date (YYYY/MM/DD):</label>
-                      <input type="text" class="form-control" style="font-size: 25px;" id="startDate2" name="startDate2">
-                    </div>
-
-                    <!-- <div class="form-group">
-                        <label for="process" style="font-size: 25px">End Date (YYYY/MM/DD):</label>
-                        <input type="text" class="form-control" style="font-size: 25px;" id="endDate" name="start">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="output" style="font-size: 25px">function(TBD):</label>
-                        <input type="text" class="form-control" style="font-size: 25px;" id="outputQty" name="outputQty"><br>
-                    </div>
-                </form> -->
-
-                    <label for="output" style="font-size: 25px">Dashboard 2:</label> 
-                    
-                    <div id="myDiv2"></div>         
-        </div>
-                  
-
-          
-          <div id="chart"></div>
-        <script src="/js/camera.js"></script>
+    <!--Nav bar-->
+    <nav class="navbar navbar-default">
+       
+      <div class="container-fluid">
         
-        <script src="/js/gantt.js"></script>
-        <!-- <script src="/js/initialize-gantt.js"></script> -->
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+         
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          
+            <span class="sr-only">Toggle navigation   </span>
+           
+            <span class="icon-bar"> </span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            
+          </button>
+         
+          <a class="navbar-brand" href="#">ampec system</a>
+          
+        </div>
+    
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Link</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manual<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/admin/schedule.html">Production Plan Input</a></li>
+                <li><a href="/admin/production.html">Production Data Update</a></li>
+                <li><a href="/admin/hour.html">Working Hour Input</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/admin/dashboard.html">Dashboard</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/nav.html">Navigator</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-left">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+            
+          </form>
+          
+         
+          
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Link</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+      
+    </nav>
+
+    <!--Select dashboard show period--> 
+    
+      
+        
+      <!-- Default input -->
+      <div class="form-group col-md-4">
+        <label for="output">Process #:</label>
+        <select class="form-control" id="recordProcess">
+          <option ></option>
+          <option >process_1</option>
+          <option >process_2</option>
+          <option >process_3</option>
+          <option >process_4</option>
+          <option >process_5</option>
+          <option >process_6</option>
+          <option >process_7</option>
+          <option >process_8</option>
+          <option >process_9</option>
+          <option >process_10</option>
+        </select>
+      </div> 
+
+      <div class="bootstrap-iso">
+
+      <div class="form-group col-md-4">
+        <label class="control-label" for="date">Start Date</label>
+        <input class="form-control" id="startDate" name="date" placeholder="MM/DD/YYY" type="text"/>
+      </div>
+    <!-- Default input -->
+    
+      <div class="form-group col-md-4">
+        <label class="control-label" for="date">End Date</label>
+        <input class="form-control" id="endDate" name="date" placeholder="MM/DD/YYY" type="text"/>
+      </div>
+    </div>
+
+  </div>
+  <div class="form-group col-md-12">
+    <button class="btn btn-primary btn-md" type="submit" onclick="dashboard1();">Show Process Eff. by Date<img src="/logo/kanban.svg" alt="" width="25" height="20" title="Bootstrap"></button> 
+  </div>
+</div>
+<div class="bootstrap-iso">
+
+  <div class="form-group col-md-4">
+    <label class="control-label" for="date">Select Date</label>
+    <input class="form-control" id="startDate2" name="date" placeholder="MM/DD/YYY" type="text"/>
+  </div>
+  <div class="form-group col-md-12">
+    <button class="btn btn-primary btn-md" type="submit" onclick="dashboard2();">Show Daily Eff. by Process<img src="/logo/kanban.svg" alt="" width="25" height="20" title="Bootstrap"></button> 
+  </div>
+  <!--Dashboard -->
+    <div class="container-fluid">
+      <div class="row">
+        
+        <div class="col-sm-12 col-sm-offset-1 col-md-12 col-md-offset-0 main">
+          <h1 class="page-header">Dashboard</h1>
+
+          <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <div id="myDiv1"></div>   
+              <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail"> -->
+              <h4>Efficiency / Date</h4>
+              <span class="text-muted">PPH/Day</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <div id="myDiv2"></div>  
+              <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail"> -->
+              <h4>Efficiency / Process</h4>
+              <span class="text-muted">(PPH/Process)</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail"> -->
+              <h4>Act. WH v.s. Target WH</h4>
+              <span class="text-muted">(Actual hours v.s. Target hours)</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail"> -->
+              <h4>Act. Output v.s. Target Output</h4>
+              <span class="text-muted">(Actual pcs v.s. Target pcs)</span>
+            </div>
+          </div>
+
+          <h2 class="sub-header">Section title</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1,001</td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                </tr>
+                <tr>
+                  <td>1,002</td>
+                  <td>amet</td>
+                  <td>consectetur</td>
+                  <td>adipiscing</td>
+                  <td>elit</td>
+                </tr>
+                <tr>
+                  <td>1,003</td>
+                  <td>Integer</td>
+                  <td>nec</td>
+                  <td>odio</td>
+                  <td>Praesent</td>
+                </tr>
+                <tr>
+                  <td>1,003</td>
+                  <td>libero</td>
+                  <td>Sed</td>
+                  <td>cursus</td>
+                  <td>ante</td>
+                </tr>
+                <tr>
+                  <td>1,004</td>
+                  <td>dapibus</td>
+                  <td>diam</td>
+                  <td>Sed</td>
+                  <td>nisi</td>
+                </tr>
+                <tr>
+                  <td>1,005</td>
+                  <td>Nulla</td>
+                  <td>quis</td>
+                  <td>sem</td>
+                  <td>at</td>
+                </tr>
+                <tr>
+                  <td>1,006</td>
+                  <td>nibh</td>
+                  <td>elementum</td>
+                  <td>imperdiet</td>
+                  <td>Duis</td>
+                </tr>
+                <tr>
+                  <td>1,007</td>
+                  <td>sagittis</td>
+                  <td>ipsum</td>
+                  <td>Praesent</td>
+                  <td>mauris</td>
+                </tr>
+                <tr>
+                  <td>1,008</td>
+                  <td>Fusce</td>
+                  <td>nec</td>
+                  <td>tellus</td>
+                  <td>sed</td>
+                </tr>
+                <tr>
+                  <td>1,009</td>
+                  <td>augue</td>
+                  <td>semper</td>
+                  <td>porta</td>
+                  <td>Mauris</td>
+                </tr>
+                <tr>
+                  <td>1,010</td>
+                  <td>massa</td>
+                  <td>Vestibulum</td>
+                  <td>lacinia</td>
+                  <td>arcu</td>
+                </tr>
+                <tr>
+                  <td>1,011</td>
+                  <td>eget</td>
+                  <td>nulla</td>
+                  <td>Class</td>
+                  <td>aptent</td>
+                </tr>
+                <tr>
+                  <td>1,012</td>
+                  <td>taciti</td>
+                  <td>sociosqu</td>
+                  <td>ad</td>
+                  <td>litora</td>
+                </tr>
+                <tr>
+                  <td>1,013</td>
+                  <td>torquent</td>
+                  <td>per</td>
+                  <td>conubia</td>
+                  <td>nostra</td>
+                </tr>
+                <tr>
+                  <td>1,014</td>
+                  <td>per</td>
+                  <td>inceptos</td>
+                  <td>himenaeos</td>
+                  <td>Curabitur</td>
+                </tr>
+                <tr>
+                  <td>1,015</td>
+                  <td>sodales</td>
+                  <td>ligula</td>
+                  <td>in</td>
+                  <td>libero</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  
 
         <script>
+
+          //Date picker function
+          $(document).ready(function(){
+            var date_input=$('input[name="date"]'); //our date input has the name "date"
+            var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+            var options={
+              format: 'yyyy/mm/dd',
+              container: container,
+              todayHighlight: true,
+              autoclose: true,
+            };
+            date_input.datepicker(options);
+          })
 
                 //Define process return multiple days efficiency
                 function dashboard1() {
