@@ -34,7 +34,12 @@
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
       
-   
+   <!-- Highcharts -->
+  <script src="https://code.highcharts.com/stock/highstock.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/exporting.js"></script> 
+  <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 
   </head>
@@ -168,31 +173,36 @@
           <h1 class="page-header">Dashboard</h1>
 
           <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <div id="myDiv1"></div>   
-              <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail"> -->
+            <div class="col-xs-6 col-sm-6 placeholder">
               <h4>Efficiency / Date</h4>
               <span class="text-muted">PPH/Day</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <div id="myDiv2"></div>  
+              <div id="myDiv1"></div>   
+              <div id="myDiv1.1"></div>
               <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail"> -->
+              
+            </div>
+            <div class="col-xs-6 col-sm-6 placeholder">
               <h4>Efficiency / Process</h4>
               <span class="text-muted">(PPH/Process)</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
+              <div id="myDiv2"></div> 
+              <div id="plot2"></div> 
+               
               <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail"> -->
-              <h4>Act. WH v.s. Target WH</h4>
+              
+            </div>
+            <!-- <div class="col-xs-6 col-sm-3 placeholder"> -->
+              <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail"> -->
+              <!-- <h4>Act. WH v.s. Target WH</h4>
               <span class="text-muted">(Actual hours v.s. Target hours)</span>
             </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
+            <div class="col-xs-6 col-sm-3 placeholder"> -->
               <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail"> -->
-              <h4>Act. Output v.s. Target Output</h4>
+              <!-- <h4>Act. Output v.s. Target Output</h4>
               <span class="text-muted">(Actual pcs v.s. Target pcs)</span>
-            </div>
+            </div> -->
           </div>
 
-          <h2 class="sub-header">Section title</h2>
+          <!-- <h2 class="sub-header">Section title</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -322,7 +332,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     
   
@@ -347,6 +357,14 @@
 
                   let x = [];
                   let y = [];
+                  let w1 = [];
+                  let w2 = [];
+                  let w3 = [];
+                  let values1 = [];
+                  let value_of_date = [];
+                  values1.push(['Actual Working Hour', 'Stnadard Working Hour', 'Actual Output', 'Standard Output', '<b>Efficiency %</b>']);
+                  value_of_date.push('Date');
+
                   let startDate =  document.getElementById('startDate').value;
                   let endDate = document.getElementById('endDate').value;
                   let recordProcess = document.getElementById('recordProcess').value;
@@ -376,10 +394,15 @@
                           if (result) {
                               console.log("API fetch success...");
                               for (let i=0; i<result.length; i+=1){
+
                                 x.push(result[i].date);
-                                y.push(result[i].efficiency)+'%';
+                                y.push(result[i].efficiency);
+
+                                values1.push([result[i].actual_working_hour, result[i].standard_working_hour, result[i].actual_output, result[i].standard_output, result[i].efficiency]);
+                                value_of_date.push(result[i].date);
                               }
-                              var data = [
+                              
+                              var data1 = [
                                           {
                                             x: x,
                                             y: y,
@@ -387,8 +410,32 @@
                                           }
                                         ];
 
-                              Plotly.newPlot('myDiv1', data);
+                              Plotly.newPlot('myDiv1', data1);
                               
+                              
+                           
+
+                              //chart of actual WH vs. standard WH
+                              var data2 = [{
+                                  type: 'table',
+                                  header: {
+                                    values: value_of_date,
+                                    // [["<b>Date</b>"], ["<b>Q1</b>"],
+                                    //     ["<b>Q2</b>"], ["<b>Q3</b>"], ["<b>Q4</b>"]],
+                                    align: "center",
+                                    line: {width: 1, color: 'black'},
+                                    fill: {color: "#286090"},
+                                    font: {family: "Arial", size: 12, color: "white"}
+                                  },
+                                  cells: {
+                                    values: values1,
+                                    align: "center",
+                                    line: {color: "darkgrey", width: 1},
+                                    font: {family: "Arial", size: 12, color: ["black"]}
+                                  }
+                                }]
+
+                                Plotly.newPlot('myDiv1.1', data2);
                               
                               } else {
                                   alert(result.msg);
@@ -428,7 +475,7 @@
                               console.log("API fetch success...");
                               for (let i=0; i<result.length; i+=1){
                                 x.push(result[i].process_refer);
-                                y.push(result[i].efficiency)+'%';
+                                y.push(result[i].efficiency);
                               }
                               var data = [
                                           {
@@ -439,15 +486,82 @@
                                         ];
 
                               Plotly.newPlot('myDiv2', data);
-                              
-                              
+                              //TEST time start
+                              staticBigguyCost.update({
+                              xAxis:{categories: x},
+                          })
+                          // update series
+                          staticBigguyCost.series[0].update({ data: y }, false)
+                          
+                          // redraw plots
+                          staticBigguyCost.redraw()
+            //STOP                  
                               } else {
                                   alert(result.msg);
                                   }
                             });
 
                   }
-        
+          //TEST
+          var options4BigguyCost = {
+                                      chart: {
+                                          type: 'column'
+                                      },
+                                      title: {
+                                          text: ''
+                                      },
+                                      exporting: {
+                                          enabled: true,
+                                      },
+                                      xAxis: {
+                                          categories: [],
+                                          crosshair: true
+                                      },
+                                      yAxis: {
+                                          title: {
+                                              text: '期貨留倉平均點數'
+                                          }
+                                      },
+                                      tooltip: {
+                                          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                          pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                              '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+                                          footerFormat: '</table>',
+                                          shared: true,
+                                          useHTML: true
+                                      },
+                                      plotOptions: {
+                                          column: {
+                                              pointPadding: 0.2,
+                                              borderWidth: 0
+                                          }
+                                      },
+                                      credits: {
+                                          enabled: false
+                                      },
+                                      series: [
+                                          {
+                                              name: '外資',
+                                              data: [],
+                                              color: "#23395B",
+                                          },
+                                          // {
+                                          //     name: '自營商',
+                                          //     data: [4,5,6],
+                                          //     color: "#406E8E",
+                                          // },
+                                          // {
+                                          //     name: '投信',
+                                          //     data: [],
+                                          //     color: "#8EA8C3",
+                                          // },
+                                      ]
+                                  }
+
+                                  var staticBigguyCost = Highcharts.chart('plot2', options4BigguyCost)
+                                  //TEST OVER
+                                  setInterval(dashboard2, 2000);
+                                  setInterval(dashboard1, 2000);
 </script>
 
     </body>

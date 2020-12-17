@@ -9,8 +9,8 @@ const getDashboard = async()=> {
 
 const dashboard1 = async(recordProcess, startDate, endDate)=> {
     console.log(recordProcess, startDate, endDate);
-    let result = await query(`select *, concat((x.standard_working_hour/y.actual_working_hour)*100, "%") as efficiency from (
-        select DATE_FORMAT(prrcd.start, '%Y/%m/%d') as date, sum(prrcd.output/prstd.standard_output) as standard_working_hour,  prrcd.record_process as process_refer
+    let result = await query(`select *,  x.actual_output, x.standard_output, concat((x.standard_working_hour/y.actual_working_hour)*100) as efficiency from (
+        select DATE_FORMAT(prrcd.start, '%Y/%m/%d') as date,sum(prrcd.output) AS actual_output, sum(prstd.standard_output) AS standard_output, sum(prrcd.output/prstd.standard_output) as standard_working_hour,  prrcd.record_process as process_refer
         from mmem.production_records prrcd
         join mmem.process_standard_output prstd
           on prstd.record_process = prrcd.record_process and prrcd.material_num = prstd.material_num
@@ -32,7 +32,7 @@ const dashboard1 = async(recordProcess, startDate, endDate)=> {
 
 const dashboard2 = async(startDate)=> {
     console.log(startDate);
-    let result = await query(`select *, concat((x.standard_working_hour/y.actual_working_hour)*100, "%") as efficiency from (
+    let result = await query(`select *, (x.standard_working_hour/y.actual_working_hour)*100 as efficiency from (
         select DATE_FORMAT(prrcd.start, '%Y/%m/%d') as date, sum(prrcd.output/prstd.standard_output) as standard_working_hour,  prrcd.record_process as process_refer
         from mmem.production_records prrcd
         join mmem.process_standard_output prstd
