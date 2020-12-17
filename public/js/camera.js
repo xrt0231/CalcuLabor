@@ -67,7 +67,6 @@
             Quagga.onDetected(function (result) {
                 var code = result.codeResult.code;
                 code = code.slice(2,12);
-                document.getElementById('MyInput').value = code;
                 fetchData (code);
                 console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
                 

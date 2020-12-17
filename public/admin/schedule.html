@@ -134,18 +134,18 @@
               <div class="bootstrap-iso">
 
               <div class="form-group col-md-6">
-                <label class="control-label" for="date">Start Date</label>
+                <label class="control-label" for="date">Start Time</label>
                 <input class="form-control" id="start" name="date" placeholder="MM/DD/YYY" type="text"/>
               </div>
             <!-- Default input -->
             
               <div class="form-group col-md-6">
-                <label class="control-label" for="date">End Date</label>
+                <label class="control-label" for="date">End Time</label>
                 <input class="form-control" id="end" name="date" placeholder="MM/DD/YYY" type="text"/>
               </div>
             </div>
               <div class="form-group col-md-12">
-                <button class="btn btn-primary btn-md" type="submit" onclick="fetchData();"><img src="/logo/question-octagon.svg" alt="" width="25" height="20" title="Bootstrap"></button> 
+                <button class="btn btn-primary btn-md" type="button" onclick="fetchData();"><img src="/logo/question-octagon.svg" alt="" width="25" height="20" title="Bootstrap"></button>
                 <button class="btn btn-primary btn-md" type="submit" onclick="createProductionOrder();">Create</button>
               </div>
           </div>
@@ -155,6 +155,7 @@
         </div>
        </div>
       </form>
+      
       </div>
     
       <div class="form-group col-md-6">
@@ -162,7 +163,7 @@
         
         <label for="output" style="font-size: 25px">Today's production plan:</label> 
         <div id="chart"></div>  
-      </div>
+      </div> 
 
           
       <!-- Grid row -->
@@ -198,8 +199,9 @@
          
           // fetch production order infomation from DB
           function fetchData (code){
-
+          if(code){
             var productionOrderNum =  code;
+            }else {var productionOrderNum = document.getElementById('MyInput').value;}
             // var recordProcess = document.getElementById('recordProcess').value;
             // var outputQty = document.getElementById('outputQty').value;
             // let today = new Date().toISOString().slice(0, 10);
@@ -225,6 +227,7 @@
                     })
                 .then(result => {
                     if (result) {
+                        let productionOrderNum = result[0].production_order_num
                         let record_process = result[0].record_process;
                         let material_num = result[0].material_num;
                         let outputQty = result[0].output;
@@ -232,6 +235,7 @@
                         let end = new Date(result[0].end);
                         
                         console.log('API fetch success...')
+                        document.getElementById('MyInput').value = productionOrderNum;
                         document.getElementById('recordProcess').value = record_process;
                         document.getElementById('materialNum').value = material_num;
                         document.getElementById('outputQty').value = outputQty;

@@ -1,10 +1,10 @@
 const {transaction, commit, rollback, query} = require('./mysqlcon');
 
 //Get working hour data for clock in/out
-const getHour = async(employeeId, recordProces, start, end)=> {
-    console.log(employeeId, recordProces, start, end);
+const getHour = async(employeeId, recordProcess)=> {
+    console.log(employeeId, recordProcess);
     // let result = await query(`SELECT * FROM working_hour WHERE employee_id = ${employeeId} AND record_process = '${recordProces}'`);
-    let result = await query(`SELECT work_log_id, max(start) AS recentStart, end AS recentEnd FROM working_hour GROUP BY work_log_id ORDER BY start DESC LIMIT 1`);
+    let result = await query(`SELECT work_log_id, employee_id, max(start) AS recentStart, end AS recentEnd FROM working_hour WHERE employee_id = ${employeeId} AND record_process = '${recordProcess}' GROUP BY work_log_id, employee_id ORDER BY start DESC LIMIT 1`);
     console.log(result);
     console.log('==============================');
     return result;
