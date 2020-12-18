@@ -63,8 +63,8 @@
             <span class="icon-bar"></span>
             
           </button>
-         
-          <a class="navbar-brand" href="#">ampec system</a>
+          <a href="/nav.html"><img src="/logo/logo_calculabor.png" width="50px" height="50px"></a>
+          <!-- <a class="navbar-brand" href="/nav.html"></a> -->
           
         </div>
     
@@ -72,8 +72,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Link</a></li>
+            <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Link</a></li> -->
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manual<span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -88,9 +88,9 @@
             </li>
           </ul>
           <form class="navbar-form navbar-left">
-            <div class="form-group">
+            <!-- <div class="form-group">
               <input type="text" class="form-control" placeholder="Search">
-            </div>
+            </div> -->
             <button type="submit" class="btn btn-default">Submit</button>
             
           </form>
@@ -121,7 +121,7 @@
         
       <!-- Default input -->
       <div class="form-group col-md-4">
-        <label for="output">Process #:</label>
+        <label for="output">Process</label>
         <select class="form-control" id="recordProcess">
           <option ></option>
           <option >process_1</option>
@@ -409,8 +409,24 @@
                                             type: 'bar'
                                           }
                                         ];
+                                        var layout = {
+                                              title: `${recordProcess}`,
+                                              font:{
+                                                size: 15,
+                                                family: 'Raleway, sans-serif'
+                                              },
+                                              showlegend: false,
+                                              xaxis: {
+                                                tickangle: -45
+                                              },
+                                              yaxis: {
+                                                zeroline: false,
+                                                gridwidth: 2
+                                              },
+                                              bargap :0.05
+                                            };
 
-                              Plotly.newPlot('myDiv1', data1);
+                              Plotly.newPlot('myDiv1', data1, layout);
                               
                               
                            
@@ -418,20 +434,24 @@
                               //chart of actual WH vs. standard WH
                               var data2 = [{
                                   type: 'table',
+                                  
                                   header: {
+                                    
                                     values: value_of_date,
                                     // [["<b>Date</b>"], ["<b>Q1</b>"],
                                     //     ["<b>Q2</b>"], ["<b>Q3</b>"], ["<b>Q4</b>"]],
                                     align: "center",
+                                    height: 40,
                                     line: {width: 1, color: 'black'},
-                                    fill: {color: "#286090"},
-                                    font: {family: "Arial", size: 12, color: "white"}
+                                    fill: {color: "#337AB7"},
+                                    font: {family: "Arial", size: 16, color: "white"}
                                   },
                                   cells: {
                                     values: values1,
                                     align: "center",
+                                    height: 40,
                                     line: {color: "darkgrey", width: 1},
-                                    font: {family: "Arial", size: 12, color: ["black"]}
+                                    font: {family: "Arial", size: 15, color: ["black"]}
                                   }
                                 }]
 
@@ -484,8 +504,25 @@
                                             type: 'bar'
                                           }
                                         ];
+                              var layout = {
+                                    title: `${startDate}`,
+                                    font:{
+                                      size: 15,
+                                      family: 'Raleway, sans-serif',
+                                      
+                                    },
+                                    showlegend: false,
+                                    xaxis: {
+                                      tickangle: -45
+                                    },
+                                    yaxis: {
+                                      zeroline: false,
+                                      gridwidth: 2
+                                    },
+                                    bargap :0.05
+                                  };            
+                              Plotly.newPlot('myDiv2', data, layout);
 
-                              Plotly.newPlot('myDiv2', data);
                               //TEST time start
                               staticBigguyCost.update({
                               xAxis:{categories: x},
