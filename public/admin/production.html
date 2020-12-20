@@ -131,7 +131,7 @@
             </div>
             <div class="form-group col-md-12">
               <button class="btn btn-primary btn-md" type="button" onclick="fetchData();"><img src="/logo/question-octagon.svg" alt="" width="25" height="20" title="Bootstrap"></button> 
-              <button class="btn btn-primary btn-md" type="submit" onclick="createProductionOrder();">Update</button>
+              <button class="btn btn-primary btn-md" type="submit" onclick="updateProductionData();">Update</button>
               
             </div>
           </div>
@@ -339,12 +339,10 @@
 
                     function updateProductionData() {
 
-                      let data = [];
-
                       let productionOrderNum =  document.getElementById('MyInput');
-                      let recordProcess = document.getElementById('recordProcess');
-                      let start = document.getElementById('start');
-                      let end = document.getElementById('end');
+                        // let recordProcess = document.getElementById('recordProcess');
+                        // let start = document.getElementById('start');
+                        // let end = document.getElementById('end');
                       let outputQty = document.getElementById('outputQty');
 
                       let options = {
@@ -354,17 +352,17 @@
                           method: "POST", 
                           body: JSON.stringify({
                               productionOrderNum: productionOrderNum.value,
-                              recordProcess: recordProcess.value,
-                              start: start.value,
-                              end: end.value,
+                              // recordProcess: recordProcess.value,
+                              // start: start.value,
+                              // end: end.value,
                               outputQty: outputQty.value,
                               })
                         
                         };
                       productionOrderNum.value = '';
-                      recordProcess.value = '';
-                      start.value = '';
-                      end.value = '';
+                      // recordProcess.value = '';
+                      // start.value = '';
+                      // end.value = '';
                       outputQty.value = '';
 
                       fetch('/api/1.0/admin/updateProductionData', options)
@@ -374,12 +372,23 @@
                               return message;
                               })
                           .then(result => {
-                              if (result) {
-                                  
-                                  console.log("API fetch success...");
-                                    } else {
-                                      alert(result.msg);
-                                      }
+                            if(result){
+                              console.log(result);
+                                let productionOrderNum = result[0].production_order_num;
+                                let recordProcess = result[0].recordProcess;
+                                let startTime = result[0].actual_start;
+                                let endTime = result[0].actual_end;
+                                let =actualOutput = result[0].actual_output;
+                                startTime = startTime.toLocaleDateString() +' '+ startTime.toLocaleTimeString();
+                                endTime = endTime.toLocaleDateString() +' '+ endTime.toLocaleTimeString(); 
+                              if (result.actual_end) {
+                                Swal.fire(`Production Order: ${productionOrderNum} @ Process ${recordProcess}, Actual start@: ${startTime} // Actual end@: ${endTime} Acutal output * ${actualOutput}`)
+                                }else{
+                                      Swal.fire(`Production Order: ${productionOrderNum} @ Process ${recordProcess}, Actual start@: ${startTime} // Actual end@: NA Acutal output * NA`)
+                                      } 
+                                    }elseelse {
+                                        alert(result.msg);
+                                        }
                                 });
 
                     }

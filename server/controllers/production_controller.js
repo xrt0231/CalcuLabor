@@ -26,18 +26,24 @@ const getProductionData = async (req, res) => {
 const updateProductionData = async (req, res) => {
 
     let productionOrderNum = req.body.productionOrderNum;
+    let recordProces = req.body.recordProces;
     let outputQty = req.body.outputQty;
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
     
     //Get star time from UI and convert to DATETIME format 
-    let startGet = new Date(`${req.body.start}`);
-    let start = moment(startGet).format("YYYY-MM-DD HH:mm:ss");
+    // let startGet = new Date(`${req.body.start}`);
+    // let start = moment(startGet).format("YYYY-MM-DD HH:mm:ss");
     
     //Get end time from UI and convert to DATETIME format 
-    let endGet = new Date(`${req.body.end}`);
-    let end = moment(endGet).format("YYYY-MM-DD HH:mm:ss");
+    // let endGet = new Date(`${req.body.end}`);
+    // let end = moment(endGet).format("YYYY-MM-DD HH:mm:ss");
     
     
-    const production = (await Production.updateProductionData(productionOrderNum, start, end, outputQty));
+    const production = (await Production.updateProductionData(productionOrderNum, dateTime, outputQty));
+    console.log(production);
     res.send(production);
     
 };
