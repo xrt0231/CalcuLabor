@@ -157,8 +157,8 @@ form{
 								return message;
 								})
 								.then(result => {
-									if(result){
-										if (result.name==='notInUserList') {
+								
+										if (result[0].name==='notInUserList') {
 										console.log('API fetch success...')
 										console.log(result)
 										Swal.fire('Please sign up to become an authorized user')
@@ -168,9 +168,8 @@ form{
 											localStorage.setItem('Authorization', 'Bearer ' + result[0].access_token);
 											}
 									
-									}else
-									{alert(result.msg);}
-								});
+									
+										})
 							
 									
 				 }else {
