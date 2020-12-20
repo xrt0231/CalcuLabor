@@ -4,6 +4,16 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto'); // Crypto hash
 const Swal = require('sweetalert2'); //Sweet Alert2
 
+//User profile
+const userProfile = async (req, res) => {
+
+    let token = req.body.token;
+    console.log(token);
+    token = token.slice(7);
+    const user = (await User.userProfile(token));
+    res.send(user);
+};
+
 //User Sign Up
 const signUp = async (req, res) => {
     
@@ -22,16 +32,20 @@ const signUp = async (req, res) => {
 
 //User Sign In
 const signIn = async (req, res) => {
+
     const hash = crypto.createHash('sha256');
     let username = req.body.username;
     let password = req.body.password;
     hash.update(password);
     let encryptPassWord = hash.copy().digest('hex');
     console.log(encryptPassWord);
+    hash.update(username);
+    let token = hash.copy().digest('hex');
+    console.log(username, encryptPassWord, token);
     const user = (await User.signIn(username, encryptPassWord));
     res.send(user);
 };
 
 module.exports = {
-    signUp, signIn
+    signUp, signIn, userProfile
 };

@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--Sweet Alert2 CDN-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+ 
   <title>Sign Up</title>
 </head>
 
@@ -92,7 +96,7 @@ form{
 		<div class="row main-content bg-success text-center">
 			<div class="col-md-4 text-center company__info">
 				<span class="company__logo"><h2><span class="fa fa-android"></span></h2></span>
-				<h4 class="company_title"><a href="nav.html"><img src="/logo/logo_calculabor.png"></a></h4>
+				<h4 class="company_title"><a href="index.html"><img src="/logo/logo_calculabor.png"></a></h4>
 			</div>
 			<div class="col-md-8 col-xs-12 col-sm-12 login_form ">
 				<div class="container-fluid">
@@ -102,11 +106,11 @@ form{
 					<div class="row">
 						<form control="" class="form-group">
 							<div class="row">
-								<input type="text" name="username" id="username" class="form__input" placeholder="Username">
+								<input type="text" name="username" id="username" class="form__input" placeholder="Username" Username" autocomplete="on">
 							</div>
 							<div class="row">
 								<!-- <span class="fa fa-lock"></span> -->
-								<input type="password" name="password" id="password" class="form__input" placeholder="Password">
+								<input type="password" name="password" id="password" class="form__input" placeholder="Password" Password" autocomplete="on">
 							</div>
 							<!-- <div class="row">
 								<input type="checkbox" name="remember_me" id="remember_me" class="">
@@ -128,5 +132,54 @@ form{
 	<!-- Footer -->
 	<div class="container-fluid text-center footer">
 	</div>
+	<script>
+		 
+		function fetchData (){
+			let username = document.getElementById('username').value;
+			let password = document.getElementById('password').value;
+			if(username){
+			   if(password){
+				 let options = {
+							headers: {
+							"Content-Type": "application/json"
+							},
+								method: "POST", 
+								body: JSON.stringify({
+								username:  username,
+								password: password
+							})
+						};
+					
+						fetch('/api/1.0/admin/signIn', options)
+							.then(response => {
+								let message = response.json();
+								console.log('fetching...');
+								return message;
+								})
+								.then(result => {
+									if(result){
+										if (result.name==='notInUserList') {
+										console.log('API fetch success...')
+										console.log(result)
+										Swal.fire('Please sign up to become an authorized user')
+										
+										} else {
+											window.location.replace('/index.html');
+											localStorage.setItem('Authorization', 'Bearer ' + result[0].access_token);
+											}
+									
+									}else
+									{alert(result.msg);}
+								});
+							
+									
+				 }else {
+						Swal.fire('Please input your password')
+					   }		
+			   }else {
+					Swal.fire('Please input your username');
+				   }
+			}
+	</script>
 </body>
 </html>

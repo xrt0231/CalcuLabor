@@ -22,6 +22,9 @@
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
+      <!--Sweet Alert2 CDN-->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     </head>
     <body>
       <nav class="navbar navbar-default">
@@ -41,7 +44,7 @@
               
             </button>
            
-            <img src="/logo/logo_calculabor.png" width="60px" height="60px"><a class="navbar-brand" href="/nav.html"></a>
+            <a href="/index.html"><img src="/logo/logo_calculabor.png" width="50px" height="50px"></a>
             
           </div>
       
@@ -60,7 +63,7 @@
                   <li role="separator" class="divider"></li>
                   <li><a href="/admin/dashboard.html">Dashboard</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="/nav.html">Navigator</a></li>
+                  <li><a href="/index.html">Navigator</a></li>
                 </ul>
               </li>
             </ul>
@@ -129,7 +132,7 @@
               </div>
               <div class="form-group col-md-12">
                 <button class="btn btn-primary btn-md" type="button" onclick="fetchData();"><img src="/logo/question-octagon.svg" alt="" width="25" height="20" title="Bootstrap"></button> 
-                <button class="btn btn-primary btn-md" type="submit" onclick="createProductionOrder();">Update</button>
+                <button class="btn btn-primary btn-md" type="submit" onclick="clockInOut();">Update</button>
                 
               </div>
             </div>
@@ -138,8 +141,9 @@
   
         <div class="col-lg-6" style="height: 500px;">
           <div class="card mx-5"><br>
-            <div id="scanner-container"></div>
             <input class="btn btn-primary btn-md" id="btn" value="BC scanner"><img src="/logo/upc-scan.svg" alt="" width="25" height="20" title="Bootstrap">
+            <div id="scanner-container"></div>
+            
           </div>
         </div>
   
@@ -158,7 +162,47 @@
 
         <script>
 
-          // fetch production order infomation from DB
+          //Chcekc if user signed in
+          fetchUserData ()
+          function fetchUserData (){
+      
+              var token = localStorage.getItem('Authorization');
+              if(token){
+                console.log(token);
+                  let options = {
+                        headers: { 
+                        },
+                          method: "POST", 
+                          body: JSON.stringify({
+                          token:  token
+                        })
+                      };
+                    
+                      fetch('/api/1.0/admin/userProfile', options)
+                        .then(response => {
+                          let message = response.json();
+                          console.log('fetching...');
+                          return message;
+                          })
+                          .then(result => {
+            
+                            if (result.name==='notSignIn') {
+                              console.log('API fetch success...')
+                              console.log(result)
+                              Swal.fire('Please sign in...');
+                              setTimeout(function(){window.location.replace('/index.html')}, 3000);
+                              } else {
+                                window.location.replace('/index.html');
+                                
+                                }
+                            });
+                }else {
+                  Swal.fire('Please sign in...');
+                  setTimeout(function(){window.location.replace('/index.html')}, 3000);
+                }
+              } 
+
+          // fetch employee working hour infomation from DB
           function fetchData (code){
             if(code){
               var employeeId = code;
@@ -191,17 +235,25 @@
                     })
                 .then(result => {
                     if (result) {
-                        console.log(result[0]);
-                        
+                        console.log('API fetch success...')
                         let employeeId = result[0].employee_id;
                         let record_process = result[0].record_process;
                         var start = new Date(result[0].recentStart);
                         let end = new Date(result[0].recentEnd);
+                        console.log(result[0].recentEnd);
+                        if(result[0].recentEnd){
+                          
+                          
+                          document.getElementById('MyInput').value = employeeId;
+                          document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
+                          document.getElementById('end').value = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
                         
-                        console.log('API fetch success...')
-                        document.getElementById('MyInput').value = employeeId;
-                        document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
-                        document.getElementById('end').value = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
+                        }else{
+                        
+                              document.getElementById('MyInput').value = employeeId;
+                              document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
+                              // document.getElementById('end').value = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
+                            }
                         } else {
                           alert(result.msg);
                           }
@@ -296,6 +348,7 @@
                 var recordProcess = document.getElementById('recordProcess');
                 var start = document.getElementById('start');
                 var end = document.getElementById('end');
+
                 // let today = new Date().toISOString().slice(0, 10);
                 let options = {
                     headers: {
@@ -325,17 +378,21 @@
                         })
                     .then(result => {
                         if (result) {
-                            // console.log(result[0]);
-                            // let record_process = result[0].record_process;
-                            // // let outputQty = result[0].output;
-                            // var start = new Date(result[0].start);
-                            // let end = new Date(result[0].end);
+                            console.log(result[0]);
+                            let employeeId = result[0].employee_id;
+                            let record_process = result[0].record_process;
+                            let start = new Date(result[0].recentStart);
+                            let end = new Date(result[0].recentEnd);
                             
-                            // console.log('API fetch success...')
-                            // // document.getElementById('recordProcess').value = record_process;
-                            // // document.getElementById('outputQty').value = outputQty;
-                            // document.getElementById('start').value = start.toLocaleDateString() + start.toLocaleTimeString();
-                            // document.getElementById('end').value = end.toLocaleDateString() + end.toLocaleTimeString();
+                            start = start.toLocaleDateString() +' '+ start.toLocaleTimeString();
+                            end = end.toLocaleDateString() +' '+ end.toLocaleTimeString();
+                            
+                            if(result[0].recentEnd){
+                              Swal.fire(`employee_ID: ${employeeId}, record_process: ${record_process}, clock in: ${start} // clock out: ${end}`)
+                              }else{
+                                Swal.fire(`employee_ID: ${employeeId}, record_process: ${record_process}, clock in: ${start} // clock out: NA`)
+                              }
+                          
                             } else {
                               alert(result.msg);
                               }

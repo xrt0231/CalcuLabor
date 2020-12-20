@@ -16,9 +16,9 @@ const productionOrderInfo = async(productionOrderNum)=> {
     return result;
  }
 
- const createProductionOrder = async(productionOrderNum, materialNum, recordProcess, start, end, outputQty)=> {
-    console.log(productionOrderNum, materialNum, recordProcess, start, end, outputQty);
-    let result = await query(`INSERT INTO production_plan (production_order_num, material_num, record_process, start, end, output) VALUES (${productionOrderNum}, ${materialNum}, '${recordProcess}', '${start}', '${end}', ${outputQty})`);
+ const createProductionOrder = async(productionOrderNum, partNum, recordProcess, start, end, outputQty)=> {
+    console.log(productionOrderNum, partNum, recordProcess, start, end, outputQty);
+    let result = await query(`INSERT INTO production_plan (production_order_num, part_num, production_group, record_process, start, end, output) VALUES (${productionOrderNum}, ${partNum}, 1, '${recordProcess}', '${start}', '${end}', ${outputQty})`);
     console.log(result);
     return result;
  } 

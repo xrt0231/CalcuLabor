@@ -6,7 +6,8 @@ const signUp = async(username, encryptPassWord, token)=> {
     
     if (result.length === 0)
         {
-            let result2 = await query(`INSERT INTO employee (provider, password, name, access_token) VALUES ("native", "${encryptPassWord}", "${username}", "${token}")`);
+            let result1 = await query(`INSERT INTO employee (provider, password, name, access_token) VALUES ("native", "${encryptPassWord}", "${username}", "${token}")`);
+            let result2 = await query(`SELECT * FROM employee where name = "${username}"`);
             console.log(result2);
             return result2;
         }else
@@ -18,10 +19,42 @@ const signUp = async(username, encryptPassWord, token)=> {
 
  }
 
- const signIn = async()=> {
-    await console.log('test2')
-}    
+ const signIn = async(username, encryptPassWord)=> {
+    let result = await query(`SELECT * FROM employee where name = "${username}" AND password = "${encryptPassWord}"`);
+    
+    if (result.length === 0)
+        {
+            let result1 = {name: "NotInUserList"}
+            return result1;
+        }else
+             {
+              console.log('User sign in success...')
+              return result;
+              }
+
+ } 
+
+ const userProfile = async(token)=> {
+    console.log(token); 
+    let result = await query(`SELECT * FROM user WHERE token = "${token}"`);
+    if (result.length === 0)
+        {
+            let result1 = {name: "notSignIn"}
+            return result1;
+        }else
+             {
+              console.log('signed in...')
+              let user = {
+                  employeeID: result[0].employee_id,
+                  provider: result[0].provider,
+                  email: result[0].email,
+                  name: result[0].name
+              }
+              return user;
+              }
+
+ } 
 
  module.exports = {
-     signUp, signIn
+     signUp, signIn, userProfile
  };

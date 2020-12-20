@@ -20,6 +20,9 @@
       <!-- Bootstrap Date-Picker Plugin -->
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+      <!--Sweet Alert2 CDN-->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
      
     </head>
     <body>
@@ -40,7 +43,7 @@
               
             </button>
            
-            <img src="/logo/logo_calculabor.png" width="60px" height="60px"><a class="navbar-brand" href="/nav.html"></a>
+            <a href="/index.html"><img src="/logo/logo_calculabor.png" width="50px" height="50px"></a>
             
           </div>
       
@@ -59,7 +62,7 @@
                   <li role="separator" class="divider"></li>
                   <li><a href="/admin/dashboard.html">Dashboard</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="/nav.html">Navigator</a></li>
+                  <li><a href="/index.html">Navigator</a></li>
                 </ul>
               </li>
             </ul>
@@ -112,8 +115,8 @@
           </div>
 
           <div class="form-group col-md-6">
-            <label>Other</label>
-            <input type="text" class="form-control" id="outputQty">
+            <label>Part Number</label>
+            <input type="text" class="form-control" id="partNum">
           </div>
 
           <div class="bootstrap-iso">
@@ -137,8 +140,8 @@
 
       <div class="col-lg-6" style="height: 500px;">
         <div class="card mx-5"><br>
-          <div id="scanner-container"></div>
           <input class="btn btn-primary btn-md" id="btn" value="BC scanner"><img src="/logo/upc-scan.svg" alt="" width="25" height="20" title="Bootstrap">
+          <div id="scanner-container"></div>
         </div>
       </div>
 
@@ -156,6 +159,46 @@
         <!-- <script src="/js/initialize-gantt.js"></script> -->
 
         <script>
+              
+              //Chcekc if user signed in
+              fetchUserData ()
+              function fetchUserData (){
+          
+                  var token = localStorage.getItem('Authorization');
+                  if(token){
+                    console.log(token);
+                      let options = {
+                            headers: { 
+                            },
+                              method: "POST", 
+                              body: JSON.stringify({
+                              token:  token
+                            })
+                          };
+                        
+                          fetch('/api/1.0/admin/userProfile', options)
+                            .then(response => {
+                              let message = response.json();
+                              console.log('fetching...');
+                              return message;
+                              })
+                              .then(result => {
+                
+                                if (result.name==='notSignIn') {
+                                  console.log('API fetch success...')
+                                  console.log(result)
+                                  Swal.fire('Please sign in...');
+                                  setTimeout(function(){window.location.replace('/index.html')}, 3000);
+                                  } else {
+                                    window.location.replace('/index.html');
+                                    
+                                    }
+                                });
+                    }else {
+                      Swal.fire('Please sign in...');
+                      setTimeout(function(){window.location.replace('/index.html')}, 3000);
+                    }
+                  } 
 
               //Date picker function
               $(document).ready(function(){
@@ -203,6 +246,7 @@
                     .then(result => {
                         if (result) {
                             let productionOrderNum = result[0].production_order_num
+                            let part_num = result[0].part_num;
                             let record_process = result[0].record_process;
                             let outputQty = result[0].output;
                             let start = new Date(result[0].start);
@@ -210,6 +254,7 @@
                             
                             console.log('API fetch success...')
                             document.getElementById('MyInput').value = productionOrderNum;
+                            document.getElementById('partNum').value = part_num;
                             document.getElementById('recordProcess').value = record_process;
                             document.getElementById('outputQty').value = outputQty;
                             document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();

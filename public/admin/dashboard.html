@@ -41,6 +41,8 @@
   <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
+  <!--Sweet Alert2 CDN-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
   </head>
 
@@ -63,7 +65,7 @@
             <span class="icon-bar"></span>
             
           </button>
-          <a href="/nav.html"><img src="/logo/logo_calculabor.png" width="50px" height="50px"></a>
+          <a href="/index.html"><img src="/logo/logo_calculabor.png" width="50px" height="50px"></a>
           <!-- <a class="navbar-brand" href="/nav.html"></a> -->
           
         </div>
@@ -83,7 +85,7 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="/admin/dashboard.html">Dashboard</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="/nav.html">Navigator</a></li>
+                <li><a href="/index.html">Navigator</a></li>
               </ul>
             </li>
           </ul>
@@ -338,6 +340,45 @@
   
 
         <script>
+          //Chcekc if user signed in
+          fetchUserData ()
+          function fetchUserData (){
+      
+              var token = localStorage.getItem('Authorization');
+              if(token){
+                console.log(token);
+                  let options = {
+                        headers: { 
+                        },
+                          method: "POST", 
+                          body: JSON.stringify({
+                          token:  token
+                        })
+                      };
+                    
+                      fetch('/api/1.0/admin/userProfile', options)
+                        .then(response => {
+                          let message = response.json();
+                          console.log('fetching...');
+                          return message;
+                          })
+                          .then(result => {
+            
+                            if (result.name==='notSignIn') {
+                              console.log('API fetch success...')
+                              console.log(result)
+                              Swal.fire('Please sign in...');
+                              setTimeout(function(){window.location.replace('/index.html')}, 3000);
+                              } else {
+                                window.location.replace('/index.html');
+                                
+                                }
+                            });
+                }else {
+                  Swal.fire('Please sign in...');
+                  setTimeout(function(){window.location.replace('/index.html')}, 3000);
+                }
+              } 
 
           //Date picker function
           $(document).ready(function(){
@@ -362,7 +403,7 @@
                   let w3 = [];
                   let values1 = [];
                   let value_of_date = [];
-                  values1.push(['Actual Working Hour', 'Stnadard Working Hour', 'Actual Output', 'Standard Output', '<b>Efficiency %</b>']);
+                  values1.push(['Actual Working Hour', 'Standard Working Hour', 'Actual Output', 'Standard Output', '<b>Efficiency %</b>']);
                   value_of_date.push('Date');
 
                   let startDate =  document.getElementById('startDate').value;
@@ -599,6 +640,8 @@
                                   //TEST OVER
                                   setInterval(dashboard2, 2000);
                                   setInterval(dashboard1, 2000);
+
+                      
 </script>
 
     </body>
