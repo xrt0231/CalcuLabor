@@ -24,7 +24,7 @@ const signUp = async(username, encryptPassWord, token)=> {
     
     if (result.length === 0)
         {
-            let result1 = {name: "NotInUserList"}
+            let result1 = {name: "notInUserList"}
             return result1;
         }else
              {
