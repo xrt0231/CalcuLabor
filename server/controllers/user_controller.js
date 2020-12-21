@@ -10,8 +10,9 @@ const Swal = require('sweetalert2'); //Sweet Alert2
 const userProfile = async (req, res) => {
 
     let token = req.body.token;
-
-    token = token.split(" ")[1];
+    console.log(token)
+    token = token.slice(7);
+    
 
     const user = (await User.userProfile(token));
 

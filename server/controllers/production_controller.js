@@ -23,7 +23,7 @@ const getProductionData = async (req, res) => {
     
 };
 
-const updateProductionData = async (req, res) => {
+const fastCheckInOut = async (req, res) => {
 
     let productionOrderNum = req.body.productionOrderNum;
     let recordProces = req.body.recordProces;
@@ -42,7 +42,7 @@ const updateProductionData = async (req, res) => {
     // let end = moment(endGet).format("YYYY-MM-DD HH:mm:ss");
     
     
-    const production = (await Production.updateProductionData(productionOrderNum, dateTime, outputQty));
+    const production = (await Production.fastCheckInOut(productionOrderNum, dateTime, outputQty));
     console.log(production);
     res.send(production);
     
@@ -50,5 +50,5 @@ const updateProductionData = async (req, res) => {
 
 module.exports = {
     getProductionData,
-    updateProductionData
+    fastCheckInOut
 };

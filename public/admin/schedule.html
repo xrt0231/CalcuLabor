@@ -105,7 +105,20 @@
   
             <div class="form-group col-md-6">
               <label>Process Name</label>
-              <input type="text" class="form-control" id="recordProcess">
+              
+              <select type="text" class="form-control" id="recordProcess">
+                <option ></option>
+                <option >process_1</option>
+                <option >process_2</option>
+                <option >process_3</option>
+                <option >process_4</option>
+                <option >process_5</option>
+                <option >process_6</option>
+                <option >process_7</option>
+                <option >process_8</option>
+                <option >process_9</option>
+                <option >process_10</option>
+              </select>
             </div>
   
             <div class="form-group col-md-6">
@@ -115,13 +128,19 @@
   
             <div class="form-group col-md-6">
               <label>Part Number</label>
-              <input type="text" class="form-control" id="partNum">
+              
+              <select type="text" class="form-control" id="partNum">
+                <option ></option>
+                <option >10000001</option>
+                <option >10000002</option>
+                
+              </select>
             </div>
   
               <div class="form-group col-md-6">
                 <label class="control-label" for="date">Start Date/Time</label>
-                <div class='input-group date' id='start'>
-                  <input data-format="yyyy-MM-dd hh:mm:ss" type='text'class="form-control"/>
+                <div class='input-group date' >
+                  <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='start' value="" class="form-control"/>
                   <span class="input-group-addon">
                   <span class="glyphicon glyphicon-calendar"></span>
                   </span>
@@ -130,8 +149,8 @@
           
               <div class="form-group col-md-6">
                 <label class="control-label" for="date">End Date/Time</label>
-                <div class='input-group date' id='end'>
-                  <input data-format="yyyy-MM-dd hh:mm:ss" type='text' class="form-control" />
+                <div class='input-group date' >
+                  <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='end' value="" class="form-control" />
                   <span class="input-group-addon">
                   <span class="glyphicon glyphicon-calendar"></span>
                   </span>
@@ -139,8 +158,10 @@
               </div>
               <div class="form-group col-md-12">
                 <button class="btn btn-primary btn-md" type="button" onclick="fetchData();"><img src="/logo/question-octagon.svg" alt="" width="25" height="20" title="Bootstrap"></button> 
-                <button class="btn btn-primary btn-md" type="submit" onclick="createProductionOrder();">Create Production Order</button>
+                <button class="btn btn-primary btn-md" type="submit" onclick="createProductionOrder();">Create Order</button>
+                <button class="btn btn-primary btn-md" type="submit" onclick="updateProductionOrder();">Update Order</button>
               </div>
+              <div id="orderCreated"></div>
               
             </div>
           </div>
@@ -152,18 +173,39 @@
             <div id="scanner-container"></div>
           </div>
         </div>
+
+        <div class="card mx-5">
+          <button class="btn btn-primary btn-md" type="submit" onclick="fetchGanttChart();"><img src="/logo/bar-chart-steps.svg" alt="" width="25" height="20" title="Bootstrap"></button>
+          <label for="output" style="font-size: 25px">Production Plan:</label> 
+            
+        </div>
   
         <div class="col-lg-6" style="height: 500px;">
-          <div class="card mx-5">
-            <button class="btn btn-primary btn-md" type="submit" onclick="fetchGanttChart();"><img src="/logo/bar-chart-steps.svg" alt="" width="25" height="20" title="Bootstrap"></button>
-            <label for="output" style="font-size: 25px">Today's production plan:</label> 
-            <div id="chart"></div>  
+          <div class="form-group col-md-6">
+            <label class="control-label" for="date">Start Date/Time</label>
+            <div class='input-group date' >
+              <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='start1' value="" class="form-control"/>
+              <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+           </div>
+      
+          <div class="form-group col-md-6">
+            <label class="control-label" for="date">End Date/Time</label>
+            <div class='input-group date' >
+              <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='end1' value="" class="form-control" />
+              <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
           </div>
+          <div id="chart"></div>
         </div>
        
  
     
-        <div id="chart"></div>
+        
         <script src="/js/camera.js"></script>
         
         <script src="/js/gantt.js"></script>
@@ -181,6 +223,14 @@
             
           $(function() {
             $('#end').datetimepicker();
+          });
+
+          $(function() {
+            $('#start1').datetimepicker();
+          });
+            
+          $(function() {
+            $('#end1').datetimepicker();
           });
              
           // fetch production order infomation from DB
@@ -213,7 +263,7 @@
                     })
                 .then(result => {
                     if (result) {
-                      
+                        console.log(result);
                         let productionOrderNum = result[0].production_order_num
                         let record_process = result[0].record_process;
                         let part_num = result[0].part_num;
@@ -228,11 +278,17 @@
                         document.getElementById('outputQty').value = outputQty;
                         
                         document.getElementById('end').value = end;
-                        // document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
-                        $('#start').datepicker({
-        "setDate": start,
-        "autoclose": true
-});
+                        start = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
+                        end = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
+                        console.log(typeof start);
+                        // $('#start').value(start);
+                        
+                        const startValue = document.getElementById('start');
+                        startValue.value = start;
+
+                        const endValue = document.getElementById('end');
+                        endValue.value = end;
+                        
 
                         } else {
 
@@ -244,14 +300,18 @@
             // fetch production order infomation from DB to make gantt chart
             function fetchGanttChart() {
               let data = [];
-                let today = new Date().toISOString().slice(0, 10);
+                // let today = new Date().toISOString().slice(0, 10);
+                let start = document.getElementById('start1').value;
+                let end = document.getElementById('end1').value;
                 let options = {
                     headers: {
                         "Content-Type": "application/json"
                         },
                     method: "POST", 
                     body: JSON.stringify({
-                        date: today
+                        // date: today
+                        start: start,
+                        end: end
                         })
                     
                   };
@@ -318,8 +378,8 @@
                   let productionOrderNum =  document.getElementById('MyInput').value;
                   let partNum = document.getElementById('partNum').value;
                   let recordProcess = document.getElementById('recordProcess').value;
-                  let start = $("#start").find("input").val();
-                  let end = $("#end").find("input").val();
+                  let start = document.getElementById('start').value;
+                  let end = document.getElementById('end').value;
                   let outputQty = document.getElementById('outputQty').value;
 
                   console.log(productionOrderNum, partNum, recordProcess, start, end, outputQty);
@@ -355,8 +415,100 @@
                           })
                       .then(result => {
                           if (result) {
-                              
+                            console.log("API fetch success...");
+                            let productionOrderNum = result[0].production_order_num
+                            let record_process = result[0].record_process;
+                            let part_num = result[0].part_num;
+                            let outputQty = result[0].output;
+                            let start = new Date(result[0].start);
+                            let end = new Date(result[0].end);
+                    
+                            start = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
+                            end = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
+                                  
+                            document.getElementById('orderCreated').innerHTML = `<h3> <div class="col-md-6" style="font-size: 15px">
+                                                                                      Production oreder #: <a style="color: red">${productionOrderNum}</a> has been created...<br><br>
+                                                                                      Production #: ${productionOrderNum}<br>
+                                                                                      Process: ${recordProcess}<br>
+                                                                                      part number#: ${partNum}<br>
+                                                                                      Planned output: ${outputQty}<br>
+                                                                                      Planned start time: ${start}<br>
+                                                                                      Planned end time: ${end}
+                                                                                      </div><h3>`; 
+                                } else {
+                                  alert(result.msg);
+                                  }
+                            });
+
+                }
+
+                function updateProductionOrder() {
+                  
+                  let productionOrderNum =  document.getElementById('MyInput');
+                  let partNum = document.getElementById('partNum');
+                  let recordProcess = document.getElementById('recordProcess');
+                  let start = document.getElementById('start');
+                  console.log(start)
+              
+                  let end = document.getElementById('end');
+                  console.log(end)
+                  let outputQty = document.getElementById('outputQty');
+
+                  console.log(productionOrderNum, partNum, recordProcess, start, end, outputQty);
+
+                  let options = {
+                      headers: {
+                          "Content-Type": "application/json"
+                          },
+                      method: "POST", 
+                      body: JSON.stringify({
+                          productionOrderNum: productionOrderNum.value,
+                          partNum: partNum.value,
+                          recordProcess: recordProcess.value,
+                          start: start.value,
+                          end: end.value,
+                          outputQty: outputQty.value,
+                          })
+                      
+                    };
+                    productionOrderNum.value = '';
+                    partNum.value = '';
+                    // productionGroup.value = '';
+                    recordProcess.value = '';
+                    start.value = '';
+                    end.value = '';
+                    outputQty.value = '';
+
+                  fetch('/api/1.0/admin/updateProductionOrder', options)
+                      .then(response => {
+                          let message = response.json();
+                          console.log('test');
+                          return message;
+                          })
+                      .then(result => {
+                          if (result) {
                               console.log("API fetch success...");
+                              let productionOrderNum = result[0].production_order_num
+                              let recordProcess = result[0].record_process;
+                              let partNum = result[0].part_num;
+                              let outputQty = result[0].output;
+                              let start = new Date(result[0].start);
+                              let end = new Date(result[0].end);
+                      
+                              start = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
+                              end = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
+                                    
+                              document.getElementById('orderCreated').innerHTML = `<h3>
+                                                                                      <div class="col-md-6" style="font-size: 15px">
+                                                                                      Production oreder #: <a style="color: red">${productionOrderNum}</a> has been updated...<br><br>
+                                                                                      Production #: ${productionOrderNum}<br>
+                                                                                      Process: ${recordProcess}<br>
+                                                                                      part number#: ${partNum}<br>
+                                                                                      Planned output: ${outputQty}<br>
+                                                                                      Planned start time: ${start}<br>
+                                                                                      Planned end time: ${end}
+                                                                                      </div>
+                                                                                      <h3>`; 
                                 } else {
                                   alert(result.msg);
                                   }
@@ -371,6 +523,7 @@
                     console.log(token);
                       let options = {
                             headers: { 
+                              "Content-Type": "application/json"
                             },
                               method: "POST", 
                               body: JSON.stringify({
@@ -391,10 +544,7 @@
                                   console.log(result)
                                   Swal.fire('Please sign in...');
                                   setTimeout(function(){window.location.replace('/index.html')}, 3000);
-                                  } else {
-                                    window.location.replace('/admin/schedule.html');
-                                    
-                                    }
+                                  } else {}
                                 });
                     }else {
                       Swal.fire('Please sign in...');

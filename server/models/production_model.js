@@ -16,7 +16,7 @@ const getProductionData = async(productionOrderNum)=> {
 //     return result;   
 //  }
 
-const updateProductionData = async(productionOrderNum, dateTime, outputQty)=> {
+const fastCheckInOut = async(productionOrderNum, dateTime, outputQty)=> {
    
     console.log(productionOrderNum, dateTime, outputQty);
     let result = await query(`SELECT * FROM mmem.production_plan WHERE production_order_num = ${productionOrderNum}`);
@@ -38,5 +38,5 @@ const updateProductionData = async(productionOrderNum, dateTime, outputQty)=> {
 
 module.exports = {
     getProductionData,
-    updateProductionData 
+    fastCheckInOut
 };

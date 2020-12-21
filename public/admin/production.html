@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      <title>Production Data</title>
+      <title>Production Plan</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
@@ -14,12 +14,13 @@
       <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
       <!--  jQuery -->
       <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-      <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
-      <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
 
-      <!-- Bootstrap Date-Picker Plugin -->
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+     
+
+      <!--CDN moment js-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 
       <!--Sweet Alert2 CDN-->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -106,7 +107,21 @@
 
           <div class="form-group col-md-6">
             <label>Process Name</label>
-            <input type="text" class="form-control" id="recordProcess">
+            
+            <select type="text" class="form-control" id="recordProcess">
+              <option ></option>
+              <option >process_1</option>
+              <option >process_2</option>
+              <option >process_3</option>
+              <option >process_4</option>
+              <option >process_5</option>
+              <option >process_6</option>
+              <option >process_7</option>
+              <option >process_8</option>
+              <option >process_9</option>
+              <option >process_10</option>
+            </select>
+          </div>
           </div>
 
           <div class="form-group col-md-6">
@@ -116,27 +131,51 @@
 
           <div class="form-group col-md-6">
             <label>Part Number</label>
-            <input type="text" class="form-control" id="partNum">
+            <select type="text" class="form-control" id="partNum">
+              <option ></option>
+              <option >10000001</option>
+              <option >10000002</option>
+              
+            </select>
           </div>
 
-          <div class="bootstrap-iso">
+          <div class="form-group col-md-6">
+            <label class="control-label" for="date">Start Date/Time</label>
+            <div class='input-group date' >
+              <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='start' value="" class="form-control"/>
+              <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+           </div>
+      
+          <div class="form-group col-md-6">
+            <label class="control-label" for="date">End Date/Time</label>
+            <div class='input-group date' >
+              <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='end' value="" class="form-control" />
+              <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+          </div>
+
+
+          <!-- <div class="bootstrap-iso">
             <div class="form-group col-md-6">
               <label class="control-label" for="date">Start Date</label>
               <input class="form-control" id="start" name="date" placeholder="MM/DD/YYY" type="text"/>
             </div>
-          <!-- Default input -->
+          
             <div class="form-group col-md-6">
               <label class="control-label" for="date">End Date</label>
               <input class="form-control" id="end" name="date" placeholder="MM/DD/YYY" type="text"/>
-            </div>
+            </div> -->
             <div class="form-group col-md-12">
               <button class="btn btn-primary btn-md" type="button" onclick="fetchData();"><img src="/logo/question-octagon.svg" alt="" width="25" height="20" title="Bootstrap"></button> 
-              <button class="btn btn-primary btn-md" type="submit" onclick="updateProductionData();">Update</button>
-              
-            </div>
+              <button class="btn btn-primary btn-md" type="submit" onclick="fastCheckInOut();">Fast Check In/Out</button>
           </div>
+          <div id="orderCreated"></div>
         </div>
-      </div>
 
       <div class="col-lg-6" style="height: 500px;">
         <div class="card mx-5"><br>
@@ -148,9 +187,31 @@
       <div class="col-lg-6" style="height: 500px;">
         <div class="card mx-5">
           <button class="btn btn-primary btn-md" type="submit" onclick="fetchGanttChart();"><img src="/logo/bar-chart-steps.svg" alt="" width="25" height="20" title="Bootstrap"></button>
-          <label for="output" style="font-size: 25px">Today's production plan:</label> 
-          <div id="chart"></div>  
+          <label for="output" style="font-size: 25px">Actual Production Result:</label> 
+        </div>  
+        <div class="col-lg-12" style="height: 500px;">
+          <div class="form-group col-md-6">
+            <label class="control-label" for="date">Start Date/Time</label>
+            <div class='input-group date' >
+              <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='start1' value="" class="form-control"/>
+              <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+           </div>
+      
+          <div class="form-group col-md-6">
+            <label class="control-label" for="date">End Date/Time</label>
+            <div class='input-group date' >
+              <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='end1' value="" class="form-control" />
+              <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+          </div>
+          <div id="chart"></div> 
         </div>
+        
       </div>
       
         <script src="/js/camera.js"></script>
@@ -159,16 +220,32 @@
         <!-- <script src="/js/initialize-gantt.js"></script> -->
 
         <script>
-              
+              //Datetime picker function
+              $(function() {
+                $('#start').datetimepicker();
+              });
+                
+              $(function() {
+                $('#end').datetimepicker();
+              });
+
+              $(function() {
+                $('#start1').datetimepicker();
+              });
+                
+              $(function() {
+                $('#end1').datetimepicker();
+              });
               //Chcekc if user signed in
               fetchUserData ()
+
               function fetchUserData (){
           
                   var token = localStorage.getItem('Authorization');
                   if(token){
-                    console.log(token);
                       let options = {
                             headers: { 
+                              "Content-Type": "application/json"
                             },
                               method: "POST", 
                               body: JSON.stringify({
@@ -189,10 +266,7 @@
                                   console.log(result)
                                   Swal.fire('Please sign in...');
                                   setTimeout(function(){window.location.replace('/index.html')}, 3000);
-                                  } else {
-                                    window.location.replace('/admin/production.html');
-                                    
-                                    }
+                                  } else {}
                                 });
                     }else {
                       Swal.fire('Please sign in...');
@@ -201,17 +275,17 @@
                   } 
 
               //Date picker function
-              $(document).ready(function(){
-                var date_input=$('input[name="date"]'); //our date input has the name "date"
-                var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-                var options={
-                  format: 'mm/dd/yyyy',
-                  container: container,
-                  todayHighlight: true,
-                  autoclose: true,
-                };
-                date_input.datepicker(options);
-              })  
+              // $(document).ready(function(){
+              //   var date_input=$('input[name="date"]'); //our date input has the name "date"
+              //   var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+              //   var options={
+              //     format: 'mm/dd/yyyy',
+              //     container: container,
+              //     todayHighlight: true,
+              //     autoclose: true,
+              //   };
+              //   date_input.datepicker(options);
+              // })  
 
               // fetch production order infomation from DB
               function fetchData (code){
@@ -257,8 +331,16 @@
                             document.getElementById('partNum').value = part_num;
                             document.getElementById('recordProcess').value = record_process;
                             document.getElementById('outputQty').value = outputQty;
-                            document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
-                            document.getElementById('end').value = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
+
+                            start = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
+                            end = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
+
+                            const startValue = document.getElementById('start');
+                            startValue.value = start;
+
+                            const endValue = document.getElementById('end');
+                            endValue.value = end;
+                            
                             } else {
                               alert(result.msg);
                               }
@@ -268,19 +350,21 @@
                 // fetch production order infomation from DB to make gantt chart
                 function fetchGanttChart() {
                   let data = [];
-                    let today = new Date().toISOString().slice(0, 10);
+                  let start = document.getElementById('start1').value;
+                  let end = document.getElementById('end1').value;
                     let options = {
                         headers: {
                             "Content-Type": "application/json"
                             },
                         method: "POST", 
                         body: JSON.stringify({
-                            date: today
+                          start: start,
+                          end: end
                             })
                         
                       };
                       
-                    fetch('/api/1.0/admin/ganttchart', options)
+                    fetch('/api/1.0/admin/ganttchartActual', options)
                         .then(response => {
                             let message = response.json();
                             console.log('test');
@@ -297,7 +381,7 @@
                                     ganttdata = {
                                     recordID: i+1,
                                     row: `${result[i].production_order_num}`,
-                                    tooltip: `${result[i].material_num}, ${result[i].record_process}, ${result[i].start}, ${result[i].end}`,
+                                    tooltip: `${result[i].material_num}, ${result[i].record_process}, ${result[i].actual_start}, ${result[i].actual_end}`,
                                     start: `${result[i].start}`,
                                     end: `${result[i].end}`,
                                   }
@@ -337,12 +421,12 @@
                               });
                     }
 
-                    function updateProductionData() {
+                    function fastCheckInOut() {
 
                       let productionOrderNum =  document.getElementById('MyInput');
-                        // let recordProcess = document.getElementById('recordProcess');
-                        // let start = document.getElementById('start');
-                        // let end = document.getElementById('end');
+                      // let recordProcess = document.getElementById('recordProcess');
+                      // let start = document.getElementById('start');
+                      // let end = document.getElementById('end');
                       let outputQty = document.getElementById('outputQty');
 
                       let options = {
@@ -360,12 +444,12 @@
                         
                         };
                       productionOrderNum.value = '';
-                      // recordProcess.value = '';
-                      // start.value = '';
-                      // end.value = '';
+                      recordProcess.value = '';
+                      start.value = '';
+                      end.value = '';
                       outputQty.value = '';
 
-                      fetch('/api/1.0/admin/updateProductionData', options)
+                      fetch('/api/1.0/admin/fastCheckInOut', options)
                           .then(response => {
                               let message = response.json();
                               console.log('test');
@@ -376,8 +460,8 @@
                               console.log(result);
                                 let productionOrderNum = result[0].production_order_num;
                                 let recordProcess = result[0].recordProcess;
-                                let startTime = result[0].actual_start;
-                                let endTime = result[0].actual_end;
+                                let startTime = new Date(result[0].actual_start);
+                                let endTime = new Date(result[0].actual_end);
                                 let =actualOutput = result[0].actual_output;
                                 startTime = startTime.toLocaleDateString() +' '+ startTime.toLocaleTimeString();
                                 endTime = endTime.toLocaleDateString() +' '+ endTime.toLocaleTimeString(); 
@@ -386,7 +470,7 @@
                                 }else{
                                       Swal.fire(`Production Order: ${productionOrderNum} @ Process ${recordProcess}, Actual start@: ${startTime} // Actual end@: NA Acutal output * NA`)
                                       } 
-                                    }elseelse {
+                                    }else{
                                         alert(result.msg);
                                         }
                                 });

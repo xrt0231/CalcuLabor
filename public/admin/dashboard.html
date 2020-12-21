@@ -10,7 +10,7 @@
     <link rel="icon" href="../../favicon.ico">
     <link rel="canonical" href="https://getbootstrap.com/docs/3.3/examples/dashboard/">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Dashboard</title>
 
  
 
@@ -349,6 +349,7 @@
                 console.log(token);
                   let options = {
                         headers: { 
+                          "Content-Type": "application/json"
                         },
                           method: "POST", 
                           body: JSON.stringify({
@@ -369,10 +370,7 @@
                               console.log(result)
                               Swal.fire('Please sign in...');
                               setTimeout(function(){window.location.replace('/index.html')}, 3000);
-                              } else {
-                                window.location.replace('/admin/dashboard.html');
-                                
-                                }
+                              } else {}
                             });
                 }else {
                   Swal.fire('Please sign in...');

@@ -36,7 +36,7 @@ const signUp = async(username, encryptPassWord, token)=> {
 
  const userProfile = async(token)=> {
     console.log(token); 
-    let result = await query(`SELECT * FROM user WHERE token = "${token}"`);
+    let result = await query(`SELECT * FROM employee WHERE access_token = "${token}"`);
     if (result.length === 0)
         {
             let result1 = {name: "notSignIn"}
