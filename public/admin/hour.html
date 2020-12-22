@@ -304,7 +304,7 @@
                               start: `${result[i].start}`,
                               end: `${result[i].end}`,
                              }
-                              data.push(workHourData);
+                              data.push(workHourData); 
                            }
                            //An API call to grab data
                           function refreshFunction() {
@@ -377,7 +377,7 @@
                         return message;
                         })
                     .then(result => {
-                        if (result) {
+                        if (result[0]) {
                             console.log(result[0]);
                             let employeeId = result[0].employee_id;
                             let record_process = result[0].record_process;

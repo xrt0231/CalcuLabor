@@ -214,7 +214,7 @@
         
       </div>
       
-        <script src="/js/camera.js"></script>
+        <script src="/js/camera.js"></script> 
         
         <script src="/js/gantt.js"></script>
         <!-- <script src="/js/initialize-gantt.js"></script> -->
@@ -319,27 +319,61 @@
                         })
                     .then(result => {
                         if (result) {
-                            let productionOrderNum = result[0].production_order_num
-                            let part_num = result[0].part_num;
-                            let record_process = result[0].record_process;
-                            let outputQty = result[0].output;
-                            let start = new Date(result[0].start);
-                            let end = new Date(result[0].end);
+                          console.log(result)
+                          console.log('API fetch success...')
+                          if(result[0].actual_start){
                             
-                            console.log('API fetch success...')
-                            document.getElementById('MyInput').value = productionOrderNum;
-                            document.getElementById('partNum').value = part_num;
-                            document.getElementById('recordProcess').value = record_process;
-                            document.getElementById('outputQty').value = outputQty;
+                            if(result[0].actual_end){
+                              let start = new Date(result[0].actual_start);
+                              start = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
+                              end = new Date(result[0].actual_end);
+                              end = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
+                              document.getElementById('MyInput').value = result[0].production_order_num;
+                              document.getElementById('partNum').value = result[0].part_num;
+                              document.getElementById('recordProcess').value = result[0].record_process;
+                              document.getElementById('outputQty').value = result[0].actual_output;
+                              const startValue = document.getElementById('start');
+                              startValue.value = start;
+                              const endValue = document.getElementById('end');
+                              endValue.value = end;
 
-                            start = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
-                            end = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
+                            }else{
+                              let start = new Date(result[0].actual_start);
+                              start = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
+                              end = "";
+                              
+                              document.getElementById('MyInput').value = result[0].production_order_num;
+                              document.getElementById('partNum').value = result[0].part_num;
+                              document.getElementById('recordProcess').value = result[0].record_process;
+                              document.getElementById('outputQty').value = result[0].actual_output;
+                              const startValue = document.getElementById('start');
+                              startValue.value = start;
+                              const endValue = document.getElementById('end');
+                              endValue.value = end;
 
-                            const startValue = document.getElementById('start');
-                            startValue.value = start;
+                            }
+                          
+                          }else
+                            {
+                              start = "";
+                              end = "";
+                              
+                              document.getElementById('MyInput').value = result[0].production_order_num;
+                              document.getElementById('partNum').value = result[0].part_num;
+                              document.getElementById('recordProcess').value = result[0].record_process;
+                              document.getElementById('outputQty').value = result[0].actual_output;
+                              const startValue = document.getElementById('start');
+                              startValue.value = start;
+                              const endValue = document.getElementById('end');
+                              endValue.value = end;
+                            }
+                            
+                            
+                            // const startValue = document.getElementById('start');
+                            // startValue.value = start;
 
-                            const endValue = document.getElementById('end');
-                            endValue.value = end;
+                            // const endValue = document.getElementById('end');
+                            // endValue.value = end;
                             
                             } else {
                               alert(result.msg);
@@ -465,7 +499,7 @@
                                 let =actualOutput = result[0].actual_output;
                                 startTime = startTime.toLocaleDateString() +' '+ startTime.toLocaleTimeString();
                                 endTime = endTime.toLocaleDateString() +' '+ endTime.toLocaleTimeString(); 
-                              if (result.actual_end) {
+                              if (endTime) {
                                 Swal.fire(`Production Order: ${productionOrderNum} @ Process ${recordProcess}, Actual start@: ${startTime} // Actual end@: ${endTime} Acutal output * ${actualOutput}`)
                                 }else{
                                       Swal.fire(`Production Order: ${productionOrderNum} @ Process ${recordProcess}, Actual start@: ${startTime} // Actual end@: NA Acutal output * NA`)
