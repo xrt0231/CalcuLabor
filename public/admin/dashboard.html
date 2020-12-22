@@ -187,7 +187,7 @@
               <h4>Efficiency / Process</h4>
               <span class="text-muted">(PPH/Process)</span>
               <div id="myDiv2"></div> 
-              <div id="plot2"></div> 
+              <div id="myDiv2.1"></div> 
                
               <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail"> -->
               
@@ -340,6 +340,20 @@
   
 
         <script>
+
+          //Date picker function
+          $(document).ready(function(){
+            var date_input=$('input[name="date"]'); //our date input has the name "date"
+            var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+            var options={
+              format: 'yyyy/mm/dd',
+              container: container,
+              todayHighlight: true,
+              autoclose: true,
+            };
+            date_input.datepicker(options);
+          })  
+
           //Chcekc if user signed in
           fetchUserData ()
           function fetchUserData (){
@@ -378,18 +392,7 @@
                 }
               } 
 
-          //Date picker function
-          $(document).ready(function(){
-            var date_input=$('input[name="date"]'); //our date input has the name "date"
-            var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-            var options={
-              format: 'yyyy/mm/dd',
-              container: container,
-              todayHighlight: true,
-              autoclose: true,
-            };
-            date_input.datepicker(options);
-          })
+          
 
                 //Define process return multiple days efficiency
                 function dashboard1() {
@@ -401,7 +404,10 @@
                   let w3 = [];
                   let values1 = [];
                   let value_of_date = [];
+                  
+                  
                   values1.push(['Actual Working Hour', 'Standard Working Hour', 'Actual Output', 'Standard Output', '<b>Efficiency %</b>']);
+                  
                   value_of_date.push('Date');
 
                   let startDate =  document.getElementById('startDate').value;
@@ -470,7 +476,7 @@
                               
                            
 
-                              //chart of actual WH vs. standard WH
+                              //chart of actual WH, standard WH, actual output, standard output for selection of duration
                               var data2 = [{
                                   type: 'table',
                                   
@@ -508,6 +514,11 @@
 
                   let x = [];
                   let y = [];
+                  let values2 = [];
+                  
+                  let value_of_process = [];
+                  values2.push(['Actual Working Hour', 'Standard Working Hour', 'Actual Output', 'Standard Output', '<b>Efficiency %</b>']);
+                  value_of_process.push('Process');
                   let startDate =  document.getElementById('startDate2').value;
 
                   let options = {
@@ -535,6 +546,8 @@
                               for (let i=0; i<result.length; i+=1){
                                 x.push(result[i].process_refer);
                                 y.push(result[i].efficiency);
+                                values2.push([result[i].actual_working_hour, result[i].standard_working_hour, result[i].actual_output, result[i].standard_output, result[i].efficiency]),
+                                value_of_process.push(result[i].process_refer)
                               }
                               var data = [
                                           {
@@ -562,65 +575,99 @@
                                   };            
                               Plotly.newPlot('myDiv2', data, layout);
 
-                              //TEST time start
-                              staticBigguyCost.update({
-                              xAxis:{categories: x},
-                          })
-                          // update series
-                          staticBigguyCost.series[0].update({ data: y }, false)
-                          
-                          // redraw plots
-                          staticBigguyCost.redraw()
-            //STOP                  
+                              //chart of actual WH, standard WH, actual output, standard output for selection of duration
+
+                              var data3 = [{
+                                  type: 'table',
+                                  
+                                  header: {
+                                    
+                                    values: value_of_process,
+                                    // [["<b>Date</b>"], ["<b>Q1</b>"],
+                                    //     ["<b>Q2</b>"], ["<b>Q3</b>"], ["<b>Q4</b>"]],
+                                    align: "center",
+                                    height: 40,
+                                    line: {width: 1, color: 'black'},
+                                    fill: {color: "#337AB7"},
+                                    font: {family: "Arial", size: 16, color: "white"}
+                                  },
+                                  cells: {
+                                    values: values2,
+                                    align: "center",
+                                    height: 40,
+                                    line: {color: "darkgrey", width: 1},
+                                    font: {family: "Arial", size: 15, color: ["black"]}
+                                  }
+                                }]
+
+                                Plotly.newPlot('myDiv2.1', data3);
+                              
                               } else {
                                   alert(result.msg);
-                                  }
-                            });
+                                  }    
 
-                  }
+                      });
+                    }
+
+                              //TEST time start
+                          //     staticBigguyCost.update({
+                          //     xAxis:{categories: x},
+                          // })
+                          // update series
+                          // staticBigguyCost.series[0].update({ data: y }, false)
+                          
+                          // redraw plots
+                          // staticBigguyCost.redraw()
+            //STOP                  
+                            //   } else {
+                            //       alert(result.msg);
+                            //       }
+                            // });
+
+                  
           //TEST
-          var options4BigguyCost = {
-                                      chart: {
-                                          type: 'column'
-                                      },
-                                      title: {
-                                          text: ''
-                                      },
-                                      exporting: {
-                                          enabled: true,
-                                      },
-                                      xAxis: {
-                                          categories: [],
-                                          crosshair: true
-                                      },
-                                      yAxis: {
-                                          title: {
-                                              text: '期貨留倉平均點數'
-                                          }
-                                      },
-                                      tooltip: {
-                                          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                                          pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                              '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
-                                          footerFormat: '</table>',
-                                          shared: true,
-                                          useHTML: true
-                                      },
-                                      plotOptions: {
-                                          column: {
-                                              pointPadding: 0.2,
-                                              borderWidth: 0
-                                          }
-                                      },
-                                      credits: {
-                                          enabled: false
-                                      },
-                                      series: [
-                                          {
-                                              name: '外資',
-                                              data: [],
-                                              color: "#23395B",
-                                          },
+          // var options4BigguyCost = {
+          //                             chart: {
+          //                                 type: 'column'
+          //                             },
+          //                             title: {
+          //                                 text: ''
+          //                             },
+          //                             exporting: {
+          //                                 enabled: true,
+          //                             },
+          //                             xAxis: {
+          //                                 categories: [],
+          //                                 crosshair: true
+          //                             },
+          //                             yAxis: {
+          //                                 title: {
+          //                                     text: '期貨留倉平均點數'
+          //                                 }
+          //                             },
+          //                             tooltip: {
+          //                                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+          //                                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+          //                                     '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+          //                                 footerFormat: '</table>',
+          //                                 shared: true,
+          //                                 useHTML: true
+          //                             },
+          //                             plotOptions: {
+          //                                 column: {
+          //                                     pointPadding: 0.2,
+          //                                     borderWidth: 0
+          //                                 }
+          //                             },
+          //                             credits: {
+          //                                 enabled: false
+          //                             },
+          //                             series: [
+          //                                 {
+          //                                     name: '外資',
+          //                                     data: [],
+          //                                     color: "#23395B",
+          //                                 },
                                           // {
                                           //     name: '自營商',
                                           //     data: [4,5,6],
@@ -631,10 +678,10 @@
                                           //     data: [],
                                           //     color: "#8EA8C3",
                                           // },
-                                      ]
-                                  }
+                                  //     ]
+                                  // }
 
-                                  var staticBigguyCost = Highcharts.chart('plot2', options4BigguyCost)
+                                  // var staticBigguyCost = Highcharts.chart('plot2', options4BigguyCost)
                                   //TEST OVER
                                   setInterval(dashboard2, 2000);
                                   setInterval(dashboard1, 2000);
