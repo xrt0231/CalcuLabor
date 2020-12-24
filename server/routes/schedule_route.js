@@ -6,7 +6,8 @@ const {
     getActualGanttChart,
     productionOrderInfo,
     createProductionOrder,
-    updateProductionOrder
+    updateProductionOrder,
+    dropdownProcess
 } = require('../controllers/schedule_controller');
 
 router.route('/admin/ganttchart')
@@ -23,5 +24,8 @@ router.route('/admin/createProductionOrder')
 
 router.route('/admin/updateProductionOrder')
     .post(updateProductionOrder);
+
+router.route('/admin/dropdownProcess')
+    .get(dropdownProcess);
 
 module.exports = router;

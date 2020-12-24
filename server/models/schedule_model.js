@@ -43,11 +43,19 @@ const productionOrderInfo = async(productionOrderNum)=> {
     return result2;
  } 
 
+ const dropdownProcess = async()=> {
+    
+    let result = await query(`SELECT record_process FROM mmem.process_standard_output group by record_process;`);
+    console.log(result);
+    return result;
+ } 
+
 
 module.exports = {
     getGanttChart,
     getActualGanttChart,
     productionOrderInfo,
     createProductionOrder,
-    updateProductionOrder 
+    updateProductionOrder,
+    dropdownProcess
 };

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      <title>Production Plan</title>
+      <title img>CalcuLabor</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="icon" href="/logo/logo_calculabor.png" type="image/x-icon">
       <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -62,25 +63,25 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manual<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/admin/schedule.html">Production Plan Input</a></li>
-                  <li><a href="/admin/production.html">Production Data Update</a></li>
-                  <li><a href="/admin/hour.html">Working Hour Input</a></li>
+                  <li><a href="/admin/schedule.html">Production Planning</a></li>
+                  <li><a href="/admin/production.html">Execute Production</a></li>
+                  <li><a href="/admin/hour.html">Working Hour</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="/admin/dashboard.html">Dashboard</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="/index.html">Navigator</a></li>
+                  <li><a href="/index.html">Home</a></li>
                 </ul>
               </li>
             </ul>
-            <form class="navbar-form navbar-left">
+            <!-- <form class="navbar-form navbar-left">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Search">
               </div>
               <button type="submit" class="btn btn-default">Submit</button>
               
-            </form>
+            </form> -->
             
-            <ul class="nav navbar-nav navbar-right">
+            <!-- <ul class="nav navbar-nav navbar-right">
               <li><a href="#">Link</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -92,7 +93,7 @@
                   <li><a href="#">Separated link</a></li>
                 </ul>
               </li>
-            </ul>
+            </ul> -->
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
         
@@ -104,38 +105,29 @@
           <div class="card mx-5">
   
             <div class="form-group col-md-6">
+              <label>Process Name</label>
+              
+              <input type="text" class="form-control" list="recordProcessAuto" id="recordProcess" ></input>
+              <datalist id="recordProcessAuto"></datalist>
+              
+            </div>
+
+            <div class="form-group col-md-6">
               <label>Production Order Number</label>
               <input type="text" class="form-control" id="MyInput">
             </div>
   
             <div class="form-group col-md-6">
-              <label>Process Name</label>
-              
-              <select type="text" class="form-control" id="recordProcess">
-                <option ></option>
-                <option >process_1</option>
-                <option >process_2</option>
-                <option >process_3</option>
-                <option >process_4</option>
-                <option >process_5</option>
-                <option >process_6</option>
-                <option >process_7</option>
-                <option >process_8</option>
-                <option >process_9</option>
-                <option >process_10</option>
-              </select>
-            </div>
-  
-            <div class="form-group col-md-6">
               <label>Plan Output</label>
-              <input type="text" class="form-control" id="outputQty">
+              <input type="text"  class="form-control" id="outputQty"></input>
+              
             </div>
   
             <div class="form-group col-md-6">
-              <label>Part Number</label>
               
+              <label>Part Number</label>
               <select type="text" class="form-control" id="partNum">
-                <option ></option>
+                
                 <option >10000001</option>
                 <option >10000002</option>
                 
@@ -556,6 +548,39 @@
                       setTimeout(function(){window.location.replace('/index.html')}, 3000);
                     }
                   } 
+
+                  //Dropdown list of production process
+                  let dropdown = document.getElementById('recordProcessAuto');
+
+
+
+                  const url = '/api/1.0/admin/dropdownProcess';
+
+                  fetch(url)  
+                    .then(  
+                      function(response) {  
+                        if (response.status !== 200) {  
+                          console.warn('Looks like there was a problem. Status Code: ' + 
+                            response.status);  
+                          return;  
+                        }
+
+                        // Examine the text in the response  
+                        response.json().then(function(data) {  
+                          let option;
+                      
+                        for (let i = 0; i < data.length; i++) {
+                          let option = document.createElement('option');
+                           
+                            option.value = data[i].record_process;
+                            dropdown.appendChild(option);
+                        }    
+                        });  
+                      }  
+                    )  
+                    .catch(function(err) {  
+                      console.error('Fetch Error -', err);  
+                    });
         
 </script>
 
