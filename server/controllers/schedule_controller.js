@@ -91,29 +91,30 @@ const updateProductionOrder = async (req, res) => {
     res.send(schedule);
 }
 
+//Auto guess dropdown list of process
 const dropdownProcess = async (req, res) => {
-
-    // let productionOrderNum = req.body.productionOrderNum;
-    // let partNum = req.body.partNum;
-
-    // let productionGroup = req.body.productionGroup;
-    // let recordProcess = req.body.recordProcess;
-    // let outputQty = req.body.outputQty;
-
-    //Get star time from UI and convert to DATETIME format
-    // let startGet = new Date(`${req.body.start}`);
-    // let start = moment(startGet).format("YYYY-MM-DD HH:mm:ss");
-    
-    //Get end time from UI and convert to DATETIME format 
-    // let endGet = new Date(`${req.body.end}`);
-    // let end = moment(endGet).format("YYYY-MM-DD HH:mm:ss");
-    
-
-    // console.log(productionOrderNum, partNum, recordProcess, start, end, outputQty);
 
     const schedule = (await Schedule.dropdownProcess());
     res.send(schedule);
 }
+
+//Auto guess dropdown list of production order num
+const dropdownProducionOrderNum = async (req, res) => {
+    let recordProcess = req.body.process;
+    console.log(recordProcess);
+    const schedule = (await Schedule.dropdownProducionOrderNum(recordProcess));
+    res.send(schedule);
+}
+
+//Auto guess dropdown list of part num
+const dropdownPartNum = async (req, res) => {
+    let productionOrderNum = req.body.productionOrderNum;
+    console.log(productionOrderNum);
+    const schedule = (await Schedule.dropdownPartNum(productionOrderNum));
+    res.send(schedule);
+}
+
+
 
 module.exports = {
     getGanttChart, 
@@ -121,5 +122,7 @@ module.exports = {
     productionOrderInfo,
     createProductionOrder,
     updateProductionOrder,
-    dropdownProcess
+    dropdownProcess,
+    dropdownProducionOrderNum,
+    dropdownPartNum
 };

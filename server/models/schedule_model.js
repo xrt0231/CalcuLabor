@@ -51,11 +51,29 @@ const productionOrderInfo = async(productionOrderNum)=> {
  } 
 
 
+ const dropdownProducionOrderNum = async(recordProcess)=> {
+    console.log(recordProcess)
+    let result = await query(`SELECT production_order_num FROM mmem.production_plan WHERE record_process = '${recordProcess}'`);
+    console.log(result);
+    return result;
+ }
+
+
+ const dropdownPartNum = async(productionOrderNum)=> {
+    console.log(productionOrderNum)
+    let result = await query(`SELECT part_num FROM mmem.production_plan WHERE production_order_num = '${productionOrderNum}'`);
+    console.log(result);
+    return result;
+ }
+
 module.exports = {
     getGanttChart,
     getActualGanttChart,
     productionOrderInfo,
     createProductionOrder,
     updateProductionOrder,
-    dropdownProcess
+    dropdownProcess,
+    dropdownProducionOrderNum,
+    dropdownPartNum
+
 };

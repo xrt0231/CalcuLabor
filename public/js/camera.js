@@ -1,5 +1,6 @@
 
-   // Prefer camera resolution nearest to 1280x720.
+
+  // Prefer camera resolution nearest to 1280x720.
    var constraints = { audio: false, video: { width: 1280, height: 720 } }; 
 
    navigator.mediaDevices.getUserMedia(constraints)
@@ -78,7 +79,12 @@
         document.getElementById("btn").addEventListener("click", function () {
             if (_scannerIsRunning) {
                 Quagga.stop();
+                _scannerIsRunning = false;
+
             } else {
                 startScanner();
             }
         }, false);
+
+
+     

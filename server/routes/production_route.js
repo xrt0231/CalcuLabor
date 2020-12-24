@@ -4,7 +4,9 @@ const router = require('express').Router();
 const {
     // getGanttChart,
     getProductionData,
-    fastCheckInOut
+    fastCheckInOut,
+    dropdownProdOrdNum
+
 } = require('../controllers/production_controller');
 
 router.route('/admin/getProductionData')
@@ -12,7 +14,8 @@ router.route('/admin/getProductionData')
 
 router.route('/admin/fastCheckInOut')
     .post(fastCheckInOut);
-// router.route('/admin/productionOrderInfo')
-//     .post(productionOrderInfo);
+
+router.route('/admin/dropdownProdOrdNum')
+    .post(dropdownProdOrdNum);
 
 module.exports = router;

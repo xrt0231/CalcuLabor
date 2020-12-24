@@ -48,7 +48,17 @@ const fastCheckInOut = async (req, res) => {
     
 };
 
+const dropdownProdOrdNum = async (req, res) => {
+    let process = req.body.process;
+    const production = (await Production.dropdownProdOrdNum(process));
+    res.send(production);
+    
+};
+
+
+
 module.exports = {
     getProductionData,
-    fastCheckInOut
+    fastCheckInOut,
+    dropdownProdOrdNum
 };
