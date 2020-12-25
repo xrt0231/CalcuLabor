@@ -1,11 +1,497 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+    <head>
+      <title img>CalcuLabor</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link rel="icon" href="/logo/logo_calculabor.png" type="image/x-icon">
+      <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <!-- Include the image-diff library -->
+      <script src="/js/quagga.min.js"></script>
+      <!-- Or use a CDN -->
+      <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
+
+      <!--  jQuery -->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+      <!--CDN moment js-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+      <!--Sweet Alert2 CDN-->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+      
+    </head>
     
-</body>
+    <style>
+
+      body {
+        /* background-image: url("/logo/logo_calculabor.png"); */
+        background-color:darkgray;
+        margin: 0;
+        }
+    </style>
+      <body>
+      <nav class="navbar navbar-default">
+       
+        <div class="container-fluid">
+          
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+           
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            
+              <span class="sr-only">Toggle navigation</span>
+             
+              <span class="icon-bar"> </span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              
+            </button>
+           
+            <a href="/index.html"><img src="/logo/logo_calculabor.png" width="50px" height="50px"></a>
+          </div>
+      
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            
+            <ul class="nav navbar-nav">
+              <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+              <li><a href="#">Link</a></li> -->
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manual<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/admin/standard.html">standard setting</a></li>  
+                  <li><a href="/admin/schedule.html">Production planning</a></li>
+                  <li><a href="/admin/production.html">Execute production</a></li>
+                  <li><a href="/admin/hour.html">Working hour</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="/admin/dashboard.html">Dashboard</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="/index.html">Home</a></li>
+                </ul>
+              </li>
+            </ul>
+           
+            
+            
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">You are in producion planning......</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User guide <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Under construction</a></li>
+                  <li><a href="#">-</a></li>
+                  <li><a href="#">-</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">-</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+        
+      </nav>
+
+      <div class="container-fluid">
+
+        <div class="col-lg-6" style="height: 500px;">
+          <div class="card mx-5">
+  
+            <div class="form-group col-md-6">
+              <label>Process Name</label>
+              <input type="text" class="form-control" list="recordProcessAuto" id="recordProcess" ></input>
+              <datalist id="recordProcessAuto"></datalist>
+            </div>
+
+            <div class="form-group col-md-6">     
+                <label>Part Number</label>
+                <input type="text" class="form-control" list="AutoPartNum" id="partNum"></input>
+                <datalist id="AutoPartNum"></datalist>
+              </div>
+
+            <!-- <div class="form-group col-md-6">
+              <label>Production Order Number</label>
+              <input type="text" class="form-control" list="MyInputAuto" id="MyInput"></input>
+              <datalist id="MyInputAuto"></datalist>
+            </div>
+
+            
+   -->
+            <div class="form-group col-md-6">
+              <label>Standard (Pcs/Hr)</label>
+              <input type="text"  class="form-control" id="outputStandard"></input>
+            </div>
+  
+            
+  
+              <!-- <div class="form-group col-md-6">
+                <label class="control-label" for="date">Start Date/Time</label>
+                <div class='input-group date' >
+                  <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='start' value="" class="form-control"/>
+                  <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+               </div>
+          
+              <div class="form-group col-md-6">
+                <label class="control-label" for="date">End Date/Time</label>
+                <div class='input-group date' >
+                  <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='end' value="" class="form-control" />
+                  <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+              </div> -->
+              <div class="form-group col-md-12">
+                <button class="btn btn-primary btn-md" type="button" onclick="fetchData();"><img src="/logo/question-octagon.svg" alt="" width="25" height="20" title="Bootstrap"></button> 
+                <button class="btn btn-primary btn-md" type="submit" onclick="createStandard();">Create standard</button>
+                <button class="btn btn-primary btn-md" type="submit" onclick="updateStandard();">Update standard</button>
+              </div>
+              <div id="standardCreated"></div>
+              
+            </div>
+          </div>
+        
+        <!--Start and stop scanner-->
+        <div class="col-lg-6" style="height: 500px;">
+          <div class="card mx-5"><br>
+            <button class="btn btn-primary btn-md" id="btn" value="BC scanner"><img src="/logo/upc-scan.svg" alt="" width="25" height="20" title="Bootstrap">Turn on/off camera</button>
+            <div id="scanner-container"></div>
+          </div>
+        </div>
+        <!--Create Gantt chart-->
+        <div class="card mx-5">
+          <button class="btn btn-primary btn-md" type="submit" onclick="fetchGanttChart();"><img src="/logo/bar-chart-steps.svg" alt="" width="25" height="20" title="Bootstrap"></button>
+          <label for="output" style="font-size: 25px">Production standard list:</label> 
+            
+        </div>
+  
+        <div class="col-lg-6" style="height: 500px;">
+          <div class="form-group col-md-6">
+            <label class="control-label" for="date">Start Date/Time</label>
+            <div class='input-group date' >
+              <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='start1' value="" class="form-control"/>
+              <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+           </div>
+      
+          <div class="form-group col-md-6">
+            <label class="control-label" for="date">End Date/Time</label>
+            <div class='input-group date' >
+              <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='end1' value="" class="form-control" />
+              <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+          </div>
+          <div id="chart"></div>
+        </div>
+               
+        <script src="/js/gantt.js"></script>
+
+      <script>
+           fetchUserData();
+
+          //Datetime picker function
+          
+          $(function() {
+            $('#start').datetimepicker();
+          });
+            
+          $(function() {
+            $('#end').datetimepicker();
+          });
+
+          $(function() {
+            $('#start1').datetimepicker();
+          });
+            
+          $(function() {
+            $('#end1').datetimepicker();
+          });
+            
+            // fetch standard infomation from DB to make gantt chart
+            function fetchData() {
+             
+                let recordProcess = document.getElementById('recordProcess').value;
+                let partNum = document.getElementById('partNum').value;
+                
+                let options = {
+                    headers: {
+                        "Content-Type": "application/json"
+                        },
+                    method: "POST",
+                    body: JSON.stringify({
+                        recordProcess: recordProcess,
+                        partNum: partNum
+                        })
+                  };
+
+                  partNum.value = '';
+                  recordProcess.value = '';
+                  
+                fetch('/api/1.0/admin/getStandard', options)
+                    .then(response => {
+                        let message = response.json();
+                        console.log('test');
+                        return message;
+                        })
+                    .then(result => {
+                        if (result) {
+                            
+                            console.log("API fetch success...");
+                            let record_process = result[0].record_process;
+                            let part_num = result[0].part_num;
+                            let outputStandard = result[0].standard_output;
+                    
+                            document.getElementById('recordProcess').value = recordProcess;
+                            document.getElementById('partNum').value = partNum;
+                            document.getElementById('outputStandard').value = outputStandard;
+                                                
+                              } else {
+                                alert(result.msg);
+                                }
+                          });
+                }
+
+                //Create production standard function
+                function createStandard() {
+                  
+                  let recordProcess = document.getElementById('recordProcess').value;
+                  let partNum = document.getElementById('partNum').value;
+                  let outputStandard = document.getElementById('outputStandard').value;
+
+                  let options = {
+                      headers: {
+                          "Content-Type": "application/json"
+                          },
+                      method: "POST", 
+                      body: JSON.stringify({
+                          
+                          partNum: partNum,
+                          recordProcess: recordProcess,
+                          outputStandard: outputStandard,
+                          })
+                      
+                    };
+                    
+                    partNum.value = '';
+                    recordProcess.value = '';
+                    outputStandard.value = '';
+
+                  fetch('/api/1.0/admin/createStandard', options)
+                      .then(response => {
+                          let message = response.json();
+                          console.log('test');
+                          return message;
+                          })
+                      .then(result => {
+                          if (result) {
+                            console.log("API fetch success...");
+                            
+                            let record_process = result[0].record_process;
+                            let part_num = result[0].part_num;
+                            let outputStandard = result[0].standard_output;
+                    
+                            document.getElementById('standardCreated').innerHTML = `<h3> <div class="col-md-6" style="font-size: 15px">
+                                                                                      Production standard has been created...<br><br>
+                                                                                      
+                                                                                      Process: ${recordProcess}<br>
+                                                                                      part number#: ${partNum}<br>
+                                                                                      Standard output: ${outputStandard}<br>
+                                                        
+                                                                                      </div><h3>`; 
+                                } else {
+                                  alert(result.msg);
+                                  }
+                            });
+
+                }
+                //Update production standard function
+                function updateStandard() {
+                  
+                  let partNum = document.getElementById('partNum');
+                  let recordProcess = document.getElementById('recordProcess');
+                  let outputQty = document.getElementById('outputStandard');
+
+                  let options = {
+                      headers: {
+                          "Content-Type": "application/json"
+                          },
+                      method: "POST", 
+                      body: JSON.stringify({
+                          
+                          partNum: partNum.value,
+                          recordProcess: recordProcess.value,
+                          outputStandard: outputStandard.value,
+                          })
+                      
+                    };
+                    
+                    partNum.value = '';
+                    recordProcess.value = '';
+                    outputStandard.value = '';
+
+                  fetch('/api/1.0/admin/setStandard', options)
+                      .then(response => {
+                          let message = response.json();
+                          console.log('test');
+                          return message;
+                          })
+                      .then(result => {
+                          if (result) {
+                              console.log("API fetch success...");
+                              
+                              let recordProcess = result[0].record_process;
+                              let partNum = result[0].part_num;
+                              let outputStandard = result[0].standard_output;
+             
+                              document.getElementById('orderCreated').innerHTML = `<h3>
+                                                                                      <div class="col-md-6" style="font-size: 15px">
+                                                                                      Production standard has been updated...<br><br>
+                                                                                      
+                                                                                      Process: ${recordProcess}<br>
+                                                                                      part number#: ${partNum}<br>
+                                                                                      Standard output: ${outputStandard}<br>
+                                                                                    
+                                                                                      </div>
+                                                                                      <h3>`; 
+                                } else {
+                                  alert(result.msg);
+                                  }
+                            });
+
+                }
+
+                function fetchUserData (){
+      
+                  var token = localStorage.getItem('Authorization');
+                  if(token){
+                    console.log(token);
+                      let options = {
+                            headers: { 
+                              "Content-Type": "application/json"
+                            },
+                              method: "POST", 
+                              body: JSON.stringify({
+                              token:  token
+                            })
+                          };
+                        
+                          fetch('/api/1.0/admin/userProfile', options)
+                            .then(response => {
+                              let message = response.json();
+                              console.log('fetching...');
+                              return message;
+                              })
+                              .then(result => {
+                
+                                if (result.name==='notSignIn') {
+                                  console.log('API fetch success...')
+                                  console.log(result)
+                                  Swal.fire('Please sign in...');
+                                  setTimeout(function(){window.location.replace('/index.html')}, 3000);
+                                  } else {}
+                                });
+                    }else {
+                      Swal.fire('Please sign in...');
+                      setTimeout(function(){window.location.replace('/index.html')}, 3000);
+                    }
+                  } 
+
+                  //Dropdown list of production process
+                  let dropdown = document.getElementById('recordProcessAuto');
+                  const url = '/api/1.0/admin/dropdownProcess';
+
+                  fetch(url)  
+                    .then(  
+                      function(response) {  
+                        if (response.status !== 200) {  
+                          console.warn('Looks like there was a problem. Status Code: ' + 
+                            response.status);  
+                          return;  
+                        }
+
+                        // Examine the text in the response  
+                        response.json().then(function(data) {  
+                          let option;
+                      
+                        for (let i = 0; i < data.length; i++) {
+                          let option = document.createElement('option');
+                           
+                            option.value = data[i].record_process;
+                            dropdown.appendChild(option);
+                        }    
+                        });  
+                      }  
+                    )  
+                    .catch(function(err) {  
+                      console.error('Fetch Error -', err);  
+                    });
+
+                  //Dropdown list of part number
+                  document.getElementById("recordProcess").addEventListener("input", function (){
+                        let dropdown2 = document.getElementById('AutoPartNum');
+                        let partNum = document.getElementById('partNum');
+                        partNum.value = "";
+                        dropdown2.innerHTML = "";
+     
+                        let recordProcess = document.getElementById('recordProcess').value;
+                        const url = '/api/1.0/admin/dropdownPartNum1';
+                        console.log(recordProcess);
+                        let options = {
+                            headers: {
+                                "Content-Type": "application/json"
+                                },
+                            method: "POST", 
+                            body: JSON.stringify({
+                              recordProcess: recordProcess
+                                })
+                            
+                          };  
+                          console.log(recordProcess);
+
+                        fetch(url, options)  
+                        .then(  
+                            function(response) {  
+                              if (response.status !== 200) {  
+                                console.warn('Looks like there was a problem. Status Code: ' + 
+                                  response.status);  
+                                return;  
+                              }
+
+                              // Examine the text in the response  
+                              response.json().then(function(data) {  
+                                let option;
+                                
+                                console.log('data fetched ... ...')
+                              for (let i = 0; i < data.length; i++) {
+                                let option = document.createElement('option');
+                                
+                                  option.value = data[i].part_num;
+                                  dropdown2.appendChild(option);
+                              }    
+                              });  
+                            }  
+                          )  
+                          .catch(function(err) {  
+                            console.error('Fetch Error -', err);  
+                          });
+                  });
+</script>
+<script src="/js/camera.js"></script>
+
+
+    </body>
 </html>

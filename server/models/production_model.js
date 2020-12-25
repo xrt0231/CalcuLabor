@@ -39,7 +39,7 @@ const fastCheckInOut = async(productionOrderNum, dateTime, outputQty)=> {
     //Get dropdown production order num
     const dropdownProdOrdNum = async(process)=> {
 
-        let result = await query(`SELECT production_order_num FROM mmem.production_plan WHERE record_process = '${process}' AND actual_start IS NULL`);
+        let result = await query(`SELECT production_order_num FROM mmem.production_plan WHERE record_process = '${process}' AND actual_end IS NULL`);
         
         return result;
     }
