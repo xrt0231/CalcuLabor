@@ -84,20 +84,19 @@
             
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#">You are in producion planning......</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User guide <span class="caret"></span></a>
-                <ul class="dropdown-menu">
+              <li>
+                <a role="button" onclick="signout();">Sign out</a>
+                <!-- <ul class="dropdown-menu">
                   <li><a href="#">Under construction</a></li>
                   <li><a href="#">-</a></li>
                   <li><a href="#">-</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="#">-</a></li>
-                </ul>
+                </ul> -->
               </li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
-        
       </nav>
 
       <div class="container-fluid">
@@ -203,7 +202,14 @@
         <script src="/js/gantt.js"></script>
 
       <script>
+           //Check if user sign in status
            fetchUserData();
+           
+           //User sign out
+           function signout(){
+            localStorage.removeItem("Authorization");
+            window.location.replace('/index.html');
+           }
 
           //Datetime picker function
           

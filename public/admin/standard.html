@@ -79,20 +79,18 @@
                 </ul>
               </li>
             </ul>
-           
-            
             
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#">You are in producion planning......</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User guide <span class="caret"></span></a>
-                <ul class="dropdown-menu">
+              <li>
+                <a role="button" onclick="signout();">Sign out</a>
+                <!-- <ul class="dropdown-menu">
                   <li><a href="#">Under construction</a></li>
                   <li><a href="#">-</a></li>
                   <li><a href="#">-</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="#">-</a></li>
-                </ul>
+                </ul> -->
               </li>
             </ul>
           </div><!-- /.navbar-collapse -->
@@ -117,40 +115,11 @@
                 <datalist id="AutoPartNum"></datalist>
               </div>
 
-            <!-- <div class="form-group col-md-6">
-              <label>Production Order Number</label>
-              <input type="text" class="form-control" list="MyInputAuto" id="MyInput"></input>
-              <datalist id="MyInputAuto"></datalist>
-            </div>
-
-            
-   -->
             <div class="form-group col-md-6">
               <label>Standard (Pcs/Hr)</label>
               <input type="text"  class="form-control" id="outputStandard"></input>
             </div>
   
-            
-  
-              <!-- <div class="form-group col-md-6">
-                <label class="control-label" for="date">Start Date/Time</label>
-                <div class='input-group date' >
-                  <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='start' value="" class="form-control"/>
-                  <span class="input-group-addon">
-                  <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-                </div>
-               </div>
-          
-              <div class="form-group col-md-6">
-                <label class="control-label" for="date">End Date/Time</label>
-                <div class='input-group date' >
-                  <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='end' value="" class="form-control" />
-                  <span class="input-group-addon">
-                  <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-                </div>
-              </div> -->
               <div class="form-group col-md-12">
                 <button class="btn btn-primary btn-md" type="button" onclick="fetchData();"><img src="/logo/question-octagon.svg" alt="" width="25" height="20" title="Bootstrap"></button> 
                 <button class="btn btn-primary btn-md" type="submit" onclick="createStandard();">Create standard</button>
@@ -202,6 +171,11 @@
 
       <script>
            fetchUserData();
+
+           function signout(){
+            localStorage.removeItem("Authorization");
+            window.location.replace('/index.html');
+           }
 
           //Datetime picker function
           
