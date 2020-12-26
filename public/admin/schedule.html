@@ -27,6 +27,8 @@
       <!--Sweet Alert2 CDN-->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+      <!--Highchart gantt chart -->
+      <script src="https://code.highcharts.com/gantt/highcharts-gantt.js"></script>
       
     </head>
     
@@ -37,6 +39,9 @@
         background-color:darkgray;
         margin: 0;
         }
+
+        
+
     </style>
       <body>
       <nav class="navbar navbar-default">
@@ -167,12 +172,14 @@
           <div class="card mx-5"><br>
             <button class="btn btn-primary btn-md" id="btn" value="BC scanner"><img src="/logo/upc-scan.svg" alt="" width="25" height="20" title="Bootstrap">Turn on/off camera</button>
             <div id="scanner-container"></div>
+           
           </div>
         </div>
         <!--Create Gantt chart-->
         <div class="card mx-5">
           <button class="btn btn-primary btn-md" type="submit" onclick="fetchGanttChart();"><img src="/logo/bar-chart-steps.svg" alt="" width="25" height="20" title="Bootstrap"></button>
-          <label for="output" style="font-size: 25px">Production Plan:</label> 
+          <label for="output" style="font-size: 25px">Daily roduction Plan:</label> 
+          
             
         </div>
   
@@ -188,20 +195,35 @@
            </div>
       
           <div class="form-group col-md-6">
-            <label class="control-label" for="date">End Date/Time</label>
+            <!-- <label class="control-label" for="date">End Date/Time</label>
             <div class='input-group date' >
               <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='end1' value="" class="form-control" />
               <span class="input-group-addon">
               <span class="glyphicon glyphicon-calendar"></span>
               </span>
-            </div>
+            </div> -->
+            
+          </div>   
+          <div class="form-group col-md-12"><div id="container">
+            <div id="chart"></div>
           </div>
-          <div id="chart"></div>
+          
+          </div>
+          
+          
+           
+         
         </div>
+        
                
         <script src="/js/gantt.js"></script>
 
+      
       <script>
+
+        
+
+      
            //Check if user sign in status
            fetchUserData();
            
@@ -293,12 +315,14 @@
                    });
             }
             
-            // fetch production order infomation from DB to make gantt chart
+            //fetch production order infomation from DB to make gantt chart
             function fetchGanttChart() {
+              let chart = document.getElementById('chart');
+              chart.innerHTML = '';
               let data = [];
                 // let today = new Date().toISOString().slice(0, 10);
                 let start = document.getElementById('start1').value;
-                let end = document.getElementById('end1').value;
+                // let end = document.getElementById('end1').value;
                 let options = {
                     headers: {
                         "Content-Type": "application/json"
@@ -307,7 +331,7 @@
                     body: JSON.stringify({
                         // date: today
                         start: start,
-                        end: end
+                        // end: end
                         })
                     
                   };
@@ -326,10 +350,12 @@
                             //create gantt chart data
                             let ganttdata = {}
                             for (let i=0; i<result.length; i+=1){
+                                start = moment(result[i].start).format("YYYY-MM-DD HH:mm:ss");
+                                end = moment(result[i].end).format("YYYY-MM-DD HH:mm:ss");
                                 ganttdata = {
                                 recordID: i+1,
-                                row: `${result[i].production_order_num}`,
-                                tooltip: `${result[i].material_num}, ${result[i].record_process}, ${result[i].start}, ${result[i].end}`,
+                                row: `${result[i].record_process}`,
+                                tooltip: `PN: ${result[i].part_num}, PO#: ${result[i].production_order_num}, Start: ${start}, End: ${end}`,
                                 start: `${result[i].start}`,
                                 end: `${result[i].end}`,
                               }
@@ -683,7 +709,10 @@
                             console.error('Fetch Error -', err);  
                           });
                   });
+                  
 </script>
+
+  
 <script src="/js/camera.js"></script>
 
 

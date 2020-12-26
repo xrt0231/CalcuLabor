@@ -7,11 +7,11 @@ const getGanttChart = async (req, res) => {
     // let date = req.body.date;
     //Get star time from UI and convert to DATETIME format
     let startGet = new Date(`${req.body.start}`);
-    let start = moment(startGet).format("YYYY-MM-DD HH:mm:ss");
+    let start = moment(startGet).format("YYYY-MM-DD");
     
-    //Get end time from UI and convert to DATETIME format 
-    let endGet = new Date(`${req.body.end}`);
-    let end = moment(endGet).format("YYYY-MM-DD HH:mm:ss");
+    // Get end time from UI and convert to DATETIME format 
+    let endGet = new Date(`${req.body.start}`);
+    let end = moment(endGet.setDate(endGet.getDate()+1)).format("YYYY-MM-DD");
 
     const schedule = (await Schedule.getGanttChart(start, end));
     res.send(schedule);
@@ -19,14 +19,14 @@ const getGanttChart = async (req, res) => {
 
 //For actual production schedule
 const getActualGanttChart = async (req, res) => {
-    // let date = req.body.date;
+     // let date = req.body.date;
     //Get star time from UI and convert to DATETIME format
     let startGet = new Date(`${req.body.start}`);
-    let start = moment(startGet).format("YYYY-MM-DD HH:mm:ss");
+    let start = moment(startGet).format("YYYY-MM-DD");
     
-    //Get end time from UI and convert to DATETIME format 
-    let endGet = new Date(`${req.body.end}`);
-    let end = moment(endGet).format("YYYY-MM-DD HH:mm:ss");
+    // Get end time from UI and convert to DATETIME format 
+    let endGet = new Date(`${req.body.start}`);
+    let end = moment(endGet.setDate(endGet.getDate()+1)).format("YYYY-MM-DD");
 
     const schedule = (await Schedule.getActualGanttChart(start, end));
     res.send(schedule);
