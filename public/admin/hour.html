@@ -23,6 +23,9 @@
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
+      <!--CDN moment js-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+
       <!--Sweet Alert2 CDN-->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
@@ -86,7 +89,7 @@
             </form> -->
             
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#">You are in producion planning......</a></li>
+              <li><a href="#" style="font-style: bold; color: rgb(17, 16, 16);"><strong>WORKING HOUR MODULE</strong></a></li>
               <li>
                 <a role="button" onclick="signout();">Sign out</a>
                 <!-- <ul class="dropdown-menu">
@@ -317,12 +320,14 @@
                           //create gantt chart data
                           let workHourData = {}
                           for (let i=0; i<result.length; i+=1){
+                            start = moment(result[i].start).format("YYYY-MM-DD HH:mm:ss");
+                            end = moment(result[i].end).format("YYYY-MM-DD HH:mm:ss");
                             workHourData = {
                               recordID: i+1,
                               row: `${result[i].record_process}`,
-                              tooltip: `${result[i].material_num}, ${result[i].record_process}, ${result[i].start}, ${result[i].end}`,
-                              start: `${result[i].start}`,
-                              end: `${result[i].end}`,
+                              tooltip: `ID: ${result[i].employee_id}, Process: ${result[i].record_process}, Start work @ ${start}, End work @ ${end}`,
+                              start: `${start}`,
+                              end: `${end}`,
                              }
                               data.push(workHourData); 
                            }
