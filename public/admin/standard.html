@@ -139,12 +139,12 @@
         </div>
         <!--Create Gantt chart-->
         <div class="card mx-5">
-          <button class="btn btn-primary btn-md" type="submit" onclick="fetchGanttChart();"><img src="/logo/bar-chart-steps.svg" alt="" width="25" height="20" title="Bootstrap"></button>
-          <label for="output" style="font-size: 25px">Production standard list:</label> 
+          <!-- <button class="btn btn-primary btn-md" type="submit" onclick="fetchGanttChart();"><img src="/logo/bar-chart-steps.svg" alt="" width="25" height="20" title="Bootstrap"></button> -->
+          <!-- <label for="output" style="font-size: 25px">Production standard list:</label>  -->
             
         </div>
   
-        <div class="col-lg-6" style="height: 500px;">
+        <!-- <div class="col-lg-6" style="height: 500px;">
           <div class="form-group col-md-6">
             <label class="control-label" for="date">Start Date/Time</label>
             <div class='input-group date' >
@@ -164,7 +164,7 @@
               </span>
             </div>
           </div>
-          <div id="chart"></div>
+          <div id="chart"></div> -->
         </div>
                
         <script src="/js/gantt.js"></script>
@@ -317,7 +317,7 @@
                     recordProcess.value = '';
                     outputStandard.value = '';
 
-                  fetch('/api/1.0/admin/setStandard', options)
+                  fetch('/api/1.0/admin/updateStandard', options)
                       .then(response => {
                           let message = response.json();
                           console.log('test');
@@ -331,7 +331,7 @@
                               let partNum = result[0].part_num;
                               let outputStandard = result[0].standard_output;
              
-                              document.getElementById('orderCreated').innerHTML = `<h3>
+                              document.getElementById('standardCreated').innerHTML = `<h3>
                                                                                       <div class="col-md-6" style="font-size: 15px">
                                                                                       Production standard has been updated...<br><br>
                                                                                       

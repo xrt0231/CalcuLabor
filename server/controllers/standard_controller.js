@@ -21,14 +21,20 @@ const getStandard = async (req, res) => {
 //Create production standards
 const createStandard = async (req, res) => {
     let recordProcess = req.body.recordProcess;
-    const standard = (await Standard.createStandard(recordProcess));
+    let partNum = req.body.partNum;
+    let outputStandard = req.body.outputStandard;
+
+    const standard = (await Standard.createStandard(recordProcess, partNum, outputStandard));
     res.send(standard);
 };
 
 //Update production standard
 const updateStandard = async (req, res) => {
     let recordProcess = req.body.recordProcess;
-    const standard = (await Standard.updateStandard(recordProcess));
+    let partNum = req.body.partNum;
+    let outputStandard = req.body.outputStandard;
+
+    const standard = (await Standard.updateStandard(recordProcess, partNum, outputStandard));
     res.send(standard);
 };
 

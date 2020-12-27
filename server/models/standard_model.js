@@ -14,13 +14,16 @@ const getStandard = async(recordProcess, partNum)=> {
  }
 
  const createStandard = async(recordProcess, partNum, outputStandard)=> {
-     console.log(recordProcess, partNum, outputStandard);
+    console.log(recordProcess, partNum, outputStandard);
     let result = await query(`SELECT * FROM mmem.process_standard_output WHERE record_process = '${recordProcess}' AND part_num = ${partNum}`)
-    if (result) {
+    if (result[0]) {
+        console.log(result);
         let warning = {warning: "Data incorrect, please check......"}
-        return warning
+        console.log('Wrong data......')
+        return warning;
         }else{
             let result1 = await query(`INSERT INTO mmem.process_standard_output SET part_num = ${partNum}, record_process = '${recordProcess}', standard_output = ${outputStandard}`)
+            console.log(result1)
             return result1;
         }
  }
@@ -36,5 +39,4 @@ const getStandard = async(recordProcess, partNum)=> {
      getStandard,
      createStandard,
      updateStandard,
-     
  };
