@@ -178,7 +178,7 @@
         <!--Create Gantt chart-->
         <div class="card mx-5">
           <button class="btn btn-primary btn-md" type="submit" onclick="fetchGanttChart();"><img src="/logo/bar-chart-steps.svg" alt="" width="25" height="20" title="Bootstrap"></button>
-          <label for="output" style="font-size: 25px">Daily roduction Plan:</label> 
+          <label for="output" style="font-size: 25px">Today's roduction Plan:</label> 
           
             
         </div>
@@ -449,7 +449,7 @@
                             end = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
                                   
                             document.getElementById('orderCreated').innerHTML = `<h3> <div class="col-md-6" style="font-size: 15px">
-                                                                                      Production oreder #: <a style="color: red">${productionOrderNum}</a> has been created...<br><br>
+                                                                                      Production oreder #: <a style="color: darkblue" "font-weight: bold";>${productionOrderNum}</a> has been created...<br><br>
                                                                                       Production #: ${productionOrderNum}<br>
                                                                                       Process: ${recordProcess}<br>
                                                                                       part number#: ${partNum}<br>

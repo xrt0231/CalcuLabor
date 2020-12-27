@@ -21,9 +21,12 @@ const getActualGanttChart = async(start, end)=> {
 //Get production order detail
 const productionOrderInfo = async(productionOrderNum)=> {
     console.log(productionOrderNum);
-    let result = await query(`SELECT * FROM production_plan where production_order_num = ${productionOrderNum}`);
+    if(productionOrderNum){
+      let result = await query(`SELECT * FROM production_plan where production_order_num = ${productionOrderNum}`);
+      return result;
+    }else result = {};
     console.log(result);
-    return result;
+    
  }
 
  const createProductionOrder = async(productionOrderNum, partNum, recordProcess, start, end, outputQty)=> {

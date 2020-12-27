@@ -20,24 +20,26 @@ const getHour = async(employeeId, recordProcess)=> {
 
  //Update working hour
     const clockInOut = async(employeeId, recordProces, dateTime)=> {
-   
-    let result = await query(`SELECT work_log_id, employee_id, record_process, max(start) AS recentStart, end AS recentEnd FROM working_hour WHERE employee_id = ${employeeId} AND record_process = '${recordProces}' GROUP BY work_log_id ORDER BY start DESC LIMIT 1`);
-    console.log('dateTime :', dateTime);
-    console.log('Get datetime of now ======================================');
-    console.log('result :', result);
-    console.log('======================================');
-    if(result[0].recentEnd){
-        let result1 = await query(`INSERT INTO working_hour (employee_id, record_process, start) VALUES (${employeeId}, '${recordProces}', '${dateTime}')`); 
-        let result3 = await query(`SELECT work_log_id, employee_id, record_process, start AS recentStart, end AS recentEnd FROM mmem.working_hour WHERE employee_id = ${employeeId} AND record_process = '${recordProces}' GROUP BY work_log_id, employee_id ORDER BY start DESC LIMIT 1`);
-        return result3;
-        
-        } else { 
-            let result2 =await query(`UPDATE working_hour SET end = '${dateTime}'
-            WHERE employee_id = ${employeeId} AND record_process = '${recordProces}' ORDER BY start DESC LIMIT 1`);
+
+        let result1 = await query(`SELECT * FROM working_hour WHERE employee_id = ${employeeId}`)
+        if (result1.length > 0){
+            let result2 = await query(`SELECT work_log_id, employee_id, record_process, max(start) AS recentStart, end AS recentEnd FROM working_hour WHERE employee_id = ${employeeId} AND record_process = '${recordProces}' GROUP BY work_log_id ORDER BY start DESC LIMIT 1`);
             
-            };
-            let result4 = await query(`SELECT work_log_id, employee_id, record_process, start AS recentStart, end AS recentEnd FROM mmem.working_hour WHERE employee_id = ${employeeId} AND record_process = '${recordProces}' GROUP BY work_log_id, employee_id ORDER BY start DESC LIMIT 1`);
-            return result4;
+            if(result2.recentEnd){
+                let result3 = await query(`INSERT INTO working_hour (employee_id, record_process, start) VALUES (${employeeId}, '${recordProces}', '${dateTime}')`); 
+                let result4 = await query(`SELECT work_log_id, employee_id, record_process, start AS recentStart, end AS recentEnd FROM mmem.working_hour WHERE employee_id = ${employeeId} AND record_process = '${recordProces}' GROUP BY work_log_id, employee_id ORDER BY start DESC LIMIT 1`);
+                return result5;
+            }else{
+                let result6 =await query(`UPDATE working_hour SET end = '${dateTime}' WHERE employee_id = ${employeeId} AND record_process = '${recordProces}' ORDER BY start DESC LIMIT 1`);
+                let result7 = await query(`SELECT work_log_id, employee_id, record_process, start AS recentStart, end AS recentEnd FROM mmem.working_hour WHERE employee_id = ${employeeId} AND record_process = '${recordProces}' GROUP BY work_log_id, employee_id ORDER BY start DESC LIMIT 1`);
+                return result7;
+                }
+            
+        }else{
+            let result8 = await query(`INSERT INTO working_hour (employee_id, record_process, start) VALUES (${employeeId}, '${recordProces}', '${dateTime}')`); 
+            let result9 = await query(`SELECT work_log_id, employee_id, record_process, start AS recentStart, end AS recentEnd FROM mmem.working_hour WHERE employee_id = ${employeeId} AND record_process = '${recordProces}' GROUP BY work_log_id, employee_id ORDER BY start DESC LIMIT 1`);
+            return result9;
+        }
     }
 
  module.exports = {

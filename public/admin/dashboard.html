@@ -133,19 +133,9 @@
       <!-- Default input -->
       <div class="form-group col-md-4">
         <label for="output">Process</label>
-        <select class="form-control" id="recordProcess">
-          <option ></option>
-          <option >process_1</option>
-          <option >process_2</option>
-          <option >process_3</option>
-          <option >process_4</option>
-          <option >process_5</option>
-          <option >process_6</option>
-          <option >process_7</option>
-          <option >process_8</option>
-          <option >process_9</option>
-          <option >process_10</option>
-        </select>
+        <input class="form-control" list="recordProcessAuto" id="recordProcess"></input>
+        <datalist id="recordProcessAuto"></datalist>
+          
       </div> 
 
       <div class="bootstrap-iso">
@@ -264,6 +254,36 @@
                   setTimeout(function(){window.location.replace('/index.html')}, 3000);
                 }
               } 
+
+              //Dropdown list of production process
+              let dropdown = document.getElementById('recordProcessAuto');
+                  const url = '/api/1.0/admin/dropdownProcess';
+
+                  fetch(url)  
+                    .then(  
+                      function(response) {  
+                        if (response.status !== 200) {  
+                          console.warn('Looks like there was a problem. Status Code: ' + 
+                            response.status);  
+                          return;  
+                        }
+
+                        // Examine the text in the response  
+                        response.json().then(function(data) {  
+                          let option;
+                      
+                        for (let i = 0; i < data.length; i++) {
+                          let option = document.createElement('option');
+                           
+                            option.value = data[i].record_process;
+                            dropdown.appendChild(option);
+                        }    
+                        });  
+                      }  
+                    )  
+                    .catch(function(err) {  
+                      console.error('Fetch Error -', err);  
+                    });
 
           
 

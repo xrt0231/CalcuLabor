@@ -173,7 +173,7 @@
       <div class="col-lg-6" style="height: 500px;">
         <div class="card mx-5">
           <button class="btn btn-primary btn-md" type="submit" onclick="fetchGanttChart();"><img src="/logo/bar-chart-steps.svg" alt="" width="25" height="20" title="Bootstrap"></button>
-          <label for="output" style="font-size: 25px">Daily Production Result:</label> 
+          <label for="output" style="font-size: 25px">Today's Production Result:</label> 
         </div>  
         <div class="col-lg-12" style="height: 500px;">
           <div class="form-group col-md-6">
@@ -532,9 +532,9 @@
                                     ganttdata = {
                                     recordID: i+1,
                                     row: `${result[i].record_process}`,
-                                    tooltip: `PN: ${result[i].part_num}, PO#: ${result[i].production_order_num}, Start: ${start}, End: ${end}}`,
-                                    start: `${result[i].start}`,
-                                    end: `${result[i].end}`,
+                                    tooltip: `PN: ${result[i].part_num}, PO#: ${result[i].production_order_num}, Start: ${start}, End: ${end}`,
+                                    start: `${start}`,
+                                    end: `${end}`,
                                   }
                                     data.push(ganttdata);
                                 }
