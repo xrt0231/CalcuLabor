@@ -404,7 +404,7 @@
               function fetchData (code){
 
                 if(code){
-                  var productionOrderNum =  code;
+                  var productionOrderNum = code;
                   }else {var productionOrderNum = document.getElementById('MyInput').value;}
 
                 // var recordProcess = document.getElementById('recordProcess').value;
@@ -417,12 +417,14 @@
                     method: "POST", 
                     body: JSON.stringify({
                         productionOrderNum:  productionOrderNum,
+                        
                         // recordProcess: recordProcess,
                         // outputQty:  outputQty,
                         // date: today
                         })
-                    
+                   
                   };
+                  console.log(productionOrderNum);
                 
                 fetch('/api/1.0/admin/getProductionData', options)
                     .then(response => {

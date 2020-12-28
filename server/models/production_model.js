@@ -2,11 +2,16 @@ const {transaction, commit, rollback, query} = require('./mysqlcon');
 
 //Get production order detail
 const getProductionData = async(productionOrderNum)=> {
-    if(productionOrderNum){
-        let result = await query(`SELECT * FROM production_plan where production_order_num = ${productionOrderNum}`);
-    }else {result = {}}
-    return result;
- }
+
+        if(productionOrderNum){
+            let result = await query(`SELECT * FROM mmem.production_plan where production_order_num = ${productionOrderNum}`);
+            console.log(result);
+            return result;
+        }else {
+          let result = {};
+          return result;
+        }
+    }
 
  //Production data update (CI/CO)
 const fastCheckInOut = async(productionOrderNum, dateTime, outputQty)=> {
