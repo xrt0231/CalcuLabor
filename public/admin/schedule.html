@@ -517,8 +517,8 @@
                               let start = new Date(result[0].start);
                               let end = new Date(result[0].end);
                       
-                              // start = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
-                              // end = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
+                              start = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
+                              end = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
                                     
                               document.getElementById('orderCreated').innerHTML = `<h3>
                                                                                       <div class="col-md-6" style="font-size: 15px">
