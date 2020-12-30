@@ -4,20 +4,23 @@
       <title>CalcuLabor</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
       <link rel="icon" href="/logo/logo_calculabor.png" type="image/x-icon">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-       <!-- Include the image-diff library -->
+
       <script src="/js/quagga.min.js"></script>
-       <!-- Or use a CDN -->
+      <!-- Or use a CDN -->
       <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
+      
+      <!-- gantt css-->
+      <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
+      
       <!--  jQuery -->
       <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-      <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
-      <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+      
+      <!--CDN boostrap css-->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      
+      <!--CDN boostrap js-->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
       <!-- Bootstrap Date-Picker Plugin -->
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
@@ -80,32 +83,19 @@
                 </ul>
               </li>
             </ul>
-            <!-- <form class="navbar-form navbar-left">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
-              </div>
-              <button type="submit" class="btn btn-default">Submit</button>
-              
-            </form> -->
             
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#" style="font-style: bold; color: rgb(17, 16, 16);"><strong>WORKING HOUR MODULE</strong></a></li>
               <li>
                 <a role="button" onclick="signout();">Sign out</a>
-                <!-- <ul class="dropdown-menu">
-                  <li><a href="#">Under construction</a></li>
-                  <li><a href="#">-</a></li>
-                  <li><a href="#">-</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">-</a></li>
-                </ul> -->
+                
               </li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
         
       </nav>
-        
+         
       <div class="container-fluid">
 
         <div class="col-lg-6" style="height: 500px;">
@@ -118,21 +108,10 @@
   
             <div class="form-group col-md-6">
               <label>Process Name</label>
-              <select type="text" class="form-control" id="recordProcess">
-                <option ></option>
-                <option >process_1</option>
-                <option >process_2</option>
-                <option >process_3</option>
-                <option >process_4</option>
-                <option >process_5</option>
-                <option >process_6</option>
-                <option >process_7</option>
-                <option >process_8</option>
-                <option >process_9</option>
-                <option >process_10</option>
-              </select>
+              <input type="text" class="form-control" list="recordProcessAuto" id="recordProcess" ></input>
+              <datalist id="recordProcessAuto"></datalist>
             </div>
-  
+
             <div class="bootstrap-iso">
               <div class="form-group col-md-6">
                 <label class="control-label" for="date">Start Date/Time</label>
@@ -174,256 +153,7 @@
         <script src="/js/gantt.js"></script>
         <!-- <script src="/js/initialize-gantt.js"></script> -->
 
-        <script>
-
-         
-                //User sign out
-                function signout(){
-                                localStorage.removeItem("Authorization");
-                                window.location.replace('/index.html');
-                              }
-
-           //Check if user sign in status
-           fetchUserData();
-                                    
-
-          function fetchUserData (){
-      
-              var token = localStorage.getItem('Authorization');
-              if(token){
-                console.log(token);
-                  let options = {
-                        headers: { 
-                          "Content-Type": "application/json"
-                        },
-                          method: "POST", 
-                          body: JSON.stringify({
-                          token:  token
-                        })
-                      };
-                    
-                      fetch('/api/1.0/admin/userProfile', options)
-                        .then(response => {
-                          let message = response.json();
-                          console.log('fetching...');
-                          return message;
-                          })
-                          .then(result => {
-            
-                            if (result.name==='notSignIn') {
-                              console.log('API fetch success...')
-                              console.log(result)
-                              Swal.fire('Please sign in...');
-                              setTimeout(function(){window.location.replace('/index.html')}, 3000);
-                              } else {
-                                
-                                }
-                            });
-                }else {
-                  Swal.fire('Please sign in...');
-                  setTimeout(function(){window.location.replace('/index.html')}, 3000);
-                }
-              } 
-
-          // fetch employee working hour infomation from DB
-          function fetchData (code){
-            if(code){
-              var employeeId = code;
-
-            } else {var employeeId =  document.getElementById('MyInput').value;}
-            
-            var recordProcess = document.getElementById('recordProcess').value;
-            // var outputQty = document.getElementById('outputQty').value;
-            // let today = new Date().toISOString().slice(0, 10);
-            let options = {
-                headers: {
-                    "Content-Type": "application/json"
-                     },
-                method: "POST", 
-                body: JSON.stringify({
-                    employeeId: employeeId,
-                    // productionOrderNum:  productionOrderNum,
-                    recordProcess: recordProcess,
-                    // outputQty:  outputQty,
-                    // date: today
-                    })
-                
-               };
-            
-            fetch('/api/1.0/admin/getHour', options)
-                .then(response => {
-                    let message = response.json();
-                    console.log('fetching...');
-                    return message;
-                    })
-                .then(result => {
-                    if (result) {
-                        console.log('API fetch success...')
-                        let employeeId = result[0].employee_id;
-                        let record_process = result[0].record_process;
-                        var start = new Date(result[0].recentStart);
-                        let end = new Date(result[0].recentEnd);
-                        console.log(result[0].recentEnd);
-                        if(result[0].recentEnd){
-                          
-                          
-                          document.getElementById('MyInput').value = employeeId;
-                          document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
-                          document.getElementById('end').value = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
-                        
-                        }else{
-                        
-                              document.getElementById('MyInput').value = employeeId;
-                              document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
-                              // document.getElementById('end').value = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
-                            }
-                        } else {
-                          alert(result.msg);
-                          }
-                   });
-            }
-            
-            // fetch production order infomation from DB to make gantt chart
-            
-          
-            // fetchGanttChart();
-            
-            function fetchGanttChart (){
-              let data = [];
-              var employeeId =  document.getElementById('MyInput').value;
-              let today = new Date().toISOString().slice(0, 10);
-              // var recordProcess = document.getElementById('recordProcess').value;
-
-              let options = {
-                  headers: {
-                      "Content-Type": "application/json"
-                      },
-                  method: "POST", 
-                  body: JSON.stringify({
-                      date: today,
-                      employeeId: employeeId,
-                      })
-                  
-                };
-                
-              fetch('/api/1.0/admin/getHourChart', options)
-                  .then(response => {
-                      let message = response.json();
-                      console.log('test');
-                      return message;
-                      })
-                  .then(result => {
-                      if (result) {
-                          
-                          console.log("API fetch success...");
-
-                          //create gantt chart data
-                          let workHourData = {}
-                          for (let i=0; i<result.length; i+=1){
-                            start = moment(result[i].start).format("YYYY-MM-DD HH:mm:ss");
-                            end = moment(result[i].end).format("YYYY-MM-DD HH:mm:ss");
-                            workHourData = {
-                              recordID: i+1,
-                              row: `${result[i].record_process}`,
-                              tooltip: `ID: ${result[i].employee_id}, Process: ${result[i].record_process}, Start work @ ${start}, End work @ ${end}`,
-                              start: `${start}`,
-                              end: `${end}`,
-                             }
-                              data.push(workHourData); 
-                           }
-                           //An API call to grab data
-                          function refreshFunction() {
-                              
-                              return data;
-                              }
-                        
-                              //Parameters that the chart expects
-                              let params = {
-                              sidebarHeader: "Unused right now",
-                              noDataFoundMessage: "No data found",
-                              startTimeAlias: "start",
-                              endTimeAlias: "end",
-                              idAlias: "recordID",
-                              rowAlias: "row",
-                              linkAlias: null,
-                              tooltipAlias: "tooltip",
-                              // groupBy: "groupId,subGroupId",
-                              // groupByAlias: "group,subGroup",
-                              refreshFunction: refreshFunction
-                              }
-                        
-                              //Create the chart.
-                              //On first render the chart will call its refreshData function on its own.
-                              let ganttChart = new Gantt("chart", params);
-                        
-                              //To refresh the chart's data
-                              ganttChart.refreshData();
-                                              
-
-                            } else {
-                              alert(result.msg);
-                              }
-                        });
-              }
-
-              // fetch to clock in/out from DB
-            function clockInOut (){
-
-                var employeeId =  document.getElementById('MyInput');
-                var recordProcess = document.getElementById('recordProcess');
-                var start = document.getElementById('start');
-                var end = document.getElementById('end');
-
-                // let today = new Date().toISOString().slice(0, 10);
-                let options = {
-                    headers: {
-                        "Content-Type": "application/json"
-                        },
-                    method: "POST", 
-                    body: JSON.stringify({
-                        employeeId: employeeId.value,
-                        recordProcess: recordProcess.value,
-                        start: start.value,
-                        end: end.value,
-                        // date: today
-                        })
-                    
-                  };
-                  
-                  employeeId.value = '';
-                  recordProcess.value = '';
-                  start.value = '';
-                  end.value = '';
-
-                fetch('/api/1.0/admin/clockInOut', options)
-                    .then(response => {
-                        let message = response.json();
-                        console.log('fetching...');
-                        return message;
-                        })
-                    .then(result => {
-                        if (result[0]) {
-                            console.log(result[0]);
-                            let employeeId = result[0].employee_id;
-                            let record_process = result[0].record_process;
-                            let start = new Date(result[0].recentStart);
-                            let end = new Date(result[0].recentEnd);
-                            
-                            start = start.toLocaleDateString() +' '+ start.toLocaleTimeString();
-                            end = end.toLocaleDateString() +' '+ end.toLocaleTimeString();
-                            
-                            if(result[0].recentEnd){
-                              Swal.fire(`employee_ID: ${employeeId}, record_process: ${record_process}, clock in: ${start} // clock out: ${end}`)
-                              }else{
-                                Swal.fire(`employee_ID: ${employeeId}, record_process: ${record_process}, clock in: ${start} // clock out: NA`)
-                              }
-                          
-                            } else {
-                              alert(result.msg);
-                              }
-                      });
-                }
-</script>
+        <script src="/js/hour.js"></script>
 
     </body>
 </html>

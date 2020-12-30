@@ -2,19 +2,19 @@ const router = require('express').Router();
 // const {wrapAsync} = require('../../util/util');
 
 const {
-    dropdownPartNum, getStandard, createStandard, updateStandard
+	dropdownPartNum, getStandard, createStandard, updateStandard
 } = require('../controllers/standard_controller');
 
 router.route('/admin/dropdownPartNum1')
-    .post(dropdownPartNum);
+	.post(dropdownPartNum);
 
 router.route('/admin/getStandard')
-    .post(getStandard);
+	.post(getStandard);
 
 router.route('/admin/createStandard')
-    .post(createStandard);
+	.post(createStandard);
 
 router.route('/admin/updateStandard')
-    .post(updateStandard);
+	.post(updateStandard);
 
 module.exports = router;

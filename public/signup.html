@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  
+  <link href="/css/signupin.css" rel="stylesheet">
   <!--Sweet Alert2 CDN-->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <link rel="icon" href="/logo/logo_calculabor.png" type="image/x-icon">
@@ -12,90 +12,7 @@
 </head>
 
 <style>
-	body {
-		/* background-image: url("/logo/logo_calculabor.png"); */
-		background-color:lightskyblue;
-		margin: 0;
-	}
-	</style>
 
-<style>
-  .main-content{
-	width: 50%;
-	border-radius: 20px;
-	box-shadow: 0 5px 5px rgba(0,0,0,.4);
-	margin: 5em auto;
-	display: flex;
-}
-.company__info{
-	background-color: lightgray;
-	border-top-left-radius: 20px;
-	border-bottom-left-radius: 20px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	color: #fff;
-}
-.fa-android{
-	font-size:3em;
-}
-@media screen and (max-width: 640px) {
-	.main-content{width: 90%;}
-	.company__info{
-		display: none;
-	}
-	.login_form{
-		border-top-left-radius:20px;
-		border-bottom-left-radius:20px;
-	}
-}
-@media screen and (min-width: 642px) and (max-width:800px){
-	.main-content{width: 70%;}
-}
-.row > h2{
-	color:darkgray;
-}
-.login_form{
-	background-color: #fff;
-	border-top-right-radius:20px;
-	border-bottom-right-radius:20px;
-	border-top:1px solid #ccc;
-	border-right:1px solid #ccc;
-}
-form{
-	padding: 0 2em;
-}
-.form__input{
-	width: 100%;
-	border:0px solid transparent;
-	border-radius: 0;
-	border-bottom: 1px solid #aaa;
-	padding: 1em .5em .5em;
-	padding-left: 2em;
-	outline:none;
-	margin:1.5em auto;
-	transition: all .5s ease;
-}
-.form__input:focus{
-	border-bottom-color: ;
-	box-shadow: 0 0 5px rgba(0,80,80,.4); 
-	border-radius: 4px;
-}
-.btn{
-	transition: all .5s ease;
-	width: 70%;
-	border-radius: 30px;
-	color:grey;
-	font-weight: 600;
-	background-color: #fff;
-	border: 1px solid black;
-	margin-top: 1.5em;
-	margin-bottom: 1em;
-}
-.btn:hover, .btn:focus{
-	background-color: grey;
-	color:#fff;
-}
 </style>
 <html>
 <body>
@@ -139,51 +56,7 @@ form{
 		</div>
 	</div>
 	
-    <script>
-		 
-			function fetchData (){
-				let username = document.getElementById('username').value;
-				let password = document.getElementById('password').value;
-				console.log(username, password)
-				if(username){
-                   if(password){
-					 let options = {
-								headers: {
-								"Content-Type": "application/json"
-								},
-									method: "POST", 
-									body: JSON.stringify({
-									username:  username,
-									password: password
-								})
-							};
-						
-						    fetch('/api/1.0/admin/signUp', options)
-							    .then(response => {
-									let message = response.json();
-									console.log('fetching...');
-									return message;
-									})
-									.then(result => {
-										if (result.name==='existed') {
-											console.log('API fetch success...')
-											console.log(result)
-											Swal.fire('User already in system, please sign in')
-											setTimeout(function(){window.location.replace('signin.html')}, 2500)
-											
-											} else {
-												localStorage.setItem('Authorization', 'Bearer ' + result[0].access_token);
-												window.location.replace('index.html')
-												}
-										});
-					 }else {
-						    Swal.fire('Please choose your password')
-						   }		
-				   }else {
-						Swal.fire('Please choose your username');
-				       }
-				}
-		</script>
+    <script src="/js/signup.js"></script>
 	<!-- Footer -->
 	<div class="container-fluid text-center footer">
 	</div>

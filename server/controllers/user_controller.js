@@ -9,46 +9,46 @@ const Swal = require('sweetalert2'); //Sweet Alert2
 //User profile
 const userProfile = async (req, res) => {
 
-    let token = req.body.token;
-    console.log(token)
-    token = token.slice(7);
+	let token = req.body.token;
+	console.log(token)
+	token = token.slice(7);
     
 
-    const user = (await User.userProfile(token));
+	const user = (await User.userProfile(token));
 
-    res.send(user);
+	res.send(user);
 };
 
 //User Sign In
 const signIn = async (req, res) => {
-    const hash = crypto.createHash('sha256');
-    let username = req.body.username;
-    let password = req.body.password;
+	const hash = crypto.createHash('sha256');
+	let username = req.body.username;
+	let password = req.body.password;
 
-    hash.update(password);
-    let encryptPassWord = hash.copy().digest('hex');
+	hash.update(password);
+	let encryptPassWord = hash.copy().digest('hex');
 
-    console.log(encryptPassWord);
-    const user = (await User.signIn(username, encryptPassWord));
-    res.send(user);
+	console.log(encryptPassWord);
+	const user = (await User.signIn(username, encryptPassWord));
+	res.send(user);
 };
 
 //User Sign Up
 const signUp = async (req, res) => {
-    const hash = crypto.createHash('sha256');
+	const hash = crypto.createHash('sha256');
 
-    // const hash = crypto.createHash('sha256');
-    let password = req.body.password;
-    let username = req.body.username;
+	// const hash = crypto.createHash('sha256');
+	let password = req.body.password;
+	let username = req.body.username;
 
-    hash.update(password);
-    let encryptPassWord = hash.copy().digest('hex');
+	hash.update(password);
+	let encryptPassWord = hash.copy().digest('hex');
 
-    hash.update(username);
-    let token = hash.copy().digest('hex');
+	hash.update(username);
+	let token = hash.copy().digest('hex');
 
-    const user = (await User.signUp(username, encryptPassWord, token));
-    res.send(user);
+	const user = (await User.signUp(username, encryptPassWord, token));
+	res.send(user);
 
 };
 
@@ -57,5 +57,5 @@ const signUp = async (req, res) => {
 
 
 module.exports = {
-    userProfile, signUp, signIn
+	userProfile, signUp, signIn
 };

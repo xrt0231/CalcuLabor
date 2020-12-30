@@ -50,23 +50,13 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="/admin/dashboard.html">Dashboard</a></li>
+                <li><a href="/admin/dashboard.html">Dashboard</a></li>
                 <li><a href="/admin/standard.html">Standard setting</a></li>
                 <li><a href="/admin/schedule.html">Production planning</a></li>
                 <li><a href="/admin/production.html">Execute production</a></li>
                 <li><a href="/admin/hour.html">Working hour</a></li>
                 <li><a><div id="profile" style="font-size: large; color: white;"></div></a></li>
                 <li class="dropdown">
-                  <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li class="dropdown-header">Nav header</li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
-                  </ul> -->
                 </li>
                 
               </ul>
@@ -146,22 +136,19 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
-          <img  src="/logo/bar-chart-steps1.svg" alt="Generic placeholder image" width="140" height="140">
+          <a href="/admin/schedule.html"><img src="/logo/bar-chart-steps1.svg" alt="Generic placeholder image" width="140" height="140"></a>
           <h2>Planning and execution</h2>
-          <!-- <p>Production order creation and management and real-time outcome update.</p> -->
-          <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+          
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img src="/logo/upc-scan.svg" alt="Generic placeholder image" width="140" height="140">
+          <a href="/admin/hour.html"><img src="/logo/upc-scan.svg" alt="Generic placeholder image" width="140" height="140"></a>
           <h2>Scan with on spot device.</h2>
-          <!-- <p>Scan barcode with shop-floor PC camera.</p> -->
-          <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+          
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img src="/logo/graph-up.svg" alt="Generic placeholder image" width="140" height="140">
+          <a href="/admin/dashboard.html"><img src="/logo/graph-up.svg" alt="Generic placeholder image" width="140" height="140"></a>
           <h2>Real-time analysis</h2>
-          <!-- <p>On-demand productity status.</p> -->
-          <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+         
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 
@@ -172,10 +159,12 @@
       <div class="row featurette">
         <div class="col-md-7">
           <h2 class="featurette-heading">Labor plan. <span class="text-muted">TAKT & Cycle time.</span></h2>
-          <p class="lead">PPH stands for pcs per people per hour. PPH is the baseline for measuring workforce performance.</p>
+          <p class="lead">PPH stands for pcs per people per hour. PPH is the baseline for measuring workforce performance. If a process requires 5 people * 1 hour with 60 pcs of output the 
+            PPH standard will be 12 (60 pcs / (5 people * 1 hours )  => PPH = 12) <br><br>Time Measurement: Standard Time Spent / Actual Time Spent * 100% (Standard Time = Output / PPH). Example: If production plan to make 480 pcs. Actual time spent is 50 hours. Standard Time Spent should be = 480 pcs / 12 => 40 Hours Achieve % = 40 / 50 = 80%
+            </p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image" src="logo/PPH.PNG">
+          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image" src="logo/p2.jpg">
         </div>
       </div>
 
@@ -183,8 +172,8 @@
 
       <div class="row featurette">
         <div class="col-md-7 col-md-push-5">
-          <h2 class="featurette-heading">Productivity evaluation. <span class="text-muted">Time measurement or ouptut measurement.</span></h2>
-          <p class="lead">Time Measurement: Standard Time Spent / Actual Time Spent * 100% (Standard Time = Output / PPH). Example: If production plan to make 480 pcs. Actual time spent is 50 hours. Standard Time Spent should be = 480 pcs / 12 => 40 Hours Achieve % = 40 / 50 = 80%</p>
+          <h2 class="featurette-heading">Productivity evaluation. <span class="text-muted">Time and ouptut measurement.</span></h2>
+          <p class="lead">With production scheduling and update module organization can easily collect data to analyze.</p>
         </div>
         <div class="col-md-5 col-md-pull-7">
           <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image" src="logo/p1.jpg">
@@ -196,22 +185,21 @@
       <div class="row featurette">
         <div class="col-md-7">
           <h2 class="featurette-heading">Real World Case. <span class="text-muted"><a style="color: #337ab7;">Use CalcuLabor.</a></span></h2>
-          <p class="lead">To solve multiple production line, multiple PPH standard productivity with one solution.</p>
+          <p class="lead">CalcuLabor resolved real world complex scenario (numbers of production lines with different produtivity standards.)</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image" src="logo/logo_calculabor.png">
+          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image" src="logo/p3.jpg">
         </div>
       </div>
 
       <hr class="featurette-divider">
 
       <!-- /END THE FEATURETTES -->
-
-
+      
       <!-- FOOTER -->
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2020 CalcuLabor.  &middot; <a href="#">Developed by Jonathan Sun</a> &middot; <a href="#"></a></p>
+        <p>&copy; 2020 CalcuLabor.  &middot; Developed by Jonathan Sun &middot; </p>
       </footer>
 
     </div><!-- /.container -->
@@ -227,47 +215,6 @@
     <script src="/js/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/js/ie10-viewport-bug-workaround.js"></script>
-    <script>
-        
-        fetchUserData ();
-        function fetchUserData (){
-        
-        var token = localStorage.getItem('Authorization');
-        if(token){
-          console.log(token);
-            let options = {
-                  headers: {
-                  "Content-Type": "application/json"
-                  },
-                    method: "POST", 
-                    body: JSON.stringify({
-                    token:  token
-                  })
-                };
-              
-                fetch('/api/1.0/admin/userProfile', options)
-                  .then(response => {
-                    let message = response.json();
-                    console.log('fetching...');
-                    return message;
-                    })
-                    .then(result => {
-                      let name = result.name;
-                      console.log(name);
-                      if (result.name==='notSignIn') {
-                        console.log('API fetch success...')
-                        console.log(result)
-                        window.location.replace('/index.html');
-                        } else {
-                          
-                          document.getElementById('profile').innerHTML = `Hello, ${name}`;
-                          
-                          }
-                      });
-          }else {
-            // window.location.replace('/index.html');
-          }
-        } 
-      </script>
+    <script src="/js/index.js"></script>
   </body>
 </html>

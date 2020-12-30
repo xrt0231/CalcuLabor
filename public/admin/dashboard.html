@@ -11,44 +11,31 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/3.3/examples/dashboard/">
 
     <title>Calculabor</title>
-
- 
-
-    <!-- Custom styles for this template -->
-    <!-- <link href="/dashboard.css" rel="stylesheet"> -->
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
-    
-    <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <!--  jQuery -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+      <!--  boostrap --> 
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+      <!--CDN boostrap js-->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-       <!-- Include the image-diff library -->
-      <!-- <script src="/js/quagga.min.js"></script> -->
-       <!-- Or use a CDN -->
-      <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
-      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+     
+
       <!-- Bootstrap Date-Picker Plugin -->
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
       
-   <!-- Highcharts -->
-  <script src="https://code.highcharts.com/stock/highstock.js"></script>
-  <script src="https://code.highcharts.com/stock/modules/data.js"></script>
-  <script src="https://code.highcharts.com/stock/modules/exporting.js"></script> 
-  <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
-  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
-  <!--Sweet Alert2 CDN-->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+      <!--Highchart CDN-->
+      <script src="https://code.highcharts.com/stock/highstock.js"></script>
+      <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+      <script src="https://code.highcharts.com/stock/modules/exporting.js"></script> 
+      <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
 
   </head>
 
   <style>
     body {
-      /* background-image: url("/logo/logo_calculabor.png"); */
+      
       background-color:darkgray;
       margin: 0;
 }
@@ -74,7 +61,6 @@
             
           </button>
           <a href="/index.html"><img src="/logo/logo_calculabor.png" width="50px" height="50px"></a>
-          <!-- <a class="navbar-brand" href="/nav.html"></a> -->
           
         </div>
     
@@ -88,49 +74,29 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manual<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="/admin/standard.html">standard setting</a></li>  
-                  <li><a href="/admin/schedule.html">Production planning</a></li>
-                  <li><a href="/admin/production.html">Execute production</a></li>
-                  <li><a href="/admin/hour.html">Working hour</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="/admin/dashboard.html">Dashboard</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="/index.html">Home</a></li>
+                <li><a href="/admin/schedule.html">Production planning</a></li>
+                <li><a href="/admin/production.html">Execute production</a></li>
+                <li><a href="/admin/hour.html">Working hour</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/admin/dashboard.html">Dashboard</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/index.html">Home</a></li>
               </ul>
             </li>
           </ul>
-          <!-- <form class="navbar-form navbar-left">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search">
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
             
-          </form>  -->
-          
-         
-          
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#" style="font-style: bold; color: rgb(17, 16, 16);"><strong>DASHBOARD MODULE</strong></a></li>
             <li>
               <a role="button" onclick="signout();">Sign out</a>
-              <!-- <ul class="dropdown-menu">
-                <li><a href="#">Under construction</a></li>
-                <li><a href="#">-</a></li>
-                <li><a href="#">-</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">-</a></li>
-              </ul> -->
+              
             </li>
           </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
+        </div>
+      </div>
       
     </nav>
 
-    <!--Select dashboard show period--> 
-    
-      
-        
-      <!-- Default input -->
       <div class="form-group col-md-4">
         <label for="output">Process</label>
         <input class="form-control" list="recordProcessAuto" id="recordProcess"></input>
@@ -144,7 +110,6 @@
         <label class="control-label" for="date">Start Date</label>
         <input class="form-control" id="startDate" name="date" placeholder="MM/DD/YYY" type="text"/>
       </div>
-    <!-- Default input -->
     
       <div class="form-group col-md-4">
         <label class="control-label" for="date">End Date</label>
@@ -178,447 +143,15 @@
               <h4>Efficiency / Date</h4>
               <span class="text-muted">PPH/Day</span>
               <div id="container1"></div>   
-              <!-- <div id="myDiv1.1"></div> -->
-              <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail"> -->
               
             </div>
             <div class="col-xs-6 col-sm-6 placeholder">
               <h4>Efficiency / Process</h4>
               <span class="text-muted">(PPH/Process)</span>
               <div id="container2"></div> 
-              <!-- <div id="myDiv2.1"></div>  -->
-               
-              <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail"> -->
-              
-            </div>
-            
+             
+            </div>    
           </div>
-
-        <script>
-
-          //Date picker function
-          $(document).ready(function(){
-            var date_input=$('input[name="date"]'); //our date input has the name "date"
-            var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-            var options={
-              format: 'yyyy/mm/dd',
-              container: container,
-              todayHighlight: true,
-              autoclose: true,
-            };
-            date_input.datepicker(options);
-          })  
-  
-          //user sign out 
-          function signout(){
-            localStorage.removeItem("Authorization");
-            window.location.replace('/index.html');
-           }
-
-
-          //Chcekc if user signed in
-          fetchUserData ()
-  
-          function fetchUserData (){
-      
-              var token = localStorage.getItem('Authorization');
-              if(token){
-                console.log(token);
-                  let options = {
-                        headers: { 
-                          "Content-Type": "application/json"
-                        },
-                          method: "POST", 
-                          body: JSON.stringify({
-                          token:  token
-                        })
-                      };
-                    
-                      fetch('/api/1.0/admin/userProfile', options)
-                        .then(response => {
-                          let message = response.json();
-                          console.log('fetching...');
-                          return message;
-                          })
-                          .then(result => {
-            
-                            if (result.name==='notSignIn') {
-                              console.log('API fetch success...')
-                              console.log(result)
-                              Swal.fire('Please sign in...');
-                              setTimeout(function(){window.location.replace('/index.html')}, 3000);
-                              } else {}
-                            });
-                }else {
-                  Swal.fire('Please sign in...');
-                  setTimeout(function(){window.location.replace('/index.html')}, 3000);
-                }
-              } 
-
-              //Dropdown list of production process
-              let dropdown = document.getElementById('recordProcessAuto');
-                  const url = '/api/1.0/admin/dropdownProcess';
-
-                  fetch(url)  
-                    .then(  
-                      function(response) {  
-                        if (response.status !== 200) {  
-                          console.warn('Looks like there was a problem. Status Code: ' + 
-                            response.status);  
-                          return;  
-                        }
-
-                        // Examine the text in the response  
-                        response.json().then(function(data) {  
-                          let option;
-                      
-                        for (let i = 0; i < data.length; i++) {
-                          let option = document.createElement('option');
-                           
-                            option.value = data[i].record_process;
-                            dropdown.appendChild(option);
-                        }    
-                        });  
-                      }  
-                    )  
-                    .catch(function(err) {  
-                      console.error('Fetch Error -', err);  
-                    });
-
-          
-
-                //Define process return multiple days efficiency
-                function dashboard1() {
-
-                  let dateArr = [];
-                  let actualWorkingHourArr = [];
-                  let standardWorkingHourArr = [];
-                  let actualOutputArr = [];
-                  let standardOutputArr = [];
-                  let efficiency = [];
-                  // let value_of_date = [];
-                  
-                  
-                  // values1.push(['Actual Working Hour', 'Standard Working Hour', 'Actual Output', 'Standard Output', '<b>Efficiency %</b>']);
-                  
-                  // value_of_date.push('Date');
-
-                  let startDate =  document.getElementById('startDate').value;
-                  let endDate = document.getElementById('endDate').value;
-                  let recordProcess = document.getElementById('recordProcess').value;
-
-                  let options = {
-                      headers: {
-                          "Content-Type": "application/json"
-                          },
-                      method: "POST", 
-                      body: JSON.stringify({
-                          
-                          startDate: startDate,
-                          endDate: endDate,
-                          recordProcess: recordProcess
-                          
-                          })
-                      
-                    };
-                    
-                  fetch('/api/1.0/admin/dashboard1', options)
-                      .then(response => {
-                          let message = response.json();
-                          console.log('test');
-                          return message;
-                          })
-                      .then(result => {
-                          if (result) {
-                              console.log(result)
-
-                              for (let i=0; i<result.length; i+=1){
-
-                                dateArr.push(result[i].date);
-                                actualWorkingHourArr.push(result[i].actual_working_hour);
-                                standardWorkingHourArr.push(result[i].standard_working_hour);
-                                efficiency.push(Number(result[i].efficiency));
-
-                              }
-
-                              //Update high chart options
-                              container1.update({
-                                title: {text: result[0].process_refer},
-                                xAxis: [{
-                                        categories: dateArr,
-                                    }],
-                                    legend: {
-                                layout: 'vertical',
-                                align: 'left',
-                                x: 75,
-                                verticalAlign: 'top',
-                                y: 35,
-                                floating: true,
-                                backgroundColor:
-                                    Highcharts.defaultOptions.legend.backgroundColor || // theme
-                                    'rgba(255,255,255,0.25)'
-                            },
-                              })
-
-                              //Update high chart series
-                              container1.series[0].update({ data: actualWorkingHourArr }, false)
-                              container1.series[1].update({ data: standardWorkingHourArr }, false)
-                              container1.series[2].update({ data: efficiency }, false)
-                              
-                              //redraw high chart
-                              container1.redraw();
-                              
-                              } else {
-                                  alert(result.msg);
-                                  }
-                            });
-                }
-
-                //Define date return multiple process efficiency
-                function dashboard2() {
-
-                  let process = [];
-                  let actualOutputArr = [];
-                  let standardOutputArr = [];
-                  let efficiency = [];
-
-                  let startDate =  document.getElementById('startDate2').value;
-
-                  let options = {
-                      headers: {
-                          "Content-Type": "application/json"
-                          },
-                      method: "POST", 
-                      body: JSON.stringify({
-                          
-                          startDate: startDate,
-                          
-                          })
-                      
-                    };
-                    
-                  fetch('/api/1.0/admin/dashboard2', options)
-                      .then(response => {
-                          let message = response.json();
-                          console.log('test');
-                          return message;
-                          })
-                      .then(result => {
-                          if (result) {
-                              console.log(result)
-
-                              for (let i=0; i<result.length; i+=1){
-
-                                // dateArr.push(result[i].date);
-                                process.push(result[i].process_refer)
-                                actualOutputArr.push(result[i].actual_output);
-                                standardOutputArr.push(result[i].standard_output);
-                                efficiency.push(Number(result[i].efficiency));
-
-
-                              }
-                              console.log(process, actualOutputArr, standardOutputArr, efficiency);
-
-                              //Update high chart options
-                              container2.update({
-                                title: {text: startDate},
-                                xAxis: [{
-                                        categories: process,
-                                    }],
-                                    legend: {
-                                layout: 'vertical',
-                                align: 'left',
-                                x: 75,
-                                verticalAlign: 'top',
-                                y: 35,
-                                floating: true,
-                                backgroundColor:
-                                    Highcharts.defaultOptions.legend.backgroundColor || // theme
-                                    'rgba(255,255,255,0.25)'
-                            },
-                              })
-
-
-                              //Update high chart series
-                              container2.series[0].update({ data: actualOutputArr }, false)
-                              container2.series[1].update({ data: standardOutputArr }, false)
-                              container2.series[2].update({ data: efficiency }, false)
-                              
-                              //redraw high chart
-                              container2.redraw();
-                              
-                              } else {
-                                  alert(result.msg);
-                                  }
-                            });
-                  
-                    }
-//high chart left start
-let option4container1 = {
-chart: {
-    zoomType: 'xy'
-},
-title: {
-    text: ''
-},
-
-exporting: {
-enabled: false
-},
-xAxis: [{
-    categories: [],
-    crosshair: true
-}],
-yAxis: [{ // Primary yAxis
-    labels: {
-        format: '{value} Hrs',
-        style: {
-            color: Highcharts.getOptions().colors[1]
-        }
-    },
-    title: {
-        text: 'Working hours',
-        style: {
-            color: Highcharts.getOptions().colors[1]
-        }
-    }
-}, { // Secondary yAxis
-    title: {
-        text: 'Efficiency',
-        style: {
-            color: Highcharts.getOptions().colors[0]
-        }
-    },
-    labels: {
-        format: '{value} %',
-        style: {
-            color: Highcharts.getOptions().colors[0]
-        }
-    },
-    opposite: true
-}],
-tooltip: {
-    shared: true
-},
-
-series: [{
-    name: 'Actual working hour',
-    type: 'column',
-    
-    data: [],
-    tooltip: {
-        valueSuffix: ' Hours'
-    }
-
-},{
-    name: 'Standard working hour',
-    type: 'column',
-    
-    data: [],
-    tooltip: {
-        valueSuffix: ' Hours'
-    }
-
-}
-, {
-    name: 'Efficiency',
-    type: 'spline',
-    yAxis: 1,
-    data: [],
-    tooltip: {
-        valueSuffix: '%'
-    }
-}]
-}
-
-let container1 = Highcharts.chart('container1', option4container1);
-
-
-//==================================================================
-
-//high chat right start
-let option4container2 = {
-chart: {
-    zoomType: 'xy'
-},
-title: {
-    text: ''
-},
-
-exporting: {
-enabled: false
-},
-xAxis: [{
-    categories: [],
-    crosshair: true
-}],
-yAxis: [{ // Primary yAxis
-    labels: {
-        format: '{value} Pcs',
-        style: {
-            color: Highcharts.getOptions().colors[1]
-        }
-    },
-    title: {
-        text: 'Output',
-        style: {
-            color: Highcharts.getOptions().colors[1]
-        }
-    }
-}, { // Secondary yAxis
-    title: {
-        text: 'Efficiency',
-        style: {
-            color: Highcharts.getOptions().colors[0]
-        }
-    },
-    labels: {
-        format: '{value} %',
-        style: {
-            color: Highcharts.getOptions().colors[0]
-        }
-    },
-    opposite: true
-}],
-tooltip: {
-    shared: true
-},
-
-series: [{
-    name: 'Actual output',
-    type: 'column',
-    
-    data: [],
-    tooltip: {
-        valueSuffix: ' Pcs'
-    }
-
-},{
-    name: 'Standard output',
-    type: 'column',
-    
-    data: [],
-    tooltip: {
-        valueSuffix: ' Pcs'
-    }
-
-}
-, {
-    name: 'Efficiency',
-    type: 'spline',
-    yAxis: 1,
-    data: [],
-    tooltip: {
-        valueSuffix: '%'
-    }
-}]
-}
-
-let container2 = Highcharts.chart('container2', option4container2);                          
-                                  // setInterval(dashboard2, 2000);
-                                  // setInterval(dashboard1, 2000);
-
-</script>
-
     </body>
+    <script src="../js/dashboard.js"></script>
 </html>
