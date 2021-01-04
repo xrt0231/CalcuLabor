@@ -49,12 +49,10 @@ const createProductionOrder = async (req, res) => {
 
 	//Get star time from UI and convert to DATETIME format
 	let startGet = new Date(`${req.body.start}`);
-	
 	let start = moment(startGet).format("YYYY-MM-DD HH:mm:ss");
     
 	//Get end time from UI and convert to DATETIME format 
 	let endGet = new Date(`${req.body.end}`);
-	
 	let end = moment(endGet).format("YYYY-MM-DD HH:mm:ss");
 
 	const schedule = (await Schedule.createProductionOrder(productionOrderNum, partNum, recordProcess, start, end, outputQty));
