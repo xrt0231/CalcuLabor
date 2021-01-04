@@ -1,46 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
     <head>
-      <title img>CalcuLabor</title>
+      <title>CalcuLabor</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="icon" href="/logo/logo_calculabor.png" type="image/x-icon">
-
-      <!-- Include the image-diff library -->
-      <script src="/js/quagga.min.js"></script>
-      <!-- Or use a CDN -->
-      <!-- <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script> -->
-
-      <!-- gantt css-->
       <link rel="stylesheet" href="/css/gantt.css" type="text/css"/>
-
-       <!--  jQuery -->
-       <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-      
-       <!--CDN boostrap css-->
-       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-       
-       <!--CDN boostrap js-->
-       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
+      <!--  jQuery -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-      <!--  jQuery -->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+      <!-- Include the image-diff library -->
+      <!-- <script src="/js/quagga.min.js"></script> -->
+      <!-- Or use a CDN -->
+      <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
 
       <!--CDN moment js-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+      <!--Datetime picker CDN-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
       <!--Sweet Alert2 CDN-->
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-      <!--Highchart gantt chart -->
-      <script src="https://code.highcharts.com/gantt/highcharts-gantt.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
+      
       
     </head>
     
@@ -78,8 +61,7 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             
             <ul class="nav navbar-nav">
-              <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-              <li><a href="#">Link</a></li> -->
+              
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manual<span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -95,19 +77,11 @@
               </li>
             </ul>
            
-            
-            
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#" style="font-style: bold; color: rgb(17, 16, 16);"><strong>PRODUCTION PLANNING MODULE</strong></a></li>
               <li>
                 <a role="button" onclick="signout();">Sign out</a>
-                <!-- <ul class="dropdown-menu">
-                  <li><a href="#">Under construction</a></li>
-                  <li><a href="#">-</a></li>
-                  <li><a href="#">-</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">-</a></li>
-                </ul> -->
+                
               </li>
             </ul>
           </div><!-- /.navbar-collapse -->
@@ -121,10 +95,8 @@
   
             <div class="form-group col-md-6">
               <label>Process Name</label>
-              
               <input type="text" class="form-control" list="recordProcessAuto" id="recordProcess" ></input>
               <datalist id="recordProcessAuto"></datalist>
-              
             </div>
 
             <div class="form-group col-md-6">
@@ -142,11 +114,7 @@
             <div class="form-group col-md-6">
               <label>Plan Output</label>
               <input type="text"  class="form-control" id="outputQty"></input>
-              
-              
-            </div>
-  
-            
+            </div>           
   
               <div class="form-group col-md-6">
                 <label class="control-label" for="date">Start Date/Time</label>
@@ -190,7 +158,6 @@
           <button class="btn btn-primary btn-md" type="submit" onclick="fetchGanttChart();"><img src="/logo/bar-chart-steps.svg" alt="" width="25" height="20" title="Bootstrap"></button>
           <label for="output" style="font-size: 25px">Today's roduction Plan:</label> 
           
-            
         </div>
   
         <div class="col-lg-6" style="height: 500px;">
@@ -212,7 +179,11 @@
           </div>
         </div>
       </div>
-    
+      <script>
+      
+    </script>
+        <script src="/js/checkSignStatus.js"></script>
+        <script src="/js/dropdownList.js"></script>
         <script src="/js/gantt.js"></script>
         <script src="/js/camera.js"></script>
         <script src="/js/schedule.js"></script>

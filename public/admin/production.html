@@ -14,14 +14,15 @@
       <!-- <script src="/js/quagga.min.js"></script> -->
       <!-- Or use a CDN -->
       <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
-      
-      <!--CDN moment js-->
+
+      <!-- CDN moment js -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+      <!--Datetime picker CDN-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
       <!--Sweet Alert2 CDN-->
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
      
     </head>
     <style>
@@ -77,13 +78,7 @@
               <li><a href="#" style="font-style: bold; color: rgb(17, 16, 16);"><strong> EXECUTE PRODUCTION MODULE</strong></a></li>
               <li>
                 <a role="button" onclick="signout();">Sign out</a>
-                <!-- <ul class="dropdown-menu">
-                  <li><a href="#">Under construction</a></li>
-                  <li><a href="#">-</a></li>
-                  <li><a href="#">-</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">-</a></li>
-                </ul> -->
+                
               </li>
             </ul>
           </div><!-- /.navbar-collapse -->
@@ -197,13 +192,11 @@
         </div>
         
       </div>
-      
-      
+        <script src="/js/checkSignStatus.js"></script>
+        <script src="/js/dropdownList.js"></script>
         <script src="/js/camera.js"></script> 
-        
         <script src="/js/gantt.js"></script>
         <!-- <script src="/js/initialize-gantt.js"></script> -->
-
         <script src="/js/production.js"></script>
 
     </body>

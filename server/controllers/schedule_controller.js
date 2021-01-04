@@ -7,10 +7,12 @@ const getGanttChart = async (req, res) => {
 	// let date = req.body.date;
 	//Get star time from UI and convert to DATETIME format
 	let startGet = new Date(`${req.body.start}`);
+	
 	let start = moment(startGet).format("YYYY-MM-DD");
     
 	// Get end time from UI and convert to DATETIME format 
 	let endGet = new Date(`${req.body.start}`);
+	
 	let end = moment(endGet.setDate(endGet.getDate()+1)).format("YYYY-MM-DD");
 
 	const schedule = (await Schedule.getGanttChart(start, end));
@@ -40,7 +42,6 @@ const productionOrderInfo = async (req, res) => {
 	console.log("controller:", productionOrderNum);
 	const schedule = (await Schedule.productionOrderInfo(productionOrderNum));
 	res.send(schedule);
-    
 };
 
 const createProductionOrder = async (req, res) => {
@@ -54,10 +55,12 @@ const createProductionOrder = async (req, res) => {
 
 	//Get star time from UI and convert to DATETIME format
 	let startGet = new Date(`${req.body.start}`);
+	startGet.setHours(startGet.getHours()+8);
 	let start = moment(startGet).format("YYYY-MM-DD HH:mm:ss");
     
 	//Get end time from UI and convert to DATETIME format 
 	let endGet = new Date(`${req.body.end}`);
+	endGet.setHours(endGet.getHours()+8);
 	let end = moment(endGet).format("YYYY-MM-DD HH:mm:ss");
     
 
@@ -113,8 +116,6 @@ const dropdownPartNum = async (req, res) => {
 	const schedule = (await Schedule.dropdownPartNum(productionOrderNum));
 	res.send(schedule);
 }
-
-
 
 module.exports = {
 	getGanttChart, 

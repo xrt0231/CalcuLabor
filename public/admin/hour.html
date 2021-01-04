@@ -22,12 +22,11 @@
       <!--CDN boostrap js-->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-      <!-- Bootstrap Date-Picker Plugin -->
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
       <!--CDN moment js-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+
+      <!--Datetime picker CDN-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
       <!--Sweet Alert2 CDN-->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -112,25 +111,32 @@
               <datalist id="recordProcessAuto"></datalist>
             </div>
 
-            <div class="bootstrap-iso">
               <div class="form-group col-md-6">
                 <label class="control-label" for="date">Start Date/Time</label>
-                <input class="form-control" id="start" name="date" placeholder="MM/DD/YYY" type="text"/>
-              </div>
-            <!-- Default input -->
+                <div class='input-group date' >
+                  <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='start' value="" class="form-control"/>
+                  <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+               </div>
+          
               <div class="form-group col-md-6">
                 <label class="control-label" for="date">End Date/Time</label>
-                <input class="form-control" id="end" name="date" placeholder="MM/DD/YYY" type="text"/>
+                <div class='input-group date' >
+                  <input data-format="yyyy-MM-dd hh:mm:ss" type='text' id='end' value="" class="form-control" />
+                  <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
               </div>
+              
               <div class="form-group col-md-12">
                 <button class="btn btn-primary btn-md" type="button" onclick="fetchData();"><img src="/logo/question-octagon.svg" alt="" width="25" height="20" title="Bootstrap"></button> 
                 <button class="btn btn-primary btn-md" type="submit" onclick="clockInOut();">Update</button>
-                
               </div>
             </div>
           </div>
-        </div>
-         
         <!--Start and stop scanner-->
         <div class="col-lg-6" style="height: 500px;">
           <div class="card mx-5"><br>
@@ -147,12 +153,9 @@
             <div id="chart"></div>  
           </div>
         </div>
-              
+        <script src="/js/checkSignStatus.js"></script>
         <script src="/js/camera.js"></script>
-        
         <script src="/js/gantt.js"></script>
-        <!-- <script src="/js/initialize-gantt.js"></script> -->
-
         <script src="/js/hour.js"></script>
 
     </body>

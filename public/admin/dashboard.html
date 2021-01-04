@@ -11,6 +11,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/3.3/examples/dashboard/">
 
     <title>Calculabor</title>
+    
       <!--  jQuery -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -27,9 +28,9 @@
       
       <!--Highchart CDN-->
       <script src="https://code.highcharts.com/stock/highstock.js"></script>
-      <script src="https://code.highcharts.com/stock/modules/data.js"></script>
-      <script src="https://code.highcharts.com/stock/modules/exporting.js"></script> 
-      <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+
+      <!--Sweet Alert2 CDN-->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
 
   </head>
 
@@ -46,7 +47,7 @@
     <!--Nav bar-->
     <nav class="navbar navbar-default">
        
-      <div class="container-fluid">
+      <div class="container-fluid"> 
         
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -153,5 +154,8 @@
             </div>    
           </div>
     </body>
+    <!--Check if user signed in-->
+    <script src="/js/checkSignStatus.js"></script>
+    <script src="/js/dropdownList.js"></script>
     <script src="../js/dashboard.js"></script>
 </html>

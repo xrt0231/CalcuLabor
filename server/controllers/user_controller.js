@@ -49,7 +49,6 @@ const signUp = async (req, res) => {
 
 	const user = (await User.signUp(username, encryptPassWord, token));
 	res.send(user);
-
 };
 
 

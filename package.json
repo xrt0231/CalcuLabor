@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^3.4.1",
     "bootstrap-icons": "^1.2.1",
+    "chai": "^4.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jquery": "^3.5.1",
@@ -26,12 +27,15 @@
     "sweetalert2": "^10.12.5"
   },
   "devDependencies": {
+    "chai-http": "^4.3.0",
     "eslint": "^7.2.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.0.0"
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "mocha": "^8.2.1",
+    "supertest": "^6.0.1"
   }
 }

@@ -1,50 +1,21 @@
-//User sign out
-function signout(){
-	localStorage.removeItem("Authorization");
-	window.location.replace('/index.html');
-}
 
-//Check if user hsd signed in
-fetchUserData();
-        
-
-function fetchUserData (){
-
-	var token = localStorage.getItem('Authorization');
-	if(token){
-		console.log(token);
-		let options = {
-			headers: { 
-				"Content-Type": "application/json"
-			},
-			method: "POST", 
-			body: JSON.stringify({
-				token:  token
-			})
-		};
-
-		fetch('/api/1.0/admin/userProfile', options)
-			.then(response => {
-				let message = response.json();
-				console.log('fetching...');
-				return message;
-			})
-			.then(result => {
-
-				if (result.name==='notSignIn') {
-					console.log('API fetch success...')
-					console.log(result)
-					Swal.fire('Please sign in...');
-					setTimeout(function(){window.location.replace('/index.html')}, 3000);
-				} else {
-    
-				}
-			});
-	}else {
-		Swal.fire('Please sign in...');
-		setTimeout(function(){window.location.replace('/index.html')}, 3000);
-	}
-} 
+//Datetime picker function
+          
+$(function() {
+	$('#start').datetimepicker();
+  });
+			  
+  $(function() {
+	$('#end').datetimepicker();
+  });
+  
+  $(function() {
+	$('#start1').datetimepicker();
+  });
+			  
+  $(function() {
+	$('#end1').datetimepicker();
+  });
 
 //Dropdown list of production process
 let dropdown = document.getElementById('recordProcessAuto');
@@ -55,17 +26,16 @@ fetch(url)
 		function(response) {  
 			if (response.status !== 200) {  
 				console.warn('Looks like there was a problem. Status Code: ' + 
-                            response.status);  
+                    response.status);  
 				return;  
 			}
 
-			// Examine the text in the response  
 			response.json().then(function(data) {  
 				let option;
-                      
+              
 				for (let i = 0; i < data.length; i++) {
 					let option = document.createElement('option');
-                           
+                   
 					option.value = data[i].record_process;
 					dropdown.appendChild(option);
 				}    
@@ -74,8 +44,8 @@ fetch(url)
 	)  
 	.catch(function(err) {  
 		console.error('Fetch Error -', err);  
-	});
-
+	});  
+             
 // fetch employee working hour infomation from DB
 function fetchData (code){
 	if(code){

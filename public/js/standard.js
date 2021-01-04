@@ -1,10 +1,3 @@
-fetchUserData();
-
-function signout(){
-	localStorage.removeItem("Authorization");
-	window.location.replace('/index.html');
-}
-
 //Datetime picker function
           
 $(function() {
@@ -176,73 +169,7 @@ function updateStandard() {
 
 }
 
-function fetchUserData (){
-      
-	var token = localStorage.getItem('Authorization');
-	if(token){
-		console.log(token);
-		let options = {
-			headers: { 
-				"Content-Type": "application/json"
-			},
-			method: "POST", 
-			body: JSON.stringify({
-				token:  token
-			})
-		};
-                        
-		fetch('/api/1.0/admin/userProfile', options)
-			.then(response => {
-				let message = response.json();
-				console.log('fetching...');
-				return message;
-			})
-			.then(result => {
-                
-				if (result.name==='notSignIn') {
-					console.log('API fetch success...')
-					console.log(result)
-					Swal.fire('Please sign in...');
-					setTimeout(function(){window.location.replace('/index.html')}, 3000);
-				} else {}
-			});
-	}else {
-		Swal.fire('Please sign in...');
-		setTimeout(function(){window.location.replace('/index.html')}, 3000);
-	}
-} 
-
-//Dropdown list of production process
-let dropdown = document.getElementById('recordProcessAuto');
-const url = '/api/1.0/admin/dropdownProcess';
-
-fetch(url)  
-	.then(  
-		function(response) {  
-			if (response.status !== 200) {  
-				console.warn('Looks like there was a problem. Status Code: ' + 
-                            response.status);  
-				return;  
-			}
-
-			// Examine the text in the response  
-			response.json().then(function(data) {  
-				let option;
-                      
-				for (let i = 0; i < data.length; i++) {
-					let option = document.createElement('option');
-                           
-					option.value = data[i].record_process;
-					dropdown.appendChild(option);
-				}    
-			});  
-		}  
-	)  
-	.catch(function(err) {  
-		console.error('Fetch Error -', err);  
-	});
-
-//Dropdown list of part number
+//Dropdown list of part number (production standard)
 document.getElementById("recordProcess").addEventListener("input", function (){
 	let dropdown2 = document.getElementById('AutoPartNum');
 	let partNum = document.getElementById('partNum');
