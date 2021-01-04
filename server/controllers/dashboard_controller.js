@@ -14,13 +14,11 @@ const dashboard1 = async (req, res)=> {
 const dashboard2 = async (req, res)=> {
 
 	let startDate = req.body.startDate;
-	console.log(startDate);
 	const dashboard2 = (await Dashboard.dashboard2(startDate));
 	res.send(dashboard2); 
 }
 
 module.exports = {
-	// getDashboard,
 	dashboard1,
 	dashboard2
 };

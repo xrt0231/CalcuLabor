@@ -4,11 +4,9 @@ const Standard = require('../models/standard_model');
 //dropdownPartNum
 const dropdownPartNum = async (req, res) => {
 	let recordProcess = req.body.recordProcess;
-	console.log('1');
 	const standard = (await Standard.dropdownPartNum(recordProcess));
 	res.send(standard);
 };
-
 
 //Get production standards
 const getStandard = async (req, res) => {

@@ -1,29 +1,25 @@
-// Datetime picker function
-          
+// Datetime picker function      
 $(function() {
 	$('#start').datetimepicker();
-  });
+});
 			  
-  $(function() {
+$(function() {
 	$('#end').datetimepicker();
-  });
+});
   
-  $(function() {
+$(function() {
 	$('#start1').datetimepicker();
-  });
+});
 			  
-  $(function() {
+$(function() {
 	$('#end1').datetimepicker();
-  });
+});
              
 // fetch production order infomation from DB
 function fetchData (code){
 	if(code){
 		var productionOrderNum =  code;
 	}else {var productionOrderNum = document.getElementById('MyInput').value;}
-	// var recordProcess = document.getElementById('recordProcess').value;
-	// var outputQty = document.getElementById('outputQty').value;
-	// let today = new Date().toISOString().slice(0, 10);
 	let options = {
 		headers: {
 			"Content-Type": "application/json"
@@ -31,9 +27,6 @@ function fetchData (code){
 		method: "POST", 
 		body: JSON.stringify({
 			productionOrderNum:  productionOrderNum,
-			// recordProcess: recordProcess,
-			// outputQty:  outputQty,
-			// date: today
 		})
                 
 	};
@@ -46,7 +39,7 @@ function fetchData (code){
 		})
 		.then(result => {
 			if (result) {
-				console.log(result);
+				console.log('data fetched...');
 				let productionOrderNum = result[0].production_order_num
 				let record_process = result[0].record_process;
 				let part_num = result[0].part_num;
@@ -54,7 +47,6 @@ function fetchData (code){
 				let start = new Date(result[0].start);
 				let end = new Date(result[0].end);
                         
-				console.log('API fetch success...')
 				document.getElementById('MyInput').value = productionOrderNum;
 				document.getElementById('recordProcess').value = record_process;
 				document.getElementById('partNum').value = part_num;
@@ -63,8 +55,6 @@ function fetchData (code){
 				document.getElementById('end').value = end;
 				start = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
 				end = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
-				console.log(typeof start);
-				// $('#start').value(start);
                         
 				const startValue = document.getElementById('start');
 				startValue.value = start;
@@ -109,7 +99,7 @@ function fetchGanttChart() {
 		.then(result => {
 			if (result) {
                             
-				console.log("API fetch success...");
+				console.log("API fetched...");
 
 				//create gantt chart data
 				let ganttdata = {}
@@ -141,8 +131,6 @@ function fetchGanttChart() {
 					rowAlias: "row",
 					linkAlias: null,
 					tooltipAlias: "tooltip",
-					// groupBy: "groupId,subGroupId",
-					// groupByAlias: "group,subGroup",
 					refreshFunction: refreshFunction
 				}
                           
@@ -169,8 +157,6 @@ function createProductionOrder() {
 	let end = document.getElementById('end').value;
 	let outputQty = document.getElementById('outputQty').value;
 
-	console.log(productionOrderNum, partNum, recordProcess, start, end, outputQty);
-
 	let options = {
 		headers: {
 			"Content-Type": "application/json"
@@ -188,7 +174,6 @@ function createProductionOrder() {
 	};
 	productionOrderNum.value = '';
 	partNum.value = '';
-	// productionGroup.value = '';
 	recordProcess.value = '';
 	start.value = '';
 	end.value = '';
@@ -202,7 +187,7 @@ function createProductionOrder() {
 		})
 		.then(result => {
 			if (result) {
-				console.log("API fetch success...");
+				console.log("API fetched...");
 				let productionOrderNum = result[0].production_order_num
 				let record_process = result[0].record_process;
 				let part_num = result[0].part_num;
@@ -236,13 +221,9 @@ function updateProductionOrder() {
 	let partNum = document.getElementById('partNum');
 	let recordProcess = document.getElementById('recordProcess');
 	let start = document.getElementById('start');
-	console.log(start)
               
 	let end = document.getElementById('end');
-	console.log(end)
 	let outputQty = document.getElementById('outputQty');
-
-	console.log(productionOrderNum, partNum, recordProcess, start, end, outputQty);
 
 	let options = {
 		headers: {
@@ -261,7 +242,6 @@ function updateProductionOrder() {
 	};
 	productionOrderNum.value = '';
 	partNum.value = '';
-	// productionGroup.value = '';
 	recordProcess.value = '';
 	start.value = '';
 	end.value = '';
@@ -275,7 +255,7 @@ function updateProductionOrder() {
 		})
 		.then(result => {
 			if (result) {
-				console.log("API fetch success...");
+				console.log("API fetched...");
 				let productionOrderNum = result[0].production_order_num
 				let recordProcess = result[0].record_process;
 				let partNum = result[0].part_num;
@@ -339,7 +319,7 @@ document.getElementById("recordProcess").addEventListener("input", function (){
 				response.json().then(function(data) {  
 					let option;
                                 
-					console.log('data fetched ... ...')
+					console.log('data fetched...')
 					for (let i = 0; i < data.length; i++) {
 						let option = document.createElement('option');
                                 

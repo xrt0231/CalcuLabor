@@ -48,7 +48,7 @@ function dashboard1() {
 		})
 		.then(result => {
 			if (result) {
-				console.log(result)
+				console.log('data fetched...')
 
 				for (let i=0; i<result.length; i+=1){
 
@@ -123,7 +123,7 @@ function dashboard2() {
 		})
 		.then(result => {
 			if (result) {
-				console.log(result)
+				console.log('data fetched...')
 
 				for (let i=0; i<result.length; i+=1){
 

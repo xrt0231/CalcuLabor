@@ -43,9 +43,8 @@ function fetchData() {
 			return message;
 		})
 		.then(result => {
-			if (result) {
-                            
-				console.log("API fetch success...");
+			if (result) {    
+				console.log("data fetched...");
 				let record_process = result[0].record_process;
 				let part_num = result[0].part_num;
 				let outputStandard = result[0].standard_output;
@@ -93,7 +92,7 @@ function createStandard() {
 		})
 		.then(result => {
 			if (result) {
-				console.log("API fetch success...");
+				console.log("data fetched...");
                             
 				let record_process = result[0].record_process;
 				let part_num = result[0].part_num;
@@ -146,8 +145,7 @@ function updateStandard() {
 		})
 		.then(result => {
 			if (result) {
-				console.log("API fetch success...");
-                              
+				console.log("data fetched...");     
 				let recordProcess = result[0].record_process;
 				let partNum = result[0].part_num;
 				let outputStandard = result[0].standard_output;

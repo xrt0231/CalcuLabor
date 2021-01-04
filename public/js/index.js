@@ -23,15 +23,11 @@ function fetchUserData (){
 			})
 			.then(result => {
 				let name = result.name;
-                      
 				if (result.name==='notSignIn') {
 					console.log('API fetch success...')
-                        
 					window.location.replace('/index.html');
 				} else {
-                          
-					document.getElementById('profile').innerHTML = `Hello, ${name}`;
-                          
+					document.getElementById('profile').innerHTML = `Hello, ${name}`;     
 				}
 			});
 	}else {

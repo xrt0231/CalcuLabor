@@ -2,7 +2,6 @@
 function fetchData (){
 	let username = document.getElementById('username').value;
 	let password = document.getElementById('password').value;
-	console.log(username, password)
 	if(username){
 		if(password){
 			let options = {
@@ -24,8 +23,7 @@ function fetchData (){
 				})
 				.then(result => {
 					if (result.name==='existed') {
-						console.log('API fetch success...')
-						console.log(result)
+						console.log('data fetched...')
 						Swal.fire('User already in system, please sign in')
 						setTimeout(function(){window.location.replace('signin.html')}, 2500)
                                 

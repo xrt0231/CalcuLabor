@@ -16,7 +16,6 @@ const signUp = async(username, encryptPassWord, token)=> {
 		console.log('Username already there...')
 		return result3;
 	}
-
 }
 
 const signIn = async(username, encryptPassWord)=> {
@@ -31,7 +30,6 @@ const signIn = async(username, encryptPassWord)=> {
 		console.log('User sign in success...')
 		return result;
 	}
-
 } 
 
 const userProfile = async(token)=> {

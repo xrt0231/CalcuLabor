@@ -23,8 +23,7 @@ const getHour = async (req, res) => {
 const getHourChart = async (req, res) => {
 	let employeeId = req.body.employeeId;
 	let date = req.body.date;
-	console.log(employeeId);
-	// let recordProcess =req.body.recordProcess;
+
 	const hour = (await Hour.getHourChart(employeeId, date));
 	res.send(hour);
 };

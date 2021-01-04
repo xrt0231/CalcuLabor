@@ -1,21 +1,20 @@
 
 //Datetime picker function
-          
 $(function() {
 	$('#start').datetimepicker();
-  });
+});
 			  
-  $(function() {
+$(function() {
 	$('#end').datetimepicker();
-  });
+});
   
-  $(function() {
+$(function() {
 	$('#start1').datetimepicker();
-  });
+});
 			  
-  $(function() {
+$(function() {
 	$('#end1').datetimepicker();
-  });
+});
 
 //Dropdown list of production process
 let dropdown = document.getElementById('recordProcessAuto');
@@ -54,8 +53,6 @@ function fetchData (code){
 	} else {var employeeId =  document.getElementById('MyInput').value;}
 
 	var recordProcess = document.getElementById('recordProcess').value;
-	// var outputQty = document.getElementById('outputQty').value;
-	// let today = new Date().toISOString().slice(0, 10);
 	let options = {
 		headers: {
 			"Content-Type": "application/json"
@@ -63,10 +60,7 @@ function fetchData (code){
 		method: "POST", 
 		body: JSON.stringify({
 			employeeId: employeeId,
-			// productionOrderNum:  productionOrderNum,
 			recordProcess: recordProcess,
-			// outputQty:  outputQty,
-			// date: today
 		})
 
 	};
@@ -84,9 +78,7 @@ function fetchData (code){
 				let record_process = result[0].record_process;
 				var start = new Date(result[0].recentStart);
 				let end = new Date(result[0].recentEnd);
-				console.log(result[0].recentEnd);
 				if(result[0].recentEnd){
-
 
 					document.getElementById('MyInput').value = employeeId;
 					document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
@@ -96,7 +88,6 @@ function fetchData (code){
 
 					document.getElementById('MyInput').value = employeeId;
 					document.getElementById('start').value = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
-					// document.getElementById('end').value = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
 				}
 			} else {
 				alert(result.msg);
@@ -109,7 +100,6 @@ function fetchGanttChart (){
 	let data = [];
 	var employeeId =  document.getElementById('MyInput').value;
 	let today = new Date().toISOString().slice(0, 10);
-	// var recordProcess = document.getElementById('recordProcess').value;
 
 	let options = {
 		headers: {
@@ -132,7 +122,7 @@ function fetchGanttChart (){
 		.then(result => {
 			if (result) {
 
-				console.log("API fetch success...");
+				console.log("data fetched...");
 
 				//create gantt chart data
 				let workHourData = {}
@@ -164,8 +154,6 @@ function fetchGanttChart (){
 					rowAlias: "row",
 					linkAlias: null,
 					tooltipAlias: "tooltip",
-					// groupBy: "groupId,subGroupId",
-					// groupByAlias: "group,subGroup",
 					refreshFunction: refreshFunction
 				}
 
@@ -190,8 +178,6 @@ function clockInOut (){
 	var recordProcess = document.getElementById('recordProcess');
 	var start = document.getElementById('start');
 	var end = document.getElementById('end');
-
-	// let today = new Date().toISOString().slice(0, 10);
 	let options = {
 		headers: {
 			"Content-Type": "application/json"
@@ -202,7 +188,6 @@ function clockInOut (){
 			recordProcess: recordProcess.value,
 			start: start.value,
 			end: end.value,
-			// date: today
 		})
 
 	};
@@ -220,7 +205,7 @@ function clockInOut (){
 		})
 		.then(result => {
 			if (result[0]) {
-				console.log(result[0]);
+				console.log('data fetched...');
 				let employeeId = result[0].employee_id;
 				let record_process = result[0].record_process;
 				let start = new Date(result[0].recentStart);

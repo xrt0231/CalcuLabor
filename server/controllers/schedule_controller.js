@@ -4,15 +4,12 @@ var moment = require('moment-timezone');
 
 //For production schedule
 const getGanttChart = async (req, res) => {
-	// let date = req.body.date;
 	//Get star time from UI and convert to DATETIME format
 	let startGet = new Date(`${req.body.start}`);
-	
 	let start = moment(startGet).format("YYYY-MM-DD");
     
 	// Get end time from UI and convert to DATETIME format 
 	let endGet = new Date(`${req.body.start}`);
-	
 	let end = moment(endGet.setDate(endGet.getDate()+1)).format("YYYY-MM-DD");
 
 	const schedule = (await Schedule.getGanttChart(start, end));
@@ -21,7 +18,6 @@ const getGanttChart = async (req, res) => {
 
 //For actual production schedule
 const getActualGanttChart = async (req, res) => {
-	// let date = req.body.date;
 	//Get star time from UI and convert to DATETIME format
 	let startGet = new Date(`${req.body.start}`);
 	let start = moment(startGet).format("YYYY-MM-DD");
@@ -86,7 +82,6 @@ const dropdownProcess = async (req, res) => {
 //Auto guess dropdown list of production order num
 const dropdownProducionOrderNum = async (req, res) => {
 	let recordProcess = req.body.process;
-	console.log(recordProcess);
 	const schedule = (await Schedule.dropdownProducionOrderNum(recordProcess));
 	res.send(schedule);
 }
@@ -94,7 +89,6 @@ const dropdownProducionOrderNum = async (req, res) => {
 //Auto guess dropdown list of part num
 const dropdownPartNum = async (req, res) => {
 	let productionOrderNum = req.body.productionOrderNum;
-	console.log(productionOrderNum);
 	const schedule = (await Schedule.dropdownPartNum(productionOrderNum));
 	res.send(schedule);
 }

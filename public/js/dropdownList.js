@@ -76,7 +76,6 @@ document.getElementById("MyInput").addEventListener("input", function (){
 		});
 });
 
-
 //Dropdown list of production order number
 document.getElementById("recordProcess").addEventListener("input", function (){
 	let dropdown1 = document.getElementById('MyInputAuto');

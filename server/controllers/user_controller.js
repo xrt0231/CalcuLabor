@@ -5,7 +5,6 @@ const crypto = require('crypto'); // Crypto hash
 const Swal = require('sweetalert2'); //Sweet Alert2
 
 
-
 //User profile
 const userProfile = async (req, res) => {
 
@@ -13,9 +12,7 @@ const userProfile = async (req, res) => {
 	console.log(token)
 	token = token.slice(7);
     
-
 	const user = (await User.userProfile(token));
-
 	res.send(user);
 };
 
@@ -37,7 +34,6 @@ const signIn = async (req, res) => {
 const signUp = async (req, res) => {
 	const hash = crypto.createHash('sha256');
 
-	// const hash = crypto.createHash('sha256');
 	let password = req.body.password;
 	let username = req.body.username;
 
@@ -50,10 +46,6 @@ const signUp = async (req, res) => {
 	const user = (await User.signUp(username, encryptPassWord, token));
 	res.send(user);
 };
-
-
-
-
 
 module.exports = {
 	userProfile, signUp, signIn
