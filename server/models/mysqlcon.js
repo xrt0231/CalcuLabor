@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const {promisify} = require('util'); // util from native nodejs library
 const env = process.env.NODE_ENV || 'production';
 const multipleStatements = (process.env.NODE_ENV === 'test');
-const {DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_DATABASE_TEST} = process.env;
+const {DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_DATABASE_TEST, rds_HOST, rds_USERNAME, rds_PASSWORD, rds_DATABASE} = process.env;
 
 const mysqlConfig = {
 	production: { // for EC2 machine
@@ -23,7 +23,14 @@ const mysqlConfig = {
 		user: DB_USERNAME,
 		password: DB_PASSWORD,
 		database: DB_DATABASE_TEST
+	},
+	rds: { // for RDS
+		host: rds_HOST,
+		user: rds_USERNAME,
+		password: rds_PASSWORD,
+		database: rds_DATABASE
 	}
+
 };
 
 const mysqlCon = mysql.createConnection(mysqlConfig[env], {multipleStatements});
