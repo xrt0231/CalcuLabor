@@ -52,10 +52,10 @@ formula to optimize the operation of organization.
 * Highcharts
 
 ## Database design
-<img src="/logo/erDiagram.JPG">
+<img src="/public/logo/erDiagram.JPG">
 
 ## Features
-<img src="/logo/dashBoardDemo.mp4">
+<img src="/public/logo/dashBoardDemo.mp4">
 
 ### Features ready
 * Dashboard: 
