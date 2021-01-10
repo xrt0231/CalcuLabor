@@ -55,7 +55,7 @@ formula to optimize the operation of organization.
 <img src="/public/logo/erDiagram.JPG">
 
 ## Features
-<img src="/public/logo/dashBoardDemo.mp4">
+<img src="/public/logo/dashBoardDemo.gif">
 
 ### Features ready
 * Dashboard: 
