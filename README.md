@@ -14,7 +14,7 @@ formula to optimize the operation of organization.
 * [Technologies](#technologies)
 * [Domain knowledge of efficiency calculation](#Domain-knowledge-of-efficiency-calculation)
 * [Database design](#database-design)
-* [Features](#features)
+* [Features](#features-ready)
 * [Demo of key features](#demo-of-key-features)
 * [Author](#author)
 
@@ -83,17 +83,17 @@ formula to optimize the operation of organization.
 
 ## Demo of key features
 * DASHBOARD MODULE
-* Select process as process_2 from the dropdown list, start date as 2020/12/1, end date as 2020/12/24 then click "Show Process Effi. by Date" button and the trand chart show up
+* Select process as process_2 from the dropdown list, start date as 2020/12/1, end date as 2020/12/24 then click "Show Process Effi. by Date" button and the trand chart shows up
 <img src="/public/logo/dash1.gif">
 
 * Select date as 2020/12/14 then click "Show Daily Effi. by Process" button and the trand chart show up
 <img src="/public/logo/dash2.gif">
 
 * PRODUCTION PLANNING MODULE
-* Print out barcode of below image file as a production order number to be scanned example
+* Print out barcode of below image file as a production order number for barcode reading
 <img src="/public/logo/2012280001.png">
 
-* Click "Turn on/off camera" button to activate camera of your device (note: please ALLOW calculabor.online to use your camera) then scan your barcode and the production order detail shows up
+* Click "Turn on/off camera" button to activate camera of your device (note: please ALLOW calculabor.online to use your camera) then scan your barcode and the production order detail showss up
 <img src="/public/logo/scan1.gif">
 
 ## Author
