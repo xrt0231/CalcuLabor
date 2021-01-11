@@ -32,7 +32,7 @@ formula to optimize the operation of organization.
 * HTML
 * CSS
 * JavaScript
-* AJAX
+* AJAXf
 
 ### Barcode reading
 * QuaggaJS
@@ -85,12 +85,14 @@ formula to optimize the operation of organization.
 * DASHBOARD MODULE
 * Select process as process_2 from the dropdown list, start date as 2020/12/1, end date as 2020/12/24 then click "Show Process Effi. by Date" button and the trand chart show up
 <img src="/public/logo/dash1.gif">
-* Select date as 2020/12/14 then click "Show Daily Effi. by Process" button and the trand chart show up
+
+a* Select date as 2020/12/14 then click "Show Daily Effi. by Process" button and the trand chart show up
 <img src="/public/logo/dash2.gif">
 
 * PRODUCTION PLANNING MODULE
 * Print out barcode of below image file as a production order number to be scanned example
 <img src="/public/logo/2012280001.png">
+
 * Click "Turn on/off camera" button to activate camera of your device (note: please ALLOW calculabor.online to use your camera) then scan your barcode and the production order detail shows up
 <img src="/public/logo/scan1.gif">
 
