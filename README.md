@@ -86,7 +86,7 @@ formula to optimize the operation of organization.
 * Select process as process_2 from the dropdown list, start date as 2020/12/1, end date as 2020/12/24 then click "Show Process Effi. by Date" button and the trand chart show up
 <img src="/public/logo/dash1.gif">
 
-a* Select date as 2020/12/14 then click "Show Daily Effi. by Process" button and the trand chart show up
+* Select date as 2020/12/14 then click "Show Daily Effi. by Process" button and the trand chart show up
 <img src="/public/logo/dash2.gif">
 
 * PRODUCTION PLANNING MODULE
