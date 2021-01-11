@@ -5,7 +5,7 @@ formula to optimize the operation of organization.
 
 #### Website URL: [calculbor.online](https://calculabor.online/)
 
-#### Test Accounts:
+#### Test Account:
   - username: test12345
   - password: tT!5
 
