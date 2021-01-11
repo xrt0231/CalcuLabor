@@ -93,7 +93,7 @@ formula to optimize the operation of organization.
 * Print out barcode of below image file as a production order number for barcode reading.
 <img src="/public/logo/2012280001.png">
 
-* Click "Turn on/off camera" button to activate camera of your device (note: please ALLOW calculabor.online to use your camera) then scan your barcode and the production order detail showss up.
+* Click "Turn on/off camera" button to activate camera of your device (note: please ALLOW calculabor.online to use your camera) then scan your barcode and the production order detail shows up.
 <img src="/public/logo/scan1.gif">
 
 ## Author
