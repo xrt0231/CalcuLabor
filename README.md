@@ -15,7 +15,7 @@ formula to optimize the operation of organization.
 * [Domain knowledge of efficiency calculation](#Domain-knowledge-of-efficiency-calculation)
 * [Database design](#database-design)
 * [Features](#features)
-* [Demos of key features](#demos-of-key-features)
+* [Demo of key features](#demo-of-key-features)
 * [Author](#author)
 
 
@@ -81,7 +81,7 @@ formula to optimize the operation of organization.
 * Let production orders from production planning module are synchronized with production orders from MRP 
 * Integrate MES production parameter into production execution module
 
-## Demos of key features
+## Demo of key features
 * DASHBOARD MODULE
 * Select process as process_2 from the dropdown list, start date as 2020/12/1, end date as 2020/12/24 then click "Show Process Effi. by Date" button and the trand chart show up
 <img src="/public/logo/dash1.gif">
