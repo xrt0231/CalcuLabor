@@ -19,7 +19,8 @@ const signUp = async(username, encryptPassWord, token)=> {
 }
 
 const signIn = async(username, encryptPassWord)=> {
-	let result = await query(`SELECT * FROM employee where name = "${username}" AND password = "${encryptPassWord}"`);
+    let sql = `SELECT * FROM employee where name = ? AND password = ?`
+	let result = await query(sql, [username, encryptPassWord]);
     
 	if (result.length === 0)
 	{

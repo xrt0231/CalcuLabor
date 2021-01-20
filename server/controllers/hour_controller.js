@@ -9,6 +9,7 @@ const getHour = async (req, res) => {
     
 	//Get star time from UI and convert to DATETIME format 
 	let startGet = new Date(`${req.body.start}`);
+	console.log(startGet);
 	let start = moment(startGet).format("YYYY-MM-DD HH:mm:ss");
     
 	//Get end time from UI and convert to DATETIME format 
