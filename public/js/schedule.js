@@ -53,8 +53,8 @@ function fetchData (code){
 				document.getElementById('outputQty').value = outputQty;
                         
 				document.getElementById('end').value = end;
-				start = start.toLocaleDateString() + ' ' + start.toLocaleTimeString();
-				end = end.toLocaleDateString() + ' ' + end.toLocaleTimeString();
+				start = start.toDateString() + ' ' + start.toTimeString();
+				end = end.toDateString() + ' ' + end.toTimeString();
                         
 				const startValue = document.getElementById('start');
 				startValue.value = start;
