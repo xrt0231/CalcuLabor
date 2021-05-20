@@ -128,11 +128,16 @@
 		AppleID.auth.init({
 			clientId : "lol.online.calculabor",
 			scope : "name email",
-			redirectURI : "https://example-app.com/redirect",
+			redirectURI : "https://calculabor.online/apple/redirect.html",
 			state : "",
 			nonce : "",
 			usePopup : true //or false defaults to false
 		});
+
+		const singInApple = async () => {
+  		const response = await window.AppleID.auth.signIn();
+  		return response;
+};
 	</script>
 
 </body>
