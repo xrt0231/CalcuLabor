@@ -32,7 +32,7 @@ formula to optimize the operation of organization.
 * HTML
 * CSS
 * JavaScript
-* AJAXf
+* AJAX
 
 ### Barcode reading
 * QuaggaJS

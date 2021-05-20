@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="/css/signupin.css">  
+  <link rel="stylesheet" href="/css/signupin.css">  
 <!--JQuery CND--> 
   <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -16,12 +16,16 @@
 
   <!--Sweet Alert2 CDN-->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
- 
+
+  <!-- Sign in with apple -->
+  <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+
   <title>CalcuLabor</title>
 </head>
 
 <html>
 <body>
+	
 	<!-- Main Content -->
 	<div class="container-fluid">
 		<div class="row main-content bg-success text-center">
@@ -42,7 +46,8 @@
 							<div class="row">
 								<!-- <span class="fa fa-lock"></span> -->
 								<input type="password" name="password" id="password" class="form__input" placeholder="Password" autocomplete="on">
-							</div>
+							</div>		
+							<div style="display: flex; justify-content: center;" id="appleid-signin" data-color="white" data-border="true" data-type="sign in" data-height=35px data-width="375px" data-border-radius="60"></div>					
 							<!-- <div class="row">
 								<input type="checkbox" name="remember_me" id="remember_me" class="">
 								<label for="remember_me">Remember Me!</label>
@@ -51,15 +56,20 @@
 								<input type="submit" value="Submit" class="btn">
 							</div> -->
 						</form>
-						<input type="submit" value="Submit" class="btn" onclick="fetchData()">
+						<input type="submit" value="Submit" class="btn" style="width: 375px;" onclick="fetchData()">
+						
 					</div>
 					<div class="row">
 						<p>Don't have an account? <a href="signup.html">Sign Up Here</a></p>
+						
 					</div>
+					
 				</div>
+				
 			</div>
 		</div>
 	</div>
+	
 	<!-- Footer -->
 	<div class="container-fluid text-center footer">
 	</div>
@@ -113,5 +123,17 @@
 				   }
 			}
 	</script>
+
+	<script type="text/javascript">
+		AppleID.auth.init({
+			clientId : "lol.online.calculabor",
+			scope : "name email",
+			redirectURI : "https://example-app.com/redirect",
+			state : "",
+			nonce : "",
+			usePopup : true //or false defaults to false
+		});
+	</script>
+
 </body>
 </html>
