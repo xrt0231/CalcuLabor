@@ -12,6 +12,8 @@
     <script>
     const singInApple = async () => {
         const response = await window.AppleID.auth.signIn();
+        window.location.replace('https://calculabor.online');
+        console.log(response);
         return response;
     };
     </script>
