@@ -3,6 +3,7 @@ const User = require('../models/user_model');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto'); // Crypto hash
 const Swal = require('sweetalert2'); //Sweet Alert2
+const appleSignin = require("apple-signin-auth"); //Sign in with Apple ID
 
 
 //User profile
@@ -50,9 +51,23 @@ const signUp = async (req, res) => {
 //apple sign in redirect
 const appleSignIn = async (req, res) => {
 	
-	let code = req.body.code
+	
+	const { authorization, user } = req.body;
 
-	res.send(code);
+    try {
+        const { sub: userAppleId } = await appleSignin.verifyIdToken(
+        authorization.id_token, // We need to pass the token that we wish to decode.
+        {
+      		audience: "lol.online.calculabor", // client id - The same one we used  on the frontend, this is the secret key used for encoding and decoding the token.
+      		ignoreExpiration: true, // Token will not expire unless you manually do so.
+    	}
+  		);
+		res.send(userAppleId);
+	} catch (err) {
+  	// Token is not verified
+  	console.error(err);
+	}
+	
 }
 
 module.exports = {
