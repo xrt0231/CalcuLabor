@@ -47,6 +47,14 @@ const signUp = async (req, res) => {
 	res.send(user);
 };
 
+//apple sign in
+const appleSignIn = async (req, res) => {
+	
+	let code = req.body.code
+
+	res.send(code);
+}
+
 module.exports = {
-	userProfile, signUp, signIn
+	userProfile, signUp, signIn, appleSignIn
 };
