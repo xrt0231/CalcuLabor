@@ -7,6 +7,7 @@ const appleSignin = require("apple-signin-auth"); //Sign in with Apple ID
 const env = process.env.NODE_ENV || 'production';
 const { team_id, key_id} = process.env;
 const path = require('path');
+var fs = require('fs');
 
 
 //User profile
@@ -54,7 +55,7 @@ const signUp = async (req, res) => {
 //apple sign in redirect
 const appleSignIn = async (req, res) => {
 	const { code, id_token } = req.body;
-	let privateKeyPath = path.basename('key.txt');
+	// let privateKeyPath = path.basename('key.txt');
 	try {
 		const { sub: userAppleId } = await appleSignin.verifyIdToken(
 		   id_token, // We need to pass the token that we wish to decode.
@@ -69,11 +70,11 @@ const appleSignIn = async (req, res) => {
 		// Token is not verified
 		console.error(err);
 	  }
-      console.log(team_id, privateKeyPath, key_id);
+      console.log(team_id, fs.read('key.txt'), key_id);
 	  const clientSecret = appleSignin.getClientSecret({
 		clientID: 'lol.online.calculabor', // Apple Client ID
 		teamID: team_id, // Apple Developer Team ID.
-		privateKey: privateKeyPath, // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
+		privateKey: fs.read('key.txt'), // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
 		keyIdentifier: key_id, // identifier of the private key.
 		// OPTIONAL
 		//expAfter: 15777000, // Unix time in seconds after which to expire the clientSecret JWT. Default is now+5 minutes.
