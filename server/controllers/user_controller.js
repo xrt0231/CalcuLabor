@@ -60,7 +60,7 @@ const appleSignIn = async (req, res) => {
 		  }
 		);
 		console.log(userAppleId);
-		res.send(`<h2>${userAppleId}, ${id_token}, ${code}</h2>`)
+		res.send(`<h2>Your Apple Id:${userAppleId}, "\n"ID_TOKEN:${id_token}, "\n"CODE:${code}</h2>`)
 	  } catch (err) {
 		// Token is not verified
 		console.error(err);
