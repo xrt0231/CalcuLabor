@@ -47,7 +47,7 @@ const signUp = async (req, res) => {
 	res.send(user);
 };
 
-//apple sign in
+//apple sign in redirect
 const appleSignIn = async (req, res) => {
 	
 	let code = req.body.code
