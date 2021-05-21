@@ -54,6 +54,7 @@ const signUp = async (req, res) => {
 //apple sign in redirect
 const appleSignIn = async (req, res) => {
 	const { code, id_token } = req.body;
+	let privateKeyPath = 'key.txt';
 	try {
 		const { sub: userAppleId } = await appleSignin.verifyIdToken(
 		   id_token, // We need to pass the token that we wish to decode.
@@ -72,7 +73,7 @@ const appleSignIn = async (req, res) => {
 	  const clientSecret = appleSignin.getClientSecret({
 		clientID: 'lol.online.calculabor', // Apple Client ID
 		teamID: team_id, // Apple Developer Team ID.
-		privateKey: key, // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
+		privateKey: privateKeyPath, // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
 		keyIdentifier: key_id, // identifier of the private key.
 		// OPTIONAL
 		//expAfter: 15777000, // Unix time in seconds after which to expire the clientSecret JWT. Default is now+5 minutes.
