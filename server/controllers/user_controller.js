@@ -50,7 +50,7 @@ const signUp = async (req, res) => {
 
 //apple sign in redirect
 const appleSignIn = async (req, res) => {
-	const { id_token } = req.body;
+	const { code, id_token } = req.body;
 	try {
 		const { sub: userAppleId } = await appleSignin.verifyIdToken(
 		   id_token, // We need to pass the token that we wish to decode.
@@ -60,6 +60,7 @@ const appleSignIn = async (req, res) => {
 		  }
 		);
 		console.log(userAppleId);
+		res.send(`<h2>${userAppleId}, ${id_token}, ${code}</h2>`)
 	  } catch (err) {
 		// Token is not verified
 		console.error(err);
