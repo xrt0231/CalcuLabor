@@ -89,7 +89,7 @@ const appleSignIn = async (req, res) => {
 	  
 	  try {
 		const tokenResponse = await appleSignin.getAuthorizationToken(code, options);
-		res.send(`<h2>Your Apple Id:${userAppleId}, \n ID_TOKEN:${id_token}, \n CODE:${code}, ${tokenResponse}</h2>`)
+		res.send(`<h2>${tokenResponse}</h2>`)
 	  } catch (err) {
 		console.error(err);
 	  }
