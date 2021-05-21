@@ -89,7 +89,8 @@ const appleSignIn = async (req, res) => {
 	  
 	  try {
 		const tokenResponse = await appleSignin.getAuthorizationToken(code, options);
-		res.send(`<h2>${tokenResponse}</h2>`)
+		console.log(tokenResponse.access_token)
+		res.send(`<h2>Your access token is: ${tokenResponse.access_token}</h2>`)
 	  } catch (err) {
 		console.error(err);
 	  }
