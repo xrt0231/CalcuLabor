@@ -70,7 +70,7 @@ const appleSignIn = async (req, res) => {
 		// Token is not verified
 		console.error(err);
 	  }
-      console.log(team_id, fs.read('key.txt'), key_id);
+      console.log(team_id, key_txt, key_id);
 	  const clientSecret = appleSignin.getClientSecret({
 		clientID: 'lol.online.calculabor', // Apple Client ID
 		teamID: team_id, // Apple Developer Team ID.
