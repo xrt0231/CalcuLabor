@@ -5,7 +5,7 @@ const crypto = require('crypto'); // Crypto hash
 const Swal = require('sweetalert2'); //Sweet Alert2
 const appleSignin = require("apple-signin-auth"); //Sign in with Apple ID
 const env = process.env.NODE_ENV || 'production';
-const { team_id, key_id} = process.env;
+const { team_id, key_txt, key_id} = process.env;
 const path = require('path');
 var fs = require('fs');
 
@@ -74,7 +74,7 @@ const appleSignIn = async (req, res) => {
 	  const clientSecret = appleSignin.getClientSecret({
 		clientID: 'lol.online.calculabor', // Apple Client ID
 		teamID: team_id, // Apple Developer Team ID.
-		privateKey: '-----BEGIN PRIVATE KEY-----MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgP+8JC7+piXmyuTeO1keowp7ooMJINomUQAHB+pGox6CgCgYIKoZIzj0DAQehRANCAARbl/SyCGwpsxBrqmABH4aaxYplWbx9uUE8KFMlPFseiu4ffO+mIRhb0fziDMslesuReOXbDcHyo6if9yFfdvxG-----END PRIVATE KEY-----', // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
+		privateKey: key_txt, // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
 		keyIdentifier: key_id, // identifier of the private key.
 		// OPTIONAL
 		//expAfter: 15777000, // Unix time in seconds after which to expire the clientSecret JWT. Default is now+5 minutes.
