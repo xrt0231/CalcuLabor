@@ -5,7 +5,7 @@ const crypto = require('crypto'); // Crypto hash
 const Swal = require('sweetalert2'); //Sweet Alert2
 const appleSignin = require("apple-signin-auth"); //Sign in with Apple ID
 const env = process.env.NODE_ENV || 'production';
-const { team_id, key, key_id} = process.env;
+const { team_id, key_id} = process.env;
 const path = require('path');
 
 
@@ -69,7 +69,7 @@ const appleSignIn = async (req, res) => {
 		// Token is not verified
 		console.error(err);
 	  }
-
+      console.log(team_id, privateKeyPath, key_id);
 	  const clientSecret = appleSignin.getClientSecret({
 		clientID: 'lol.online.calculabor', // Apple Client ID
 		teamID: team_id, // Apple Developer Team ID.
