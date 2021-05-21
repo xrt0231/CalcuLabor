@@ -50,10 +50,10 @@ const signUp = async (req, res) => {
 
 //apple sign in redirect
 const appleSignIn = async (req, res) => {
-	const { authorization, user } = req.body;
+	const { id_token } = req.body;
 	try {
 		const { sub: userAppleId } = await appleSignin.verifyIdToken(
-		  authorization.id_token, // We need to pass the token that we wish to decode.
+		   id_token, // We need to pass the token that we wish to decode.
 		  {
 			audience: "lol.online.calculabor", // client id - The same one we used  on the frontend, this is the secret key used for encoding and decoding the token.
 			ignoreExpiration: true, // Token will not expire unless you manually do so.
