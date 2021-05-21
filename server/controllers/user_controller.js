@@ -50,15 +50,6 @@ const signUp = async (req, res) => {
 
 //apple sign in redirect
 const appleSignIn = async (req, res) => {
-	let code = req.body.code;
-	let id_token = req.body.id_token;
-	
-	console.log(code, id_token);
-	
-}
-
-//apple sign in verify
-const appleVerify = async (req, res) => {
 	const { authorization, user } = req.body;
 	try {
 		const { sub: userAppleId } = await appleSignin.verifyIdToken(
@@ -73,6 +64,24 @@ const appleVerify = async (req, res) => {
 		// Token is not verified
 		console.error(err);
 	  }
+}
+
+//apple sign in verify
+const appleVerify = async (req, res) => {
+	// const { authorization, user } = req.body;
+	// try {
+	// 	const { sub: userAppleId } = await appleSignin.verifyIdToken(
+	// 	  authorization.id_token, // We need to pass the token that we wish to decode.
+	// 	  {
+	// 		audience: "lol.online.calculabor", // client id - The same one we used  on the frontend, this is the secret key used for encoding and decoding the token.
+	// 		ignoreExpiration: true, // Token will not expire unless you manually do so.
+	// 	  }
+	// 	);
+	// 	console.log(userAppleId);
+	//   } catch (err) {
+	// 	// Token is not verified
+	// 	console.error(err);
+	//   }
 }
 
 module.exports = {
