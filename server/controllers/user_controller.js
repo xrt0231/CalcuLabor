@@ -6,6 +6,7 @@ const Swal = require('sweetalert2'); //Sweet Alert2
 const appleSignin = require("apple-signin-auth"); //Sign in with Apple ID
 const env = process.env.NODE_ENV || 'production';
 const { team_id, key, key_id} = process.env;
+const path = require('path');
 
 
 //User profile
