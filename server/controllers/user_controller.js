@@ -59,10 +59,32 @@ const appleSignIn = async (req, res) => {
 			ignoreExpiration: true, // Token will not expire unless you manually do so.
 		  }
 		);
-		console.log(userAppleId);
-		res.send(`<h2>Your Apple Id:${userAppleId}, \n ID_TOKEN:${id_token}, \n CODE:${code}</h2>`)
+		//console.log(userAppleId);
+		//res.send(`<h2>Your Apple Id:${userAppleId}, \n ID_TOKEN:${id_token}, \n CODE:${code}</h2>`)
 	  } catch (err) {
 		// Token is not verified
+		console.error(err);
+	  }
+
+	  const clientSecret = appleSignin.getClientSecret({
+		clientID: 'lol.online.calculabor', // Apple Client ID
+		teamID: process.env.team_id, // Apple Developer Team ID.
+		privateKey: process.env.key, // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
+		keyIdentifier: process.env.key_id, // identifier of the private key.
+		// OPTIONAL
+		expAfter: 15777000, // Unix time in seconds after which to expire the clientSecret JWT. Default is now+5 minutes.
+	  });
+	  
+	  const options = {
+		clientID: 'lol.online.calculabor', // Apple Client ID
+		redirectUri: 'http://calculabor.online/api/1.0/apple/redirect', // use the same value which you passed to authorisation URL.
+		clientSecret: clientSecret
+	  };
+	  
+	  try {
+		const tokenResponse = await appleSignin.getAuthorizationToken(code, options);
+		res.send(`<h2>Your Apple Id:${userAppleId}, \n ID_TOKEN:${id_token}, \n CODE:${code}, ${tokenResponse}</h2>`)
+	  } catch (err) {
 		console.error(err);
 	  }
 }
