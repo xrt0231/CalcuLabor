@@ -74,7 +74,7 @@ const appleSignIn = async (req, res) => {
 	  const clientSecret = appleSignin.getClientSecret({
 		clientID: 'lol.online.calculabor', // Apple Client ID
 		teamID: team_id, // Apple Developer Team ID.
-		privateKey: fs.read('key.txt'), // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
+		privateKey: 'MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgP+8JC7+piXmyuTeO1keowp7ooMJINomUQAHB+pGox6CgCgYIKoZIzj0DAQehRANCAARbl/SyCGwpsxBrqmABH4aaxYplWbx9uUE8KFMlPFseiu4ffO+mIRhb0fziDMslesuReOXbDcHyo6if9yFfdvxG', // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
 		keyIdentifier: key_id, // identifier of the private key.
 		// OPTIONAL
 		//expAfter: 15777000, // Unix time in seconds after which to expire the clientSecret JWT. Default is now+5 minutes.
