@@ -54,7 +54,7 @@ const signUp = async (req, res) => {
 //apple sign in redirect
 const appleSignIn = async (req, res) => {
 	const { code, id_token } = req.body;
-	let privateKeyPath = 'key.txt';
+	let privateKeyPath = path.basename('key.txt');
 	try {
 		const { sub: userAppleId } = await appleSignin.verifyIdToken(
 		   id_token, // We need to pass the token that we wish to decode.
