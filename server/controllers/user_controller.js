@@ -83,7 +83,7 @@ const appleSignIn = async (req, res) => {
 	  
 	  const options = {
 		clientID: 'lol.online.calculabor', // Apple Client ID
-		redirectUri: 'http://calculabor.online/api/1.0/apple/redirect', // use the same value which you passed to authorisation URL.
+		redirectUri: 'https://calculabor.online/api/1.0/apple/redirect', // use the same value which you passed to authorisation URL.
 		clientSecret: clientSecret
 	  };
 	  
