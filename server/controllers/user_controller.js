@@ -5,7 +5,7 @@ const crypto = require('crypto'); // Crypto hash
 const Swal = require('sweetalert2'); //Sweet Alert2
 const appleSignin = require("apple-signin-auth"); //Sign in with Apple ID
 const env = process.env.NODE_ENV || 'production';
-const { team_id, key_txt, key_id} = process.env;
+const { client_id, team_id, key_id} = process.env;
 const path = require('path');
 var fs = require('fs');
 
@@ -60,7 +60,7 @@ const appleSignIn = async (req, res) => {
 		const { sub: userAppleId } = await appleSignin.verifyIdToken(
 		   id_token, // We need to pass the token that we wish to decode.
 		  {
-			audience: "lol.online.calculabor", // client id - The same one we used  on the frontend, this is the secret key used for encoding and decoding the token.
+			audience: client_id, // client id - The same one we used  on the frontend, this is the secret key used for encoding and decoding the token.
 			ignoreExpiration: true, // Token will not expire unless you manually do so.
 		  }
 		);
@@ -72,7 +72,7 @@ const appleSignIn = async (req, res) => {
 	  }
       
 	  const clientSecret = appleSignin.getClientSecret({
-		clientID: 'lol.online.calculabor', // Apple Client ID
+		clientID: client_id, // Apple Client ID
 		teamID: team_id, // Apple Developer Team ID.
 		privateKey: fs.readFileSync('./key.txt', 'utf8'), // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
 		keyIdentifier: key_id, // identifier of the private key.
@@ -82,7 +82,7 @@ const appleSignIn = async (req, res) => {
 	//   console.log(clientID, teamID, privateKey, keyIdentifier);
 	  
 	  const options = {
-		clientID: 'lol.online.calculabor', // Apple Client ID
+		clientID: client_id, // Apple Client ID
 		redirectUri: 'https://calculabor.online/api/1.0/apple/redirect', // use the same value which you passed to authorisation URL.
 		clientSecret: clientSecret
 	  };
@@ -92,7 +92,7 @@ const appleSignIn = async (req, res) => {
 		try {
 			const { sub: userAppleId } = await appleSignin.verifyIdToken(tokenResponse.id_token, {
 			  // Optional Options for further verification - Full list can be found here https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
-			  //audience: 'lol.online.calculabor', // client id - can also be an array
+			  //audience: client_id, // client id - can also be an array
 			  //nonce: 'NONCE', // nonce // Check this note if coming from React Native AS RN automatically SHA256-hashes the nonce https://github.com/invertase/react-native-apple-authentication#nonce
 			  // If you want to handle expiration on your own, or if you want the expired tokens decoded
 			  ignoreExpiration: true, // default is false
@@ -106,37 +106,9 @@ const appleSignIn = async (req, res) => {
 		console.error(err);
 	  }
 
-	//   try {
-	// 	const { sub: userAppleId } = await appleSignin.verifyIdToken(tokenResponse.id_token, {
-	// 	  // Optional Options for further verification - Full list can be found here https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
-	// 	  audience: 'lol.online.calculabor', // client id - can also be an array
-	// 	  nonce: 'NONCE', // nonce // Check this note if coming from React Native AS RN automatically SHA256-hashes the nonce https://github.com/invertase/react-native-apple-authentication#nonce
-	// 	  // If you want to handle expiration on your own, or if you want the expired tokens decoded
-	// 	  ignoreExpiration: true, // default is false
-	// 	});
-	// 	res.send(`<h2>Your access token is: ${tokenResponse.access_token} and your Apple ID is: ${userAppleId}</h2>`)
-	//   } catch (err) {
-	// 	// Token is not verified
-	// 	console.error(err);
-	//   }
-}
-
 //apple sign in verify
 const appleVerify = async (req, res) => {
-	// const { authorization, user } = req.body;
-	// try {
-	// 	const { sub: userAppleId } = await appleSignin.verifyIdToken(
-	// 	  authorization.id_token, // We need to pass the token that we wish to decode.
-	// 	  {
-	// 		audience: "lol.online.calculabor", // client id - The same one we used  on the frontend, this is the secret key used for encoding and decoding the token.
-	// 		ignoreExpiration: true, // Token will not expire unless you manually do so.
-	// 	  }
-	// 	);
-	// 	console.log(userAppleId);
-	//   } catch (err) {
-	// 	// Token is not verified
-	// 	console.error(err);
-	//   }
+	
 }
 
 module.exports = {
