@@ -89,24 +89,36 @@ const appleSignIn = async (req, res) => {
 	  
 	  try {
 		const tokenResponse = await appleSignin.getAuthorizationToken(code, options);
-		console.log(tokenResponse.access_token)
+		try {
+			const { sub: userAppleId } = await appleSignin.verifyIdToken(tokenResponse.id_token, {
+			  // Optional Options for further verification - Full list can be found here https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
+			  audience: 'lol.online.calculabor', // client id - can also be an array
+			  nonce: 'NONCE', // nonce // Check this note if coming from React Native AS RN automatically SHA256-hashes the nonce https://github.com/invertase/react-native-apple-authentication#nonce
+			  // If you want to handle expiration on your own, or if you want the expired tokens decoded
+			  ignoreExpiration: true, // default is false
+			});
+			res.send(`<h2>Your access token is: ${tokenResponse.access_token} and your Apple ID is: ${userAppleId}</h2>`)
+		  } catch (err) {
+			// Token is not verified
+			console.error(err);
+		  }
 	  } catch (err) {
 		console.error(err);
 	  }
 
-	  try {
-		const { sub: userAppleId } = await appleSignin.verifyIdToken(tokenResponse.id_token, {
-		  // Optional Options for further verification - Full list can be found here https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
-		  audience: 'lol.online.calculabor', // client id - can also be an array
-		  nonce: 'NONCE', // nonce // Check this note if coming from React Native AS RN automatically SHA256-hashes the nonce https://github.com/invertase/react-native-apple-authentication#nonce
-		  // If you want to handle expiration on your own, or if you want the expired tokens decoded
-		  ignoreExpiration: true, // default is false
-		});
-		res.send(`<h2>Your access token is: ${tokenResponse.access_token} and your Apple ID is: ${userAppleId}</h2>`)
-	  } catch (err) {
-		// Token is not verified
-		console.error(err);
-	  }
+	//   try {
+	// 	const { sub: userAppleId } = await appleSignin.verifyIdToken(tokenResponse.id_token, {
+	// 	  // Optional Options for further verification - Full list can be found here https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
+	// 	  audience: 'lol.online.calculabor', // client id - can also be an array
+	// 	  nonce: 'NONCE', // nonce // Check this note if coming from React Native AS RN automatically SHA256-hashes the nonce https://github.com/invertase/react-native-apple-authentication#nonce
+	// 	  // If you want to handle expiration on your own, or if you want the expired tokens decoded
+	// 	  ignoreExpiration: true, // default is false
+	// 	});
+	// 	res.send(`<h2>Your access token is: ${tokenResponse.access_token} and your Apple ID is: ${userAppleId}</h2>`)
+	//   } catch (err) {
+	// 	// Token is not verified
+	// 	console.error(err);
+	//   }
 }
 
 //apple sign in verify
