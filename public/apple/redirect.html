@@ -1,0 +1,29 @@
+<script>
+    function fetchData (){
+			let authorization = Request.body.authorization;
+			let user= Request.body.user;
+			
+			
+				 let options = {
+							headers: {
+							"Content-Type": "application/json"
+							},
+								method: "POST", 
+								body: JSON.stringify({
+								authorization:  authorization,
+								user: user
+							})
+						};
+					
+						fetch('/api/1.0/apple/verify', options)
+							.then(response => {
+								let message = response.json();
+								console.log('fetching...');
+								return message;
+								})
+								.then(result => {
+									console.log(result);
+										})
+							
+	}
+</script>
