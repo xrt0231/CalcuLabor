@@ -73,7 +73,7 @@ const appleSignIn = async (req, res) => {
       console.log(team_id, key_txt, key_id);
 	  const clientSecret = appleSignin.getClientSecret({
 		clientID: 'lol.online.calculabor', // Apple Client ID
-		teamID: team_id, // Apple Developer Team ID.
+		teamID: fs.readFileSync('./key.txt', 'utf8'), // Apple Developer Team ID.
 		privateKey: key_txt, // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
 		keyIdentifier: key_id, // identifier of the private key.
 		// OPTIONAL
