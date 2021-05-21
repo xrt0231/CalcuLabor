@@ -79,7 +79,7 @@ const appleSignIn = async (req, res) => {
 		// OPTIONAL
 		//expAfter: 15777000, // Unix time in seconds after which to expire the clientSecret JWT. Default is now+5 minutes.
 	  });
-	  console.log(clientID, teamID, privateKey, keyIdentifier);
+	//   console.log(clientID, teamID, privateKey, keyIdentifier);
 	  
 	  const options = {
 		clientID: 'lol.online.calculabor', // Apple Client ID
