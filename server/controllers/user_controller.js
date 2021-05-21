@@ -105,7 +105,7 @@ const appleSignIn = async (req, res) => {
 	  } catch (err) {
 		console.error(err);
 	  }
-
+}
 //apple sign in verify
 const appleVerify = async (req, res) => {
 	
