@@ -20,5 +20,8 @@ router.route('/apple/redirect')
 
 router.route('/apple/verify')
 	.post(appleVerify)
+
+router.route('/apple/verify')
+	.get(appleVerify)
 	
 module.exports = router;
