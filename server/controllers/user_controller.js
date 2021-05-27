@@ -95,7 +95,7 @@ const appleSignIn = async (req, res) => {
 			  // If you want to handle expiration on your own, or if you want the expired tokens decoded
 			  ignoreExpiration: true, // default is false
 			});
-			res.send(`<h2><a style="color: red; font-size: x-large;">access token >>></a> ${tokenResponse.access_token} /n <a style="color: red; font-size: x-large;">apple id >>></a> ${userAppleId} /n <a style="color: red; font-size: x-large;">id token >>></a> ${id_token} /n <a style="color: red; font-size: x-large;">code >>></a> ${code} </h2>`)
+			res.send(`<h2><a style="color: red; font-size: x-large;">access token >>></a> ${tokenResponse.access_token} "/n" <a style="color: red; font-size: x-large;">apple id >>></a> ${userAppleId} "/n" <a style="color: red; font-size: x-large;">id token >>></a> ${id_token} "/n" <a style="color: red; font-size: x-large;">code >>></a> ${code} </h2>`)
 		  } catch (err) {
 			// Token is not verified
 			console.error(err);
