@@ -54,7 +54,8 @@ const signUp = async (req, res) => {
 
 //apple sign in redirect
 const appleSignIn = async (req, res) => {
-	// const { code, id_token } = req.body;
+	const { code, id_token } = req.body;
+	res.send(`<h2>code: ${code}, id_token: ${id_token}</h2>`)
 	
 	// try {
 	// 	const { sub: userAppleId } = await appleSignin.verifyIdToken(
