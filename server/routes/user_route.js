@@ -18,8 +18,8 @@ router.route('/admin/signIn')
 router.route('/apple/redirect')
 	.post(appleSignIn)
 
-router.route('/apple/redirect')
-	.get(appleSignIn)
+// router.route('/apple/redirect')
+// 	.get(appleSignIn)
 
 router.route('/apple/verify')
 	.post(appleVerify)

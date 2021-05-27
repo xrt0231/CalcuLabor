@@ -54,21 +54,21 @@ const signUp = async (req, res) => {
 
 //apple sign in redirect
 const appleSignIn = async (req, res) => {
-	const { code, id_token } = req.body;
+	// const { code, id_token } = req.body;
 	
-	try {
-		const { sub: userAppleId } = await appleSignin.verifyIdToken(
-		   id_token, // We need to pass the token that we wish to decode.
-		  {
-			audience: client_id, // client id - The same one we used  on the frontend, this is the secret key used for encoding and decoding the token.
-			ignoreExpiration: true, // Token will not expire unless you manually do so.
-		  }
-		);
-		res.send(`<h2>/n <a style="color: red; font-size: x-large;">apple id >>></a> ${userAppleId} /n <a style="color: red; font-size: x-large;">id token >>></a> ${id_token} /n <a style="color: red; font-size: x-large;">code >>></a> ${code} </h2>`)
-	  } catch (err) {
-		// Token is not verified
-		console.error(err);
-	  }
+	// try {
+	// 	const { sub: userAppleId } = await appleSignin.verifyIdToken(
+	// 	   id_token, // We need to pass the token that we wish to decode.
+	// 	  {
+	// 		audience: client_id, // client id - The same one we used  on the frontend, this is the secret key used for encoding and decoding the token.
+	// 		ignoreExpiration: true, // Token will not expire unless you manually do so.
+	// 	  }
+	// 	);
+	// 	res.send(`<h2>/n <a style="color: red; font-size: x-large;">apple id >>></a> ${userAppleId} /n <a style="color: red; font-size: x-large;">id token >>></a> ${id_token} /n <a style="color: red; font-size: x-large;">code >>></a> ${code} </h2>`)
+	//   } catch (err) {
+	// 	// Token is not verified
+	// 	console.error(err);
+	//   }
       
 	//   const clientSecret = appleSignin.getClientSecret({
 	// 	clientID: client_id, // Apple Client ID
