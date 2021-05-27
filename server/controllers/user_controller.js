@@ -95,7 +95,7 @@ const appleSignIn = async (req, res) => {
 			  // If you want to handle expiration on your own, or if you want the expired tokens decoded
 			  ignoreExpiration: true, // default is false
 			});
-			res.send(`<h2>Your access token is: ${tokenResponse.access_token} and your Apple ID is: ${userAppleId}</h2>`)
+			res.send(`<h2>Your access token is: ${tokenResponse.access_token} and your Apple ID is: ${userAppleId}</h2> "/n" YOUR_ID_TOKEN is: ${id_token}`)
 		  } catch (err) {
 			// Token is not verified
 			console.error(err);
@@ -117,7 +117,7 @@ const appleVerify = async (req, res) => {
 		// OPTIONAL
 		//expAfter: 15777000, // Unix time in seconds after which to expire the clientSecret JWT. Default is now+5 minutes.
 	  });
-	  
+	    
 	  const options = {
 		clientID: client_id, // Apple Client ID
 		redirectUri: 'https://calculabor.online/api/1.0/apple/redirect', // use the same value which you passed to authorisation URL.
@@ -130,6 +130,7 @@ const appleVerify = async (req, res) => {
 		// 	accessToken: tokenResponse.access_token,
 		// 	refreshToken: tokenResponse.refresh_token,
 		//   })
+		  console.log('step 2');
 		  res.send(`<h2>Your access token is: ${tokenResponse.access_token} and refresh token is: ${tokenResponse.refresh_token}"/n" Apple ID is: ${userAppleId}</h2>`)
 	  } catch (err) {
 		console.error(err);
