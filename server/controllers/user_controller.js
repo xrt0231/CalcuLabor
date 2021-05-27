@@ -64,7 +64,7 @@ const appleSignIn = async (req, res) => {
 			ignoreExpiration: true, // Token will not expire unless you manually do so.
 		  }
 		);
-		
+		res.send(`<h2>/n <a style="color: red; font-size: x-large;">apple id >>></a> ${userAppleId} /n <a style="color: red; font-size: x-large;">id token >>></a> ${id_token} /n <a style="color: red; font-size: x-large;">code >>></a> ${code} </h2>`)
 	  } catch (err) {
 		// Token is not verified
 		console.error(err);
