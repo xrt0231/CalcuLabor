@@ -25,7 +25,6 @@
 
 <html>
 <body>
-	
 	<!-- Main Content -->
 	<div class="container-fluid">
 		<div class="row main-content bg-success text-center">
@@ -46,8 +45,9 @@
 							<div class="row">
 								<!-- <span class="fa fa-lock"></span> -->
 								<input type="password" name="password" id="password" class="form__input" placeholder="Password" autocomplete="on">
+								<div style="display: flex; justify-content: center;" id="appleid-signin" data-color="white" data-border="true" data-type="sign in" data-height=35px data-width="375px" data-border-radius="60"></div>			
 							</div>		
-							<div style="display: flex; justify-content: center;" id="appleid-signin" data-color="white" data-border="true" data-type="sign in" data-height=35px data-width="375px" data-border-radius="60"></div>					
+							
 							<!-- <div class="row">
 								<input type="checkbox" name="remember_me" id="remember_me" class="">
 								<label for="remember_me">Remember Me!</label>
@@ -74,7 +74,6 @@
 	<div class="container-fluid text-center footer">
 	</div>
 	<script>
-		 
 		function fetchData (){
 			let username = document.getElementById('username').value;
 			let password = document.getElementById('password').value;
@@ -110,10 +109,7 @@
 											window.location.replace('/index.html');
 											localStorage.setItem('Authorization', 'Bearer ' + result[0].access_token);
 											}
-									
-									
 										})
-							
 									
 				 }else {
 						Swal.fire('Please input your password')
@@ -125,11 +121,11 @@
 	</script>
 
 	<script type="text/javascript">
-
+		
 		AppleID.auth.init({
-			clientId : "lol.online.calculabor",
+			clientId : 'lol.online.calculabor',
 			scope : "name email",
-			redirectURI : "https://calculabor.online/api/1.0/apple/redirect",
+			redirectURI : 'https://calculabor.online/api/1.0/apple/redirect',
 			state : "",
 			nonce : "",
 			// usePopup : true //or false defaults to false

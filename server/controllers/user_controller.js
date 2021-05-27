@@ -55,7 +55,7 @@ const signUp = async (req, res) => {
 //apple sign in redirect
 const appleSignIn = async (req, res) => {
 	const { code, id_token } = req.body;
-	// let privateKeyPath = path.basename('key.txt');
+	
 	try {
 		const { sub: userAppleId } = await appleSignin.verifyIdToken(
 		   id_token, // We need to pass the token that we wish to decode.
@@ -64,8 +64,7 @@ const appleSignIn = async (req, res) => {
 			ignoreExpiration: true, // Token will not expire unless you manually do so.
 		  }
 		);
-		//console.log(userAppleId);
-		//res.send(`<h2>Your Apple Id:${userAppleId}, \n ID_TOKEN:${id_token}, \n CODE:${code}</h2>`)
+		
 	  } catch (err) {
 		// Token is not verified
 		console.error(err);
@@ -79,7 +78,6 @@ const appleSignIn = async (req, res) => {
 		// OPTIONAL
 		//expAfter: 15777000, // Unix time in seconds after which to expire the clientSecret JWT. Default is now+5 minutes.
 	  });
-	//   console.log(clientID, teamID, privateKey, keyIdentifier);
 	  
 	  const options = {
 		clientID: client_id, // Apple Client ID
@@ -106,9 +104,35 @@ const appleSignIn = async (req, res) => {
 		console.error(err);
 	  }
 }
-//apple sign in verify
+//apple sign in verify => response access token
 const appleVerify = async (req, res) => {
+
+	const { code } = req.body;
 	
+	const clientSecret = appleSignin.getClientSecret({
+		clientID: client_id, // Apple Client ID
+		teamID: team_id, // Apple Developer Team ID.
+		privateKey: fs.readFileSync('./key.txt', 'utf8'), // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
+		keyIdentifier: key_id, // identifier of the private key.
+		// OPTIONAL
+		//expAfter: 15777000, // Unix time in seconds after which to expire the clientSecret JWT. Default is now+5 minutes.
+	  });
+	  
+	  const options = {
+		clientID: client_id, // Apple Client ID
+		redirectUri: 'https://calculabor.online/api/1.0/apple/redirect', // use the same value which you passed to authorisation URL.
+		clientSecret: clientSecret
+	  };
+	  
+	  try {
+		const tokenResponse = await appleSignin.getAuthorizationToken(code, options);
+		res.status(200).json({
+			accessToken: tokenResponse.access_token,
+			refreshToken: tokenResponse.refresh_token,
+		  })
+	  } catch (err) {
+		console.error(err);
+	  }
 }
 
 module.exports = {
