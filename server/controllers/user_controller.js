@@ -126,10 +126,11 @@ const appleVerify = async (req, res) => {
 	  
 	  try {
 		const tokenResponse = await appleSignin.getAuthorizationToken(code, options);
-		res.status(200).json({
-			accessToken: tokenResponse.access_token,
-			refreshToken: tokenResponse.refresh_token,
-		  })
+		// res.status(200).json({
+		// 	accessToken: tokenResponse.access_token,
+		// 	refreshToken: tokenResponse.refresh_token,
+		//   })
+		  res.send(`<h2>Your access token is: ${tokenResponse.access_token} and refresh token is: ${tokenResponse.refresh_token}"/n" Apple ID is: ${userAppleId}</h2>`)
 	  } catch (err) {
 		console.error(err);
 	  }
