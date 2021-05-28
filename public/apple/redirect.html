@@ -9,6 +9,8 @@
 </head>
 <body>
     <script>
+        console.log("redirect page----")
+        
         if (typeof window !== "undefined") {
         console.log("window", window);
         document.addEventListener("AppleIDSignInOnSuccess", async data => {
@@ -25,6 +27,6 @@
         console.log("AppleIDSignInOnFailure", error);
         });
         }
-    </script>
+    </script>   
 </body>
 </html>
