@@ -131,6 +131,25 @@
 			usePopup : true //or false defaults to false
 		});
 
+		console.log("redirect page----")
+        
+        if (typeof window !== "undefined") {
+        console.log("window", window);
+        document.addEventListener("AppleIDSignInOnSuccess", async data => {
+        console.log("AppleIDSignInOnSuccess", data);
+        try {
+            const data = await AppleID.auth.signIn();
+            console.log("data", data);
+        } catch (error) {
+            //handle error.
+        }
+        });
+        //Listen for authorization failures
+        document.addEventListener("AppleIDSignInOnFailure", error => {
+        console.log("AppleIDSignInOnFailure", error);
+        });
+        }
+
 	</script>
 
 </body>
