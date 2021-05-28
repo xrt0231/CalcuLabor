@@ -4,17 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
     <title>Document</title>
 </head>
 <body>
     <script>
-        document.addEventListener('AppleIDSignInOnSuccess', (data) => {
+        if (typeof window !== "undefined") {
+        console.log("window", window);
+        document.addEventListener("AppleIDSignInOnSuccess", async data => {
         console.log("AppleIDSignInOnSuccess", data);
+        try {
+            const data = await AppleID.auth.signIn();
+            console.log("data", data);
+        } catch (error) {
+            //handle error.
+        }
         });
         //Listen for authorization failures
-        document.addEventListener('AppleIDSignInOnFailure', (error) => {
+        document.addEventListener("AppleIDSignInOnFailure", error => {
         console.log("AppleIDSignInOnFailure", error);
         });
+        }
     </script>
 </body>
 </html>
