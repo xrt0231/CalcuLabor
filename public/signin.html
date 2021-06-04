@@ -20,6 +20,11 @@
   <!-- Sign in with apple -->
   <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
 
+  <!-- Sign in with Google -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+  <meta name="google-signin-client_id" content="813008326543-s88dl11p1j2meippp8vd4nrkb3jcpie3.apps.googleusercontent.com">
+
   <title>CalcuLabor</title>
 </head>
 
@@ -45,7 +50,12 @@
 							<div class="row">
 								<!-- <span class="fa fa-lock"></span> -->
 								<input type="password" name="password" id="password" class="form__input" placeholder="Password" autocomplete="on">
+								
+								<!-- sign in with apple button -->
 								<div style="display: flex; justify-content: center;" id="appleid-signin" data-color="black" data-border="true" data-type="sign in" data-height=35px data-width="375px" data-border-radius="60"></div>			
+							    <br>
+								<!-- sign in with google button -->
+								<div style="display: flex; justify-content: center" id="my-signin2"></div>
 							</div>		
 							
 							<!-- <div class="row">
@@ -125,7 +135,7 @@
 		AppleID.auth.init({
 			clientId : 'lol.online.calculabor',
 			scope : "name email",
-			redirectURI : 'https://calculabor.online/api/1.0/apple/redirect',
+			redirectURI : 'https://b41b10632c17.ngrok.io/apple/redirect',
 			state : "",
 			nonce : "",
 			usePopup : true //or false defaults to false
@@ -150,6 +160,35 @@
         });
         }
 
+	</script>
+
+	<script>
+		//sign in with google
+		function onSignIn(googleUser) {
+		var profile = googleUser.getBasicProfile();
+		console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		console.log('Name: ' + profile.getName());
+		console.log('Image URL: ' + profile.getImageUrl());
+		console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+
+		function onSuccess(googleUser) {
+		console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+		}
+		function onFailure(error) {
+		console.log(error);
+		}
+		function renderButton() {
+		gapi.signin2.render('my-signin2', {
+			'scope': 'profile email',
+			'width': 240,
+			'height': 50,
+			'longtitle': true,
+			'theme': 'dark',
+			'onsuccess': onSuccess,
+			'onfailure': onFailure
+		});
+		}
 	</script>
 
 </body>
