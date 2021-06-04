@@ -57,53 +57,6 @@ const appleSignIn = async (req, res) => {
 	const { code, id_token } = req.body;
 	res.send(`<h2>code: ${code}, id_token: ${id_token}</h2>`)
 	
-	// try {
-	// 	const { sub: userAppleId } = await appleSignin.verifyIdToken(
-	// 	   id_token, // We need to pass the token that we wish to decode.
-	// 	  {
-	// 		audience: client_id, // client id - The same one we used  on the frontend, this is the secret key used for encoding and decoding the token.
-	// 		ignoreExpiration: true, // Token will not expire unless you manually do so.
-	// 	  }
-	// 	);
-	// 	res.send(`<h2>/n <a style="color: red; font-size: x-large;">apple id >>></a> ${userAppleId} /n <a style="color: red; font-size: x-large;">id token >>></a> ${id_token} /n <a style="color: red; font-size: x-large;">code >>></a> ${code} </h2>`)
-	//   } catch (err) {
-	// 	// Token is not verified
-	// 	console.error(err);
-	//   }
-      
-	//   const clientSecret = appleSignin.getClientSecret({
-	// 	clientID: client_id, // Apple Client ID
-	// 	teamID: team_id, // Apple Developer Team ID.
-	// 	privateKey: fs.readFileSync('./key.txt', 'utf8'), // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
-	// 	keyIdentifier: key_id, // identifier of the private key.
-	// 	// OPTIONAL
-	// 	//expAfter: 15777000, // Unix time in seconds after which to expire the clientSecret JWT. Default is now+5 minutes.
-	//   });
-	  
-	//   const options = {
-	// 	clientID: client_id, // Apple Client ID
-	// 	redirectUri: 'https://calculabor.online/api/1.0/apple/redirect', // use the same value which you passed to authorisation URL.
-	// 	clientSecret: clientSecret
-	//   };
-	  
-	//   try {
-	// 	const tokenResponse = await appleSignin.getAuthorizationToken(code, options);
-	// 	try {
-	// 		const { sub: userAppleId } = await appleSignin.verifyIdToken(tokenResponse.id_token, {
-	// 		  // Optional Options for further verification - Full list can be found here https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
-	// 		  //audience: client_id, // client id - can also be an array
-	// 		  //nonce: 'NONCE', // nonce // Check this note if coming from React Native AS RN automatically SHA256-hashes the nonce https://github.com/invertase/react-native-apple-authentication#nonce
-	// 		  // If you want to handle expiration on your own, or if you want the expired tokens decoded
-	// 		  ignoreExpiration: true, // default is false
-	// 		});
-	// 		res.send(`<h2><a style="color: red; font-size: x-large;">access token >>></a> ${tokenResponse.access_token} "/n" <a style="color: red; font-size: x-large;">apple id >>></a> ${userAppleId} "/n" <a style="color: red; font-size: x-large;">id token >>></a> ${id_token} "/n" <a style="color: red; font-size: x-large;">code >>></a> ${code} </h2>`)
-	// 	  } catch (err) {
-	// 		// Token is not verified
-	// 		console.error(err);
-	// 	  }
-	//   } catch (err) {
-	// 	console.error(err);
-	//   }
 }
 //apple sign in verify => response access token
 const appleVerify = async (req, res) => {
@@ -138,6 +91,11 @@ const appleVerify = async (req, res) => {
 	  }
 }
 
+//Google sign in
+const googleRedirect = async (req, res) => {
+
+}
+
 module.exports = {
-	userProfile, signUp, signIn, appleSignIn, appleVerify
+	userProfile, signUp, signIn, appleSignIn, appleVerify, googleRedirect,
 };

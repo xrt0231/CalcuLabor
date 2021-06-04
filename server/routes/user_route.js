@@ -3,7 +3,7 @@ const router = require('express').Router();
 // const {wrapAsync} = require('../../util/util');
 
 const {
-	userProfile, signUp, signIn, appleSignIn, appleVerify 
+	userProfile, signUp, signIn, appleSignIn, googleRedirect,
 } = require('../controllers/user_controller');
 
 router.route('/admin/userProfile')
@@ -21,10 +21,7 @@ router.route('/apple/redirect')
 // router.route('/apple/redirect')
 // 	.get(appleSignIn)
 
-router.route('/apple/verify')
-	.post(appleVerify)
+router.route('/google/redirect')
+	.get(googleRedirect)
 
-router.route('/apple/verify')
-	.get(appleVerify)
-	
 module.exports = router;
