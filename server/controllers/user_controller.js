@@ -86,7 +86,6 @@ const appleVerify = async (req, res) => {
 		// 	refreshToken: tokenResponse.refresh_token,
 		//   })
 		  console.log('step 2');
-		  console.log(code);
 		  console.log(options);
 		  res.send(`<h2>Your access token is: ${tokenResponse.access_token} and refresh token is: ${tokenResponse.refresh_token}</h2>`)
 		  console.log("token:", tokenResponse.access_token, "refresh:", tokenResponse.refresh_token)
