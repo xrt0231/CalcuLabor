@@ -135,6 +135,7 @@
 			clientId : 'lol.online.calculabor',
 			scope : "name email",
 			redirectURI : 'https://calculabor.online/api/1.0/apple/redirect',
+			//redirectURI: 'https://21cb0397514b.ngrok.io/api/1.0/apple/redirect',
 			state : "",
 			nonce : "",
 			usePopup : true //or false defaults to false
@@ -170,7 +171,7 @@
 					console.log('data fetched...');				
 				} else {
 					localStorage.setItem('Authorization', result);
-					window.location.replace('index.html');
+					//window.location.replace('index.html');
 				}
 			});
 
