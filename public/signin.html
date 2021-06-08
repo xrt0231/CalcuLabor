@@ -169,7 +169,8 @@
 
 				.then(result => {
 				if (result) {
-					console.log('data fetched...');				
+					console.log('data fetched...');	
+					console.log(result);			
 				} else {
 					localStorage.setItem('Authorization', result);
 					//window.location.replace('index.html');
