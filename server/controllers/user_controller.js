@@ -86,6 +86,7 @@ const appleVerify = async (req, res) => {
 		//   })
 		  console.log('step 2');
 		  res.send(`<h2>Your access token is: ${tokenResponse.access_token} and refresh token is: ${tokenResponse.refresh_token}"/n" Apple ID is: ${userAppleId}</h2>`)
+		  return tokenResponse.access_token;
 	  } catch (err) {
 		console.error(err);
 	  }

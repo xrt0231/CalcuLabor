@@ -143,21 +143,51 @@
 		console.log("redirect page----")
         
         if (typeof window !== "undefined") {
-        console.log("window", window);
-        document.addEventListener("AppleIDSignInOnSuccess", async data => {
-        console.log("AppleIDSignInOnSuccess", data);
-        try {
-            const data = await AppleID.auth.signIn();
-            console.log("data", data);
-        } catch (error) {
-            //handle error.
-        }
-        });
+          console.log("window", window);
+          document.addEventListener("AppleIDSignInOnSuccess", async data => {
+            console.log("AppleIDSignInOnSuccess", data);
+            try {
+              const data = await AppleID.auth.signIn();
+              console.log("data", data);
+
+			  let options = {
+				headers: {
+					"Content-Type": "application/json"
+				},
+				method: "POST", 
+				body: JSON.stringify({
+					code: data.code,
+				})
+			  };	
+
+			  fetch('/api/1.0/apple/verify', options)
+			    .then(response => {
+					let userProfile = response.json();
+					console.log('fetching...');
+					return userProfile;
+				    })
+
+				.then(result => {
+				if (result) {
+					console.log('data fetched...');				
+				} else {
+					localStorage.setItem('Authorization', access_token);
+					window.location.replace('index.html');
+				}
+			});
+
+            } catch (error) {
+              //handle error.
+            }
+
+          });
         //Listen for authorization failures
         document.addEventListener("AppleIDSignInOnFailure", error => {
         console.log("AppleIDSignInOnFailure", error);
         });
         }
+
+		
 
 		//sign in with google
 
