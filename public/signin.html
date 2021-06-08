@@ -168,11 +168,14 @@
 				})
 
 				.then(result => {
-				if (result) {
+				if (result.access_token) {
 					console.log('data fetched...');	
-					console.log(result);			
+					console.log(result);
+					localStorage.setItem('Authorization', result);	
+					window.location.replace('index.html');		
 				} else {
-					localStorage.setItem('Authorization', result);
+					
+					//localStorage.setItem('Authorization', result);
 					//window.location.replace('index.html');
 				}
 			});
