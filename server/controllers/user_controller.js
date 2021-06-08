@@ -61,7 +61,8 @@ const appleSignIn = async (req, res) => {
 //apple sign in verify => response access token
 const appleVerify = async (req, res) => {
 
-	const { code } = req.body;
+	const { code } = req.body.code;
+	console.log(code);
 	
 	const clientSecret = appleSignin.getClientSecret({
 		clientID: client_id, // Apple Client ID

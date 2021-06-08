@@ -161,11 +161,9 @@
 			  };	
 
 			  fetch('/api/1.0/apple/verify', options)
-			    .then(response => {
-					let userProfile = response.json();
+			    .then(response => {	
 					console.log('fetching...');
-					return userProfile;
-				    })
+				})
 
 				.then(result => {
 				if (result) {
