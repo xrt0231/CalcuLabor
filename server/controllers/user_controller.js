@@ -135,9 +135,8 @@ const googleVerify = async (req, res) => {
   
   const hash = crypto.createHash('sha256');
 
-  hash.update(token);
-  let googleToken = hash.copy().digest('hex');
   
+  let googleToken = payload.sub;
   let username = payload.given_name;
   let googleEmail = payload.email;
 
