@@ -115,7 +115,9 @@ const appleVerify = async (req, res) => {
 }
 
 //Google sign in redirect
-const googleRedirect = async (req, res) => {}
+const googleRedirect = async (req, res) => {
+	// Frontend arranges the sign in flow already, leave blank here.
+}
 
 //Google sign in verify => response access token
 const googleVerify = async (req, res) => {
@@ -133,7 +135,7 @@ const googleVerify = async (req, res) => {
   
   const hash = crypto.createHash('sha256');
 
-  hash.update(payload.jti);
+  hash.update(token);
   let googleToken = hash.copy().digest('hex');
   
   let username = payload.given_name;
