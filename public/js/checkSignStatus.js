@@ -39,6 +39,13 @@ function fetchUserData (){
 
 //User sign out
 function signout(){
+	
 	localStorage.removeItem("Authorization");
 	window.location.replace('/index.html');
+	
+	var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
 }
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>

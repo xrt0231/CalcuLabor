@@ -57,8 +57,8 @@ const signInApple = async(username, token, email)=> {
 
 const signInGoogle = async(username, token, email)=> {
 	
-    let sql = `SELECT * FROM employee where name = ? AND access_token = ?`
-	let result = await query(sql, [username, token]);
+    let sql = `SELECT * FROM employee where email = ? AND access_token = ?`
+	let result = await query(sql, [email, token]);
     
 	if (result.length === 0)
 	{
