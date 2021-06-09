@@ -87,9 +87,20 @@ const appleVerify = async (req, res) => {
 			const { sub: userAppleId } = await appleSignin.verifyIdToken(tokenResponse.id_token, {
 				audience: client_id, // Apple Client ID
 			});
-			let user = {"tokenResponse": tokenResponse, "userAppleId": userAppleId}
-			console.log(user);
-			res.send(user);
+
+			const hash = crypto.createHash('sha256');
+
+			hash.update(userAppleId);
+	        let token = hash.copy().digest('hex');
+
+			let token = token;
+	        let username = userAppleId;
+
+			const user = (await User.signInApple(username, token));
+
+			//let user = {"tokenResponse": tokenResponse, "userAppleId": userAppleId}
+			//console.log(user);
+			//res.send(user);
 		}
 		catch (err) {
 			// Token is not verified

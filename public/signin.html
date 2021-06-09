@@ -167,8 +167,8 @@
 
 			    .then(data => {
 				console.log('Success:', data);
-				localStorage.setItem('Authorization_apple_access_token', 'Bearer ' + data.tokenResponse.access_token);
-				localStorage.setItem('Authorization_apple_refresh_token', 'Bearer ' + data.tokenResponse.refresh_token);
+				window.location.replace('/index.html');
+				localStorage.setItem('Authorization', 'Bearer ' + data.access_token);
 				})	
 
 				.catch((error) => {
@@ -210,6 +210,4 @@
 	</script>
 	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </body>
-<!--Check if user signed in-->
-<script src="/js/checkSignStatus.js"></script>
 </html>
