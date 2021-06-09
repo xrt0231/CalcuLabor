@@ -167,8 +167,8 @@
 
 			    .then(data => {
 				console.log('Success:', data);
-				localStorage.setItem('Authorization_apple_access_token', 'Bearer ' + data.access_token);
-				localStorage.setItem('Authorization_apple_refresh_token', 'Bearer ' + data.refresh_token);
+				localStorage.setItem('Authorization_apple_access_token', 'Bearer ' + data.tokenResponse.access_token);
+				localStorage.setItem('Authorization_apple_refresh_token', 'Bearer ' + data.tokenResponse.refresh_token);
 				})	
 
 				.catch((error) => {

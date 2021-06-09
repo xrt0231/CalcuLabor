@@ -54,11 +54,9 @@ const signUp = async (req, res) => {
 
 //apple sign in redirect
 const appleSignIn = async (req, res) => {
-	const { code, id_token } = req.body;
-	res.send(`<h2>code: ${code}, id_token: ${id_token}</h2>`)
-	
+	// Frontend arranges the sign in flow already, leave blank here.
 }
-//apple sign in verify => response access token
+//apple sign in verify => response access token & get AppleID
 const appleVerify = async (req, res) => {
 
 	let code = req.body.code;
@@ -84,11 +82,21 @@ const appleVerify = async (req, res) => {
 		// res.status(200).json({
 		// 	accessToken: tokenResponse.access_token,
 		// 	refreshToken: tokenResponse.refresh_token,
-		//   })
-		  console.log('step 2');
-		  //res.send(`<h2>Your access token is: ${tokenResponse.access_token} and refresh token is: ${tokenResponse.refresh_token}</h2>`)
-		  console.log(tokenResponse);
-		  res.send(tokenResponse);
+		//  })
+		try{
+			const { sub: userAppleId } = await appleSignin.verifyIdToken(tokenResponse.id_token, {
+				audience: client_id, // Apple Client ID
+				nonce: 'NONCE', 
+				ignoreExpiration: true, 
+			});
+			let user = {"tokenResponse": tokenResponse, "userAppleId": userAppleId}
+			console.log(user);
+			res.send(user);
+		}
+		catch (err) {
+			// Token is not verified
+			console.error(err);
+		}
 	  } catch (err) {
 		console.error(err);
 	  }
