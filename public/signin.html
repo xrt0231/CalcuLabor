@@ -1,3 +1,4 @@
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,7 +136,6 @@
 			clientId : 'lol.online.calculabor',
 			scope : "name email",
 			redirectURI : 'https://calculabor.online/api/1.0/apple/redirect',
-			//redirectURI: 'https://21cb0397514b.ngrok.io/api/1.0/apple/redirect',
 			state : "",
 			nonce : "",
 			usePopup : true //or false defaults to false
@@ -147,6 +147,7 @@
           console.log("window", window);
           document.addEventListener("AppleIDSignInOnSuccess", async data => {
             console.log("AppleIDSignInOnSuccess", data);
+
             try {
               const data = await AppleID.auth.signIn();
               console.log("data", data);
@@ -162,23 +163,15 @@
 			  };	
 
 			  fetch('/api/1.0/apple/verify', options)
-			    .then(response => {	
-					console.log('fetching...');
-					return; 
-				})
+			    .then(response => response.json())
 
-				.then(result => {
-				if (result.access_token) {
-					console.log('data fetched...');	
-					console.log(result);
-					localStorage.setItem('Authorization', result);	
-					window.location.replace('index.html');		
-				} else {
-					
-					//localStorage.setItem('Authorization', result);
-					//window.location.replace('index.html');
-				}
-			});
+			    .then(data => {
+				console.log('Success:', data);
+				})	
+
+				.catch((error) => {
+				console.error('Error:', error);
+				});
 
             } catch (error) {
               //handle error.
