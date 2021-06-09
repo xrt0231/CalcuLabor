@@ -23,11 +23,14 @@ function fetchUserData (){
 			})
 			.then(result => {
 				let name = result.name;
+				let email = result.email;
 				if (result.name==='notSignIn') {
 					console.log('API fetch success...')
 					window.location.replace('/index.html');
-				} else {
+				} else if (result.provider !== 'apple'){
 					document.getElementById('profile').innerHTML = `Hello, ${name}`;     
+				} else {
+					document.getElementById('profile').innerHTML = `Hello, ${email}`;
 				}
 			});
 	}else {

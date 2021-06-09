@@ -35,13 +35,34 @@ const signIn = async(username, encryptPassWord)=> {
 
 
 // Sign in wiht Apple
-const signInApple = async(username, token)=> {
+const signInApple = async(username, token, email)=> {
+	
     let sql = `SELECT * FROM employee where name = ? AND access_token = ?`
 	let result = await query(sql, [username, token]);
     
 	if (result.length === 0)
 	{
-		let result1 = await query(`INSERT INTO employee (provider, password, name, access_token) VALUES ("apple", "NA", "${username}", "${token}")`);
+		let result1 = await query(`INSERT INTO employee (provider, email, password, name, access_token) VALUES ("apple", "${email}", "NA", "${username}", "${token}")`);
+		let result2 = await query(`SELECT * FROM employee where name = "${username}"`);
+		console.log(result2);
+		return result2;
+	}else
+	{
+		console.log('User sign in success...')
+		return result;
+	}
+} 
+
+// Sign in with Goole
+
+const signInGoogle = async(username, token, email)=> {
+	
+    let sql = `SELECT * FROM employee where name = ? AND access_token = ?`
+	let result = await query(sql, [username, token]);
+    
+	if (result.length === 0)
+	{
+		let result1 = await query(`INSERT INTO employee (provider, email, password, name, access_token) VALUES ("google", "${email}", "NA", "${username}", "${token}")`);
 		let result2 = await query(`SELECT * FROM employee where name = "${username}"`);
 		console.log(result2);
 		return result2;
@@ -75,5 +96,5 @@ const userProfile = async(token)=> {
 } 
 
 module.exports = {
-	signUp, signIn, signInApple, userProfile
+	signUp, signIn, signInApple, signInGoogle, userProfile
 };

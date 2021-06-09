@@ -1,11 +1,13 @@
 require('dotenv').config();
 const User = require('../models/user_model');
 const jwt = require('jsonwebtoken');
+const jwt_decode = require("jwt-decode"); //JWT decode
 const crypto = require('crypto'); // Crypto hash
 const Swal = require('sweetalert2'); //Sweet Alert2
-const appleSignin = require("apple-signin-auth"); //Sign in with Apple ID
+const appleSignin = require("apple-signin-auth"); //Sign in with Apple
+const {OAuth2Client} = require('google-auth-library'); //Sign in with Google
 const env = process.env.NODE_ENV || 'production';
-const { client_id, team_id, key_id} = process.env;
+const { client_id, team_id, key_id, gclient_id} = process.env;
 const path = require('path');
 var fs = require('fs');
 
@@ -52,18 +54,17 @@ const signUp = async (req, res) => {
 	res.send(user);
 };
 
-//apple sign in redirect
+//Apple sign in redirect
 const appleSignIn = async (req, res) => {
 	// Frontend arranges the sign in flow already, leave blank here.
 }
-//apple sign in verify => response access token & get AppleID
+//Apple sign in verify => response access token & get AppleID
 const appleVerify = async (req, res) => {
 
 	let code = req.body.code;
-	console.log(code);
 	
 	const clientSecret = appleSignin.getClientSecret({
-		clientID: client_id, // Apple Client ID
+		clientID: 'lol.online.calculabor', // Apple Client ID
 		teamID: team_id, // Apple Developer Team ID.
 		privateKey: fs.readFileSync('./key.txt', 'utf8'), // private key associated with your client ID. -- Or provide a `privateKeyPath` property instead.
 		keyIdentifier: key_id, // identifier of the private key.
@@ -72,7 +73,8 @@ const appleVerify = async (req, res) => {
 	  });
 	    
 	  const options = {
-		clientID: client_id, // Apple Client ID
+		//clientID: client_id, // Apple Client ID
+		clientID: 'lol.online.calculabor',
 		redirectUri: 'https://calculabor.online/api/1.0/apple/redirect', // use the same value which you passed to authorisation URL.
 		clientSecret: clientSecret
 	  };
@@ -83,20 +85,24 @@ const appleVerify = async (req, res) => {
 		// 	accessToken: tokenResponse.access_token,
 		// 	refreshToken: tokenResponse.refresh_token,
 		//  })
+		var decoded = jwt_decode(tokenResponse.id_token);
+        console.log(decoded);
+
 		try{
 			const { sub: userAppleId } = await appleSignin.verifyIdToken(tokenResponse.id_token, {
-				audience: client_id, // Apple Client ID
+				audience: 'lol.online.calculabor', // Apple Client ID
 			});
 
 			const hash = crypto.createHash('sha256');
 
 			hash.update(userAppleId);
 	        let token = hash.copy().digest('hex');
-
+			 
 			let appleToken = token;
 	        let username = userAppleId;
+			let appleEmail = decoded.email;
 
-			const user = (await User.signInApple(username, appleToken));
+			const user = (await User.signInApple(username, appleToken, appleEmail));
 			res.send(user);
 		}
 		catch (err) {
@@ -108,11 +114,39 @@ const appleVerify = async (req, res) => {
 	  }
 }
 
-//Google sign in
-const googleRedirect = async (req, res) => {
+//Google sign in redirect
+const googleRedirect = async (req, res) => {}
 
+//Google sign in verify => response access token
+const googleVerify = async (req, res) => {
+  
+  let token = req.body.token;
+  const client = new OAuth2Client(gclient_id);
+  async function verify() {
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: gclient_id,
+      
+  });
+  const payload = ticket.getPayload();
+  const userid = payload['sub'];
+  
+  const hash = crypto.createHash('sha256');
+
+  hash.update(payload.jti);
+  let googleToken = hash.copy().digest('hex');
+  
+  let username = payload.given_name;
+  let googleEmail = payload.email;
+
+  const user = (await User.signInGoogle(username, googleToken, googleEmail));
+  res.send(user);
+}
+verify().catch(console.error);
 }
 
+
+
 module.exports = {
-	userProfile, signUp, signIn, appleSignIn, appleVerify, googleRedirect,
+	userProfile, signUp, signIn, appleSignIn, appleVerify, googleRedirect, googleVerify
 };
