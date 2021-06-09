@@ -168,7 +168,7 @@
 			    .then(data => {
 				console.log('Success:', data);
 				window.location.replace('/index.html');
-				localStorage.setItem('Authorization', 'Bearer ' + data.access_token);
+				localStorage.setItem('Authorization', 'Bearer ' + data[0].access_token);
 				})	
 
 				.catch((error) => {
