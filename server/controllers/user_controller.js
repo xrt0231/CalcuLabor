@@ -86,8 +86,6 @@ const appleVerify = async (req, res) => {
 		try{
 			const { sub: userAppleId } = await appleSignin.verifyIdToken(tokenResponse.id_token, {
 				audience: client_id, // Apple Client ID
-				nonce: 'NONCE', 
-				ignoreExpiration: true, 
 			});
 			let user = {"tokenResponse": tokenResponse, "userAppleId": userAppleId}
 			console.log(user);
