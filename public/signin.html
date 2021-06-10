@@ -89,7 +89,6 @@
 	<script>
 
 		//Check google sign out if no authorization token existed
-
 		function fetchData (){
 			let username = document.getElementById('username').value;
 			let password = document.getElementById('password').value;
@@ -173,7 +172,7 @@
 
 			    .then(data => {
 				console.log('Success:', data);
-				window.location.replace('/index.html');
+				//window.location.replace('/index.html');
 				localStorage.setItem('Authorization', 'Bearer ' + data[0].access_token);
 				})	
 
@@ -192,26 +191,25 @@
         });
         }
 
-		
-
 		//sign in with google
 		function onSignIn(googleUser) {
-		  
-			let options = {
-					headers: {
-						"Content-Type": "application/json"
-					},
-					method: "POST", 
-					body: JSON.stringify({
-						token: googleUser.getAuthResponse().id_token,
-					})
-				};	
+			console.log(googleUser);
 
-				fetch('/api/1.0/google/verify', options)
+					let options = {
+						headers: {
+							"Content-Type": "application/json"
+						},
+						method: "POST", 
+						body: JSON.stringify({
+							token: googleUser.getAuthResponse().id_token,
+						})
+					};	
+
+					fetch('/api/1.0/google/verify', options)
 					.then(response => response.json())
 
 					.then(data => {
-					console.log('Success:', data);
+					console.log('Success');
 					window.location.replace('/index.html');
 					localStorage.setItem('Authorization', 'Bearer ' + data[0].access_token);
 					})	
@@ -220,12 +218,13 @@
 					console.error('Error:', error);
 					});
 		}
-        function signOut() {
+
+		function signOut() {
 			var auth2 = gapi.auth2.getAuthInstance();
 			auth2.signOut().then(function () {
 				console.log('User signed out.');
 			});
-        }
+		}
 
 		function onFailure(error) {
 		console.log(error);
