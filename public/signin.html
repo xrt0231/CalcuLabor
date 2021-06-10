@@ -134,7 +134,7 @@
 				   }
 			}
 	</script>
-
+    
 	<script type="text/javascript">
 		
 		AppleID.auth.init({
@@ -195,8 +195,7 @@
 
 		//sign in with google
 		function onSuccess(googleUser) {
-		  if(localStorage.getItem('Authorization') === "")
-			{
+		  
 			let options = {
 					headers: {
 						"Content-Type": "application/json"
@@ -219,16 +218,14 @@
 					.catch((error) => {
 					console.error('Error:', error);
 					});
-
-			}else{
-				function signOut() {
-					var auth2 = gapi.auth2.getAuthInstance();
-					auth2.signOut().then(function () {
-					console.log('User signed out.');
-					});
-        		}
-			}
+		}
+        function signOut() {
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function () {
+				console.log('User signed out.');
+			});
         }
+
 		function onFailure(error) {
 		console.log(error);
 		}
@@ -244,6 +241,6 @@
 		});
 		}
 	</script>
-	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 </html>
