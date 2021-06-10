@@ -84,7 +84,22 @@
 	<!-- Footer -->
 	<div class="container-fluid text-center footer">
 	</div>
+
 	<script>
+
+		//Check google sign out if no authorization token existed
+
+		if(localStorage.getItem('Authorization')){
+		  
+		}else{
+			function signOut() {
+				var auth2 = gapi.auth2.getAuthInstance();
+				auth2.signOut().then(function () {
+				console.log('User signed out.');
+				});
+        }
+		}
+
 		function fetchData (){
 			let username = document.getElementById('username').value;
 			let password = document.getElementById('password').value;
@@ -217,15 +232,6 @@
 				});
 
 		}
-
-		function signOut() {
-          var auth2 = gapi.auth2.getAuthInstance();
-          auth2.signOut().then(function () {
-            console.log('User signed out.');
-          });
-		  localStorage.removeItem("Authorization");
-		  window.location.replace('/index.html');
-        }
 
 		function onFailure(error) {
 		console.log(error);
