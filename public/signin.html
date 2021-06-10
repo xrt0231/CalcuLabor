@@ -195,7 +195,7 @@
 
 		//sign in with google
 		function onSuccess(googleUser) {
-		  if(localStorage.getItem('Authorization'))
+		  if(localStorage.getItem('Authorization') === "")
 			{
 			let options = {
 					headers: {
