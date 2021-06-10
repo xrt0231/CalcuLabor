@@ -13,9 +13,9 @@ router.route('/admin/signUp')
 	.post(signUp);
 
 router.route('/admin/signIn')
-	.post(signIn);
+	.post(signIn)
 
-//router.route('/apple/redirect')
+router.route('/apple/redirect')
 	.post(appleSignIn)
 
 router.route('/apple/verify')

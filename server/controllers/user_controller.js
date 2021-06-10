@@ -58,6 +58,7 @@ const signUp = async (req, res) => {
 const appleSignIn = async (req, res) => {
 	// Frontend arranges the sign in flow already, leave blank here.
 }
+
 //Apple sign in verify => response access token & get AppleID
 const appleVerify = async (req, res) => {
 
