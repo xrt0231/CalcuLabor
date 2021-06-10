@@ -89,17 +89,6 @@
 
 		//Check google sign out if no authorization token existed
 
-		if(localStorage.getItem('Authorization')){
-		  
-		}else{
-			function signOut() {
-				var auth2 = gapi.auth2.getAuthInstance();
-				auth2.signOut().then(function () {
-				console.log('User signed out.');
-				});
-        }
-		}
-
 		function fetchData (){
 			let username = document.getElementById('username').value;
 			let password = document.getElementById('password').value;
@@ -205,34 +194,41 @@
 		
 
 		//sign in with google
-
 		function onSuccess(googleUser) {
-		  
-		  let options = {
-				headers: {
-					"Content-Type": "application/json"
-				},
-				method: "POST", 
-				body: JSON.stringify({
-					token: googleUser.getAuthResponse().id_token,
-				})
-			  };	
+		  if(localStorage.getItem('Authorization'))
+			{
+			let options = {
+					headers: {
+						"Content-Type": "application/json"
+					},
+					method: "POST", 
+					body: JSON.stringify({
+						token: googleUser.getAuthResponse().id_token,
+					})
+				};	
 
-			  fetch('/api/1.0/google/verify', options)
-			    .then(response => response.json())
+				fetch('/api/1.0/google/verify', options)
+					.then(response => response.json())
 
-			    .then(data => {
-				console.log('Success:', data);
-				window.location.replace('/index.html');
-				localStorage.setItem('Authorization', 'Bearer ' + data[0].access_token);
-				})	
+					.then(data => {
+					console.log('Success:', data);
+					window.location.replace('/index.html');
+					localStorage.setItem('Authorization', 'Bearer ' + data[0].access_token);
+					})	
 
-				.catch((error) => {
-				console.error('Error:', error);
-				});
+					.catch((error) => {
+					console.error('Error:', error);
+					});
 
-		}
-
+			}else{
+				function signOut() {
+					var auth2 = gapi.auth2.getAuthInstance();
+					auth2.signOut().then(function () {
+					console.log('User signed out.');
+					});
+        		}
+			}
+        }
 		function onFailure(error) {
 		console.log(error);
 		}
