@@ -52,10 +52,11 @@
 								<input type="password" name="password" id="password" class="form__input" placeholder="Password" autocomplete="on">
 								
 								<!-- sign in with apple button -->
-								<div style="display: flex; justify-content: center;" id="appleid-signin" data-color="black" data-border="true" data-type="sign in" data-height=35px data-width="375px" data-border-radius="60"></div>			
+								<div style="display: flex; justify-content: center;" id="appleid-signin" data-color="black" data-border="true" data-type="sign in" data-height=50px data-width="350px" data-border-radius="0"></div>			
 							    <br>
+								<br>
 								<!-- sign in with google button -->
-								<div style="display: flex; justify-content: center" id="g-signin2"></div>
+								<div style="display: flex; justify-content: center;" class="g-signin2" data-onsuccess="onSignIn" data-width="350" data-height="50" data-longtitle="true" data-theme="dark" data-border-radius="60"></div>
 								<a href="#" onclick="signOut();">Sign out</a>
 							</div>		
 							
@@ -67,7 +68,7 @@
 								<input type="submit" value="Submit" class="btn">
 							</div> -->
 						</form>
-						<input type="submit" value="Submit" class="btn" onclick="fetchData()">
+						<input type="submit" value="Submit" class="btn" style="width: 350px; height: 50px; border-radius: 0%" onclick="fetchData()">
 						
 					</div>
 					<div class="row">
@@ -228,17 +229,6 @@
 
 		function onFailure(error) {
 		console.log(error);
-		}
-		function renderButton() {
-		gapi.signin2.render('g-signin2', {
-			'scope': 'profile email',
-			'width': 240,
-			'height': 50,
-			'longtitle': true,
-			'theme': 'dark',
-			'onsuccess': onSuccess,
-			'onfailure': onFailure
-		});
 		}
 	</script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
