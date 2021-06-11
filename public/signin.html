@@ -18,13 +18,6 @@
   <!--Sweet Alert2 CDN-->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-  <!-- Sign in with apple -->
-  <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
-
-  <!-- Sign in with Google -->
-  
-  <meta name="google-signin-client_id" content="813008326543-s88dl11p1j2meippp8vd4nrkb3jcpie3.apps.googleusercontent.com">
-
   <title>CalcuLabor</title>
 </head>
 
@@ -50,14 +43,6 @@
 							<div class="row">
 								<!-- <span class="fa fa-lock"></span> -->
 								<input type="password" name="password" id="password" class="form__input" placeholder="Password" autocomplete="on">
-								
-								<!-- sign in with apple button -->
-								<div style="display: flex; justify-content: center;" id="appleid-signin" data-color="black" data-border="true" data-type="sign in" data-height=50px data-width="350px" data-border-radius="0"></div>			
-							    <br>
-								<br>
-								<!-- sign in with google button -->
-								<div style="display: flex; justify-content: center;" class="g-signin2" data-onsuccess="onSignIn" data-width="350" data-height="50" data-longtitle="true" data-theme="dark" data-border-radius="60"></div>
-								<a href="#" onclick="signOut();">Sign out</a>
 							</div>		
 							
 							<!-- <div class="row">
@@ -88,7 +73,6 @@
 
 	<script>
 
-		//Check google sign out if no authorization token existed
 		function fetchData (){
 			let username = document.getElementById('username').value;
 			let password = document.getElementById('password').value;
@@ -133,103 +117,6 @@
 					Swal.fire('Please input your username');
 				   }
 			}
-	</script>
-    
-	<script type="text/javascript">
-		
-		AppleID.auth.init({
-			clientId : 'lol.online.calculabor',
-			scope : "name email",
-			redirectURI : 'https://calculabor.online/api/1.0/apple/redirect',
-			state : "",
-			nonce : "",
-			usePopup : true //or false defaults to false
-		});
-
-		console.log("redirect page----")
-        
-        if (typeof window !== "undefined") {
-          console.log("window", window);
-          document.addEventListener("AppleIDSignInOnSuccess", async data => {
-            console.log("AppleIDSignInOnSuccess", data);
-
-            try {
-              const data = await AppleID.auth.signIn();
-              console.log("data", data);
-
-			  let options = {
-				headers: {
-					"Content-Type": "application/json"
-				},
-				method: "POST", 
-				body: JSON.stringify({
-					code: data.authorization.code,
-				})
-			  };	
-
-			  fetch('/api/1.0/apple/verify', options)
-			    .then(response => response.json())
-
-			    .then(data => {
-				console.log('Success:', data);
-				window.location.replace('/index.html');
-				localStorage.setItem('Authorization', 'Bearer ' + data[0].access_token);
-				})	
-
-				.catch((error) => {
-				console.error('Error:', error);
-				});
-
-            } catch (error) {
-              //handle error.
-            }
-
-          });
-        //Listen for authorization failures
-        document.addEventListener("AppleIDSignInOnFailure", error => {
-        console.log("AppleIDSignInOnFailure", error);
-        });
-        }
-
-		//sign in with google
-		function onSignIn(googleUser) {
-			console.log(googleUser);
-
-					let options = {
-						headers: {
-							"Content-Type": "application/json"
-						},
-						method: "POST", 
-						body: JSON.stringify({
-							token: googleUser.getAuthResponse().id_token,
-						})
-					};	
-
-					fetch('/api/1.0/google/verify', options)
-					.then(response => response.json())
-
-					.then(data => {
-					console.log('Success');
-					window.location.replace('/index.html');
-					localStorage.setItem('Authorization', 'Bearer ' + data[0].access_token);
-					})	
-
-					.catch((error) => {
-					console.error('Error:', error);
-					});
-		}
-
-		function signOut() {
-			var auth2 = gapi.auth2.getAuthInstance();
-			auth2.signOut().then(function () {
-				console.log('User signed out.');
-			});
-		}
-
-		function onFailure(error) {
-		console.log(error);
-		}
-	</script>
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
+</script>
 </body>
 </html>
