@@ -76,7 +76,7 @@ const appleVerify = async (req, res) => {
 	  const options = {
 		//clientID: client_id, // Apple Client ID
 		clientID: 'lol.online.calculabor',
-		redirectUri: 'https://calculabor.online:3000/api/1.0/apple/redirect', // use the same value which you passed to authorisation URL.
+		redirectUri: 'https://calculabor.online/api/1.0/apple/redirect', // use the same value which you passed to authorisation URL.
 		clientSecret: clientSecret
 	  };
 	  
