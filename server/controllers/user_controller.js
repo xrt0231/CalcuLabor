@@ -10,6 +10,7 @@ const env = process.env.NODE_ENV || 'production';
 const { client_id, team_id, key_id, gclient_id} = process.env;
 const path = require('path');
 var fs = require('fs');
+var nodemailer = require("nodemailer");
 
 
 //User profile
@@ -147,8 +148,38 @@ const googleVerify = async (req, res) => {
 verify().catch(console.error);
 }
 
+const sesMail = async (req, res) => {
 
+	var transport = nodemailer.createTransport({ // Yes. SMTP!
+        host: "email-smtp.us-east-2.amazonaws.com", // Amazon email SMTP hostname
+        secureConnection: true, // use SSL
+        port: 465, // port for secure SMTP
+        auth: {
+            user: "AKIAQQ2T3Q2EC77LGZNL", // Use from Amazon Credentials
+            pass: "BPnT5J1HeRNSIGT0KamAefxgSZWUkcQ7EaNqu7CEehIm" // Use from Amazon Credentials
+        }
+    });
 
+    var mailOptions = {
+        from: "jonathan@4idps.com", // sender address
+        to: "carina630@gmail.com", // list of receivers
+        subject: "User registerd", // Subject line
+        html: "<b>I love you~</b>" // email body
+    };
+
+    // send mail with defined transport object
+    transport.sendMail(mailOptions, function(error, response){
+        if(error){
+            console.log(error);
+        }else{
+            console.log("Message sent: " + response.message);
+        }
+    
+        transport.close(); // shut down the connection pool, no more messages
+    });
+
+    res.send('OK');
+}
 module.exports = {
-	userProfile, signUp, signIn, appleSignIn, appleVerify, googleRedirect, googleVerify
+	userProfile, signUp, signIn, appleSignIn, appleVerify, googleRedirect, googleVerify, sesMail
 };

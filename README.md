@@ -9,7 +9,6 @@ formula to optimize the operation of organization.
   - username: test12345
   - password: tT!5
 
-
 ## Table of content
 * [Technologies](#technologies)
 * [Domain knowledge of efficiency calculation](#Domain-knowledge-of-efficiency-calculation)
