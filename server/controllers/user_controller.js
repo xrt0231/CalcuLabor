@@ -7,7 +7,7 @@ const Swal = require('sweetalert2'); //Sweet Alert2
 const appleSignin = require("apple-signin-auth"); //Sign in with Apple
 const {OAuth2Client} = require('google-auth-library'); //Sign in with Google
 const env = process.env.NODE_ENV || 'production';
-const { client_id, team_id, key_id, gclient_id} = process.env;
+const { client_id, team_id, key_id, gclient_id, mail_host, mail_user, mail_pass} = process.env;
 const path = require('path');
 var fs = require('fs');
 var nodemailer = require("nodemailer");
@@ -151,18 +151,18 @@ verify().catch(console.error);
 const sesMail = async (req, res) => {
 
 	var transport = nodemailer.createTransport({ // Yes. SMTP!
-        host: "email-smtp.us-east-2.amazonaws.com", // Amazon email SMTP hostname
+        host: mail_host, // Amazon email SMTP hostname
         secureConnection: true, // use SSL
         port: 465, // port for secure SMTP
         auth: {
-            user: "AKIAQQ2T3Q2EC77LGZNL", // Use from Amazon Credentials
-            pass: "BPnT5J1HeRNSIGT0KamAefxgSZWUkcQ7EaNqu7CEehIm" // Use from Amazon Credentials
+            user: mail_user, // Use from Amazon Credentials
+            pass: mail_pass// Use from Amazon Credentials
         }
     });
 
     var mailOptions = {
-        from: "jonathan@4idps.com", // sender address
-        to: "carina630@gmail.com", // list of receivers
+        from: "jtsw@protonmail.com", // sender address
+        to: "jtsw@protonamil.com", // list of receivers
         subject: "User registerd", // Subject line
         html: "<b>I love you~</b>" // email body
     };
