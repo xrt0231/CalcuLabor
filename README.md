@@ -32,6 +32,7 @@ formula to optimize the operation of organization.
 * CSS
 * JavaScript
 * AJAX
+* 3rd party sign in
 
 ### Barcode reading
 * QuaggaJS
