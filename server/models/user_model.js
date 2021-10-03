@@ -19,7 +19,7 @@ const signUp = async(username, encryptPassWord, token)=> {
 }
 
 const signIn = async(username, encryptPassWord)=> {
-    let sql = `SELECT * FROM employee where name = ? AND password = ?`
+	let sql = `SELECT * FROM employee where name = ? AND password = ?`
 	let result = await query(sql, [username, encryptPassWord]);
     
 	if (result.length === 0)
@@ -37,7 +37,7 @@ const signIn = async(username, encryptPassWord)=> {
 // Sign in wiht Apple
 const signInApple = async(username, token, email)=> {
 	
-    let sql = `SELECT * FROM employee where name = ? AND access_token = ?`
+	let sql = `SELECT * FROM employee where name = ? AND access_token = ?`
 	let result = await query(sql, [username, token]);
     
 	if (result.length === 0)
@@ -57,7 +57,7 @@ const signInApple = async(username, token, email)=> {
 
 const signInGoogle = async(username, token, email)=> {
 	
-    let sql = `SELECT * FROM employee where email = ? AND access_token = ?`
+	let sql = `SELECT * FROM employee where email = ? AND access_token = ?`
 	let result = await query(sql, [email, token]);
     
 	if (result.length === 0)

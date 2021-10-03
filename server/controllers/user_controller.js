@@ -12,7 +12,7 @@ const path = require('path');
 var fs = require('fs');
 var nodemailer = require("nodemailer");
 
-
+const HttpException = require('http-exception');
 //User profile
 const userProfile = async (req, res) => {
 
@@ -88,7 +88,7 @@ const appleVerify = async (req, res) => {
 		// 	refreshToken: tokenResponse.refresh_token,
 		//  })
 		var decoded = jwt_decode(tokenResponse.id_token);
-        console.log(decoded);
+		console.log(decoded);
 
 		try{
 			const { sub: userAppleId } = await appleSignin.verifyIdToken(tokenResponse.id_token, {
@@ -124,61 +124,71 @@ const googleRedirect = async (req, res) => {
 //Google sign in verify => response access token
 const googleVerify = async (req, res) => {
   
-  let token = req.body.token;
-  const client = new OAuth2Client(gclient_id);
-  async function verify() {
-  const ticket = await client.verifyIdToken({
-    idToken: token,
-    audience: gclient_id,
+	let token = req.body.token;
+	const client = new OAuth2Client(gclient_id);
+	async function verify() {
+		const ticket = await client.verifyIdToken({
+			idToken: token,
+			audience: gclient_id,
       
-  });
-  const payload = ticket.getPayload();
-  const userid = payload['sub'];
+		});
+		const payload = ticket.getPayload();
+		const userid = payload['sub'];
   
-  const hash = crypto.createHash('sha256');
+		const hash = crypto.createHash('sha256');
 
   
-  let googleToken = payload.sub;
-  let username = payload.given_name;
-  let googleEmail = payload.email;
+		let googleToken = payload.sub;
+		let username = payload.given_name;
+		let googleEmail = payload.email;
 
-  const user = (await User.signInGoogle(username, googleToken, googleEmail));
-  res.send(user);
-}
-verify().catch(console.error);
+		const user = (await User.signInGoogle(username, googleToken, googleEmail));
+		res.send(user);
+	}
+	verify().catch(console.error);
 }
 
 const sesMail = async (req, res) => {
 
 	var transport = nodemailer.createTransport({ // Yes. SMTP!
-        host: mail_host, // Amazon email SMTP hostname
-        secureConnection: true, // use SSL
-        port: 465, // port for secure SMTP
-        auth: {
-            user: mail_user, // Use from Amazon Credentials
-            pass: mail_pass// Use from Amazon Credentials
-        }
-    });
+		host: mail_host, // Amazon email SMTP hostname
+		secureConnection: true, // use SSL
+		port: 465, // port for secure SMTP
+		auth: {
+			user: mail_user, // Use from Amazon Credentials
+			pass: mail_pass// Use from Amazon Credentials
+		}
+	});
 
-    var mailOptions = {
-        from: "jtsw@protonmail.com", // sender address
-        to: "jtsw@protonamil.com", // list of receivers
-        subject: "User registerd", // Subject line
-        html: "<b>I love you~</b>" // email body
-    };
+	var mailOptions = {
+		from: "jonathan@4idps.com", // sender address
+		to: "jonathan@4idps.con", // list of receivers
+		subject: "User registerd", // Subject line
+		html: "<b>test</b>" // email body
+	};
 
-    // send mail with defined transport object
-    transport.sendMail(mailOptions, function(error, response){
-        if(error){
-            console.log(error);
-        }else{
-            console.log("Message sent: " + response.message);
-        }
+	// send mail with defined transport object
+	transport.sendMail(mailOptions) 
+		.then(()=> { res.send('OK'); })
+		.catch(()=> {res.send('NG');})
+
+	// try{
+	//     if(error){
+	//         console.log(error);
+	// 		throw {message: 'error'}
+	//     }else{
+	//         console.log("Message sent: ");
+	//         // console.log("Message sent: " + info.messageId);
+	//     }
     
-        transport.close(); // shut down the connection pool, no more messages
-    });
+	//     transport.close(); // shut down the connection pool, no more messages
+	// }catch(e) {throw new HttpException(e.message, e.statusCode)}
 
-    res.send('OK');
+	// }
+	// );
+
+	
+	
 }
 module.exports = {
 	userProfile, signUp, signIn, appleSignIn, appleVerify, googleRedirect, googleVerify, sesMail
