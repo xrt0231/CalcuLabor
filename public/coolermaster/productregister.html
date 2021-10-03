@@ -31,6 +31,7 @@
       <!--Sweet Alert2 CDN-->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+      <script src="https://unpkg.com/keycode-js@3.1.0/dist/keycode.min.js"></script>
     </head>
     <style>
       body {
@@ -41,6 +42,8 @@
     </style>
     
     <body>
+
+      
       <nav class="navbar navbar-default">
        
         <div class="container-fluid">
@@ -148,9 +151,14 @@
             <div id="chart"></div>  
           </div>
         </div>
-        
         <script src="/js/camera.js"></script>
         <script src="/js/coolermaster-product.js"></script>
+
+        <script>
+          window.addEventListener('keyup', function(e) {
+            console.log('key is', e.code);
+          })
+        </script>
 
     </body>
 </html>
