@@ -31,8 +31,13 @@
       <!--Sweet Alert2 CDN-->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+<<<<<<< HEAD
       <script src="https://unpkg.com/keycode-js@3.1.0/dist/keycode.min.js"></script>
 
+||||||| 89e34fd
+=======
+      <script src="https://unpkg.com/keycode-js@3.1.0/dist/keycode.min.js"></script>
+>>>>>>> 0b6bd70b3a4ff96cdff2a60a2592b15eb9f2a6ee
     </head>
     <style>
       body {
@@ -43,6 +48,8 @@
     </style>
     
     <body>
+
+      
       <nav class="navbar navbar-default">
        
         <div class="container-fluid">
@@ -150,13 +157,13 @@
             <div id="chart"></div> 
           </div>
         </div>
-        
         <script src="/js/camera.js"></script>
         <script src="/js/coolermaster-product.js"></script>
+
         <script>
-          window.addEventListener('keydown', function(e){
-            console.log(e.code);
-          });
+          window.addEventListener('keyup', function(e) {
+            console.log('key is', e.code);
+          })
         </script>
 
     </body>
