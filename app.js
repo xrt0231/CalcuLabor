@@ -10,6 +10,8 @@ const fetch = require('node-fetch');
 
 const Quagga = require('quagga').default;
 
+var admin = require('firebase-admin');
+
 app.use(express.static('public'));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
