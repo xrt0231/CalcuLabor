@@ -1,0 +1,7 @@
+pipeline {
+    node('built-in') {
+    dir('/home/ec2-user/mmem') {
+	sh 'git pull'
+    }
+}
+}
