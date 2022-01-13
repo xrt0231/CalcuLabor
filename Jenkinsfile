@@ -16,6 +16,7 @@ pipeline {
         stage('Change-folder') {
             steps {
                 script {
+                    sh 'pwd'
                     dir('/home/ec2-user/mmem') {    
                         echo 'change folder'   
                         sh 'pwd'
