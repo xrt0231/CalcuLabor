@@ -1,7 +1,6 @@
 
 pipeline{
     agent any
-    stages{
         stage('stage 1'){
             echo 'Deploy started...'
         }
@@ -11,7 +10,6 @@ pipeline{
                     sh 'git pull'
                 }
         }
-    }
 }
 
 
