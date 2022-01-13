@@ -31,8 +31,8 @@ pipeline {
             steps {
                 script {
                     dir('/home/ec2-user/mmem'){
-                        echo "npm install"
-                        sh 'pwd'
+                        // echo "npm install"
+                        // sh 'pwd'
                         sh 'npm install' 
                     } 
                 }
