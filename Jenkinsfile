@@ -4,7 +4,7 @@ node {
     }
     stage('stage 2'){
         dir('/home/ec2-user/mmem'){
-            sh "pwd"
+            sh "git pull"
         }
     }
 }
