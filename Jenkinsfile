@@ -25,7 +25,7 @@ pipeline {
                 }
             }
         }
-    }
+
         stage('Install') {
             steps {
                 script {
@@ -37,6 +37,8 @@ pipeline {
                 }
             }
         }
+    }
+        
     //     stage('Build') {
     //         steps {
     //             script {
