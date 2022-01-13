@@ -14,18 +14,6 @@ pipeline {
             }
         }
 
-        stage('Npm-nstall') {
-            steps {
-                script {
-                    dir('/home/ec2-user/mmem'){
-                        // echo "npm install"
-                        // sh 'pwd'
-                        sh 'npm install' 
-                    } 
-                }
-            }
-        }
-        
         stage('Change-folder') {
             steps {
                 script {
@@ -38,6 +26,18 @@ pipeline {
                 }
             }
         }
+
+        stage('Npm-nstall') {
+            steps {
+                script {
+                    dir('/home/ec2-user/mmem'){
+                        echo "npm install"
+                        sh 'npm install' 
+                    } 
+                }
+            }
+        }
+
     }
 
     post { 
