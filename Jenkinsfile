@@ -30,11 +30,9 @@ pipeline {
         stage('Npm-nstall') {
             steps {
                 script {
-                    nodejs('nodejs') {
                         echo "npm install"
                         sh 'pwd'
-                        sh 'npm install'
-                    } 
+                        sh 'npm install' 
                 }
             }
         }
