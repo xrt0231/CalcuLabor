@@ -20,7 +20,7 @@ pipeline {
                         echo 'change folder'   
                         sh 'pwd'
                         sh 'git pull'
-                        //sh 'npm install'
+                        sh 'npm install'
                     } 
                 }
             }
