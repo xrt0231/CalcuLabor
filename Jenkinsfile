@@ -1,11 +1,5 @@
 pipeline {
     agent any
-    // environment {
-    //     CI = 'true'
-    //     RED = '#FF0000'
-    //     YELLOW = '#FFFF00'
-    //     GREEN = '#008000'
-    // }
 
     stages {
         stage('Pre-Build') {
