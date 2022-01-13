@@ -16,9 +16,8 @@ pipeline {
         stage('Change-folder') {
             steps {
                 script {
-                    if (env.BRANCH_NAME == 'dev') {    
+                    dir('/home/ec2-user/mmem') {    
                         echo 'change folder'   
-                        sh '/home/ec2-user/mmem'
                         sh 'pwd'
                     } 
                 }
