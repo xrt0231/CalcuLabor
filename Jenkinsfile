@@ -6,7 +6,7 @@ pipeline{
             echo 'Deploy started...'
         }
         stage('stage 2'){
-            steps{
+            step{
                 dir('/home/ec2-user/mmem'){
                     sh 'git pull'
                     sh 'npm install'
