@@ -1,8 +1,9 @@
 node {
     stage('stage 1'){
-        echo 'This is stage test 1'
+        echo 'Deploy started...'
     }
     stage('stage 2'){
-        echo 'This is stage test 2'
+        dir('/home/ec2-user/mmem')
+        sh "pwd"
     }
 }
