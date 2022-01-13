@@ -20,22 +20,23 @@ pipeline {
                         echo 'change folder'   
                         sh 'pwd'
                         sh 'git pull'
-                        sh 'npm --prefix /home/ec2-user/mmem install'
+                        //sh 'npm --prefix /home/ec2-user/mmem install'
                     } 
                 }
             }
         }
     }
-    //     stage('Install') {
-    //         steps {
-    //             script {
-    //                 if (env.BRANCH_NAME == 'dev') {
-    //                     echo "dev install"
-    //                     sh 'npm --prefix /home/foritech/Projects/KK-BV/Auth-Service install'
-    //                 } 
-    //             }
-    //         }
-    //     }
+        stage('Install') {
+            steps {
+                script {
+                    nodejs('nodejs') {
+                        echo "npm install"
+                        sh 'pwd'
+                        sh 'npm install'
+                    } 
+                }
+            }
+        }
     //     stage('Build') {
     //         steps {
     //             script {
