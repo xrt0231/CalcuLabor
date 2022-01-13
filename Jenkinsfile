@@ -26,7 +26,7 @@ pipeline {
             }
         }
 
-        stage('Install') {
+        stage('Npm-nstall') {
             steps {
                 script {
                     nodejs('nodejs') {
