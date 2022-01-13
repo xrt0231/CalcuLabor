@@ -19,6 +19,8 @@ pipeline {
                     dir('/home/ec2-user/mmem') {    
                         echo 'change folder'   
                         sh 'pwd'
+                        sh 'git pull'
+                        //sh 'npm install'
                     } 
                 }
             }
