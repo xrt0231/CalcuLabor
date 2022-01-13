@@ -3,7 +3,8 @@ node {
         echo 'Deploy started...'
     }
     stage('stage 2'){
-        dir('/home/ec2-user/mmem')
-        sh "pwd"
+        dir('/home/ec2-user/mmem'){
+            sh "pwd"
+        }
     }
 }
