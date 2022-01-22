@@ -1,5 +1,4 @@
 require('dotenv').config();
-const { response } = require('express');
 const CoolerMaster = require('../models/coolermaster_model');
 
 const productRegister = async (req, res) => {

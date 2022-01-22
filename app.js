@@ -25,7 +25,8 @@ app.use('/api/' + API_VERSION,
 		require('./server/routes/standard_route'),
 		require('./server/routes/user_route'),
 		require('./server/routes/production_route'),
-		require('./server/routes/coolermaster.route')
+		require('./server/routes/coolermaster.route'),
+		require('./server/routes/upload_S3.route'),
 	]
 );
 
