@@ -55,6 +55,10 @@ formula to optimize the operation of organization.
 * Chai
 * Artillery
 
+### CI/CD
+
+* Jenkins Pipeline
+
 ### Others
 
 * JS-Gantt-Chart
