@@ -14,27 +14,37 @@ const s3 = new S3({
     secretAccessKey,
 });
 
-async function uploadFile(file){
-    const fileStream = fs.createReadStream(file.path);
-    const uploadParams = {
-        Bucket: bucketname,
-        Body: fileStream,
-        Key: file.filename,
-    };
+// async function uploadFile(file){
+//     const fileStream = fs.createReadStream(file.path);
+//     const uploadParams = {
+//         Bucket: bucketname,
+//         Body: fileStream,
+//         Key: file.filename,
+//     };
 
-    return s3.upload(uploadParams).promise();
-}
+//     return s3.upload(uploadParams).promise();
+// }
 
 //upload file to public/uploads
 const uploadToS3 = async (req, res) => {
-    let newPath = `public/uploads/${req.file.originalname}`
-    fs.rename(req.file.path, newPath, () => {
-	res.json({result: 'upload successful'});
-    });
+    // let newPath = `public/uploads/${req.file.originalname}`
+    // fs.rename(req.file.path, newPath, () => {
+	// res.json({result: 'upload successful'});
+    // });
 
     //upload file to AWS S3
     const result = await uploadFile(req.file);
-    console.log('S3 response: ', result);
+
+    async function uploadFile(file){
+        const fileStream = fs.createReadStream(file.path);
+        const uploadParams = {
+            Bucket: bucketname,
+            Body: fileStream,
+            Key: file.filename,
+        };
+    
+        s3.upload(uploadParams).promise();
+    }
     
     res.send({
         status: 'success',
