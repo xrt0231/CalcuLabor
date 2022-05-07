@@ -27,12 +27,20 @@
         </div>
       </form>
       
-      <video id="my_video_1" class="video-js vjs-fluid vjs-default-skin" controls preload="auto" data-setup='{}'>
-      <source src="https://calculabor.s3.ap-northeast-1.amazonaws.com/1643966934835-665659669.766082.m3u8" type="application/x-mpegURL">
+      <video id='hls-example'  class="video-js vjs-default-skin" width="1000" height="700" controls>
+      <source src="https://d8w1cer9ey1hm.cloudfront.net/stories/watermark/58edfa94-5e2e-4bc1-8563-4a17fc3b9213/58edfa94-5e2e-4bc1-8563-4a17fc3b9213_watermark.m3u8" type="application/x-mpegURL">
+      </video>
+
+      <br>
+
+      <video width="1000" height="700" controls>
+        <source src="https://d2od1p5421ar08.cloudfront.net/stories/origin/7e39c46e-98e9-41eb-a327-29d77618d55e/7e39c46e-98e9-41eb-a327-29d77618d55e.mp4" type="video/mp4">
+        <source src="movie.ogg" type="video/ogg">
+      Your browser does not support the video tag.
       </video>
   
 <script>
-var player = videojs('my_video_1');
+var player = videojs('hls-example');
 player.play();
 </script>
 
