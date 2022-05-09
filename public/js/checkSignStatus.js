@@ -28,12 +28,12 @@ function fetchUserData (){
 					console.log('API fetch success...')
 					console.log(result)
 					Swal.fire('Please sign in...');
-					setTimeout(function(){window.location.replace('/index.html')}, 3000);
+					setTimeout(function(){window.location.replace('/index.html')}, 2000);
 				} else {}
 			});
 	}else {
 		Swal.fire('Please sign in...');
-		setTimeout(function(){window.location.replace('/index.html')}, 3000);
+		setTimeout(function(){window.location.replace('/index.html')}, 2000);
 	}
 } 
 
@@ -41,4 +41,4 @@ function fetchUserData (){
 function signout(){
 	localStorage.removeItem("Authorization");
 	window.location.replace('/index.html');
-}
+	}

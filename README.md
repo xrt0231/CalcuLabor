@@ -1,4 +1,4 @@
-# CalcuLabor
+# CalcuLabor Four
 
 CalcuLabor calculates real-time productivity in any place on computer devices with customized efficiency
 formula to optimize the operation of organization.
@@ -8,7 +8,6 @@ formula to optimize the operation of organization.
 #### Test Account:
   - username: test12345
   - password: tT!5
-
 
 ## Table of content
 * [Technologies](#technologies)
@@ -32,7 +31,7 @@ formula to optimize the operation of organization.
 * HTML
 * CSS
 * JavaScript
-* AJAX
+
 * 3rd party log in (Google/Apple)
 
 ### Barcode reading
@@ -55,6 +54,10 @@ formula to optimize the operation of organization.
 * Mocha
 * Chai
 * Artillery
+
+### CI/CD
+
+* Jenkins Pipeline
 
 ### Others
 
