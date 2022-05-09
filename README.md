@@ -1,4 +1,4 @@
-# CalcuLabor Four
+# CalcuLabor
 
 CalcuLabor calculates real-time productivity in any place on computer devices with customized efficiency
 formula to optimize the operation of organization.
@@ -31,8 +31,8 @@ formula to optimize the operation of organization.
 * HTML
 * CSS
 * JavaScript
-* AJAX
-* 3rd party sign in
+
+* 3rd party log in (Google/Apple)
 
 ### Barcode reading
 * QuaggaJS
