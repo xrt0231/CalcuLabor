@@ -32,15 +32,15 @@ on:
   # run manually
   workflow_dispatch:
 
-# env:
-#   AWS_REGION: us-east-2                   # set this to your preferred AWS region, e.g. us-west-1
-#   ECR_REPOSITORY: aws-ecs-calculabor           # set this to your Amazon ECR repository name
-#   ECS_SERVICE: aws-ecs-service-calculabor               # set this to your Amazon ECS service name
-#   ECS_CLUSTER: aws-ecs-cluster-calculabor                 # set this to your Amazon ECS cluster name
-#   ECS_TASK_DEFINITION: aws-ecs-task-definition-calculabor.json # set this to the path to your Amazon ECS task definition
-#                                                # file, e.g. .aws/task-definition.json
-#   CONTAINER_NAME: aws-ecs-calculabor           # set this to the name of the container in the
-#                                                # containerDefinitions section of your task definition
+env:
+  AWS_REGION: us-east-2                   # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY: aws-ecs-calculabor           # set this to your Amazon ECR repository name
+  ECS_SERVICE: aws-ecs-service-calculabor               # set this to your Amazon ECS service name
+  ECS_CLUSTER: aws-ecs-cluster-calculabor                 # set this to your Amazon ECS cluster name
+  ECS_TASK_DEFINITION: aws-ecs-task-definition-calculabor.json # set this to the path to your Amazon ECS task definition
+                                               # file, e.g. .aws/task-definition.json
+  CONTAINER_NAME: aws-ecs-calculabor           # set this to the name of the container in the
+                                               # containerDefinitions section of your task definition
 
 jobs:
   deploy:
