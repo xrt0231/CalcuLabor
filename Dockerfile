@@ -7,43 +7,43 @@ ARG AWS_ACCESS_KEY_ID
 ARG AWS_SECRET_ACCESS_KEY
 ARG AWS_DEFAULT_REGION
 
-ARG rds_HOST
-ARG rds_USERNAME
-ARG rds_PASSWORD
+    # ARG rds_HOST
+    # ARG rds_USERNAME
+    # ARG rds_PASSWORD
 
-ARG client_id
-ARG team_id
-ARG key_id
-ARG rds_DATABASE
+    # ARG client_id
+    # ARG team_id
+    # ARG key_id
+    # ARG rds_DATABASE
 
-ENV API_VERSION = 1.0
-ENV NODE_ENV = rds
-ENV PORT = 3000
+    # ENV API_VERSION = 1.0
+    # ENV NODE_ENV = rds
+    # ENV PORT = 3000
 
-ARG api_key=api_key
-ARG gclient_id=gclient
-ARG client_secret=client_secret
-ARG redirect_uri=redirect_uri
+    # ARG api_key=api_key
+    # ARG gclient_id=gclient
+    # ARG client_secret=client_secret
+    # ARG redirect_uri=redirect_uri
 
 #RDS
 
-ENV rds_HOST = $rds_HOST
-ENV rds_USERNAME = $rds_USERNAME
-ENV rds_PASSWORD = $rds_PASSWORD
-ENV rds_DATABASE = $rds_DATABASE
+# ENV rds_HOST = $rds_HOST
+# ENV rds_USERNAME = $rds_USERNAME
+# ENV rds_PASSWORD = $rds_PASSWORD
+# ENV rds_DATABASE = $rds_DATABASE
 
 # apple_sign_in
 
-ENV client_id=$client_id
-ENV team_id=$team_id
-ENV key_id=$key_id
+# ENV client_id=$client_id
+# ENV team_id=$team_id
+# ENV key_id=$key_id
 
 # google_sign_in
 
-ENV api_key=$api_key
-ENV gclient_id=$gclient
-ENV client_secret=$clinet_secret
-ENV redirect_uri=$redirect_uri
+# ENV api_key=$api_key
+# ENV gclient_id=$gclient
+# ENV client_secret=$clinet_secret
+# ENV redirect_uri=$redirect_uri
 
 #AWS ECS
 
