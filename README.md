@@ -2,7 +2,7 @@
 
 CalcuLabor is a real-time productivity calculation concetual tool let you to calculate labor hour and work efficiency.
 
-#### Website URL: [calculbour.online](https://calculabour.com/)
+#### Website URL: [calculbour.online](http://calculabour.com/)
 
 #### Test Account:
   - username: test12345
