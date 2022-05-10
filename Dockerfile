@@ -11,10 +11,10 @@ ARG rds_HOST
 ARG rds_USERNAME
 ARG rds_PASSWORD
 
-ARG client_id=client_id
-ARG team_id=team_id
-ARG key_id=key_id
-ARG rds_DATABASE=rds_DATABASE
+ARG client_id
+ARG team_id
+ARG key_id
+ARG rds_DATABASE
 
 ENV API_VERSION = 1.0
 ENV NODE_ENV = rds
