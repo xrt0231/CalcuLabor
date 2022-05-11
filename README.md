@@ -32,7 +32,7 @@ CalcuLabor is a real-time productivity calculation concetual tool let you to cal
 * CSS
 * JavaScript
 * AJAX
-* 3rd party log in (Google/Apple) [in maintanence]
+* 3rd party log in (Google/Apple)
 
 ### Barcode reading
 * QuaggaJS
@@ -46,7 +46,7 @@ CalcuLabor is a real-time productivity calculation concetual tool let you to cal
 * HTTP & HTTPS
 * Domain Name System (DNS)
 * Nginx
-* SSL Certificate [in maintanence]
+* SSL Certificate
 
 ### Test
 
