@@ -45,7 +45,7 @@ CalcuLabor is a real-time productivity calculation concetual tool let you to cal
 
 * HTTP & HTTPS
 * Domain Name System (DNS)
-* Nginx
+* ECS (EC2)
 * SSL Certificate
 
 ### Test
@@ -53,6 +53,10 @@ CalcuLabor is a real-time productivity calculation concetual tool let you to cal
 * Mocha
 * Chai
 * Artillery
+
+### CICD
+
+* Github Actions
 
 ### Others
 
