@@ -42,7 +42,7 @@ function fetchUserData (){
 AppleID.auth.init({
 	clientId : 'lol.online.calculabor',
 	scope : "name email",
-	redirectURI : 'https://calculabor.online/api/1.0/apple/redirect',
+	redirectURI : 'https://calculabour.com/api/1.0/apple/redirect',
 	state : "",
 	nonce : "",
 	usePopup : true //or false defaults to false
