@@ -27,6 +27,7 @@ app.use('/api/' + API_VERSION,
 		require('./server/routes/production_route'),
 		require('./server/routes/coolermaster.route'),
 		require('./server/routes/upload_S3.route'),
+		require('./server/routes/sanofi.route'),
 	]
 );
 

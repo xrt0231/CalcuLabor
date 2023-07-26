@@ -35,6 +35,7 @@
     "nodemailer": "^6.6.2",
     "nodemon": "^2.0.6",
     "path": "^0.12.7",
+    "qrcode": "^1.5.3",
     "quagga": "^0.12.1",
     "sweetalert2": "^10.12.5"
   },
