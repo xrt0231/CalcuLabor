@@ -1,64 +1,3 @@
-  <!-- <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <title>Sanofi-Campaign</title>
-  </head>
-  <body>
-    <main>
-        <form action="/"
-              id="qr-generation-form">
-            <input type="text"
-                   name="qr-code-content"
-                   id="qr-content"
-                   value=""
-                   placeholder="Enter QR content"
-                   autocomplete="off" />
-            <input type="submit"
-                   value="Generate QR Code" />
-        </form><br />
-        <div id="qr-code"></div>
-    </main>
-    <script>
-        let qrContentInput = document.getElementById("qr-content");
-        let qrGenerationForm =
-        document.getElementById("qr-generation-form");
-        let qrCode;
-         
-        function generateQrCode(qrContent) {
-          return new QRCode("qr-code", {
-            text: qrContent,
-            width: 256,
-            height: 256,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H,
-          });
-        }
-         
-        // Event listener for form submit event
-        qrGenerationForm.addEventListener("submit", function (event) {
-          // Prevent form submission
-          event.preventDefault();
-          let qrContent = qrContentInput.value;
-          if (qrCode == null) {
-               
-            // Generate code initially
-            qrCode = generateQrCode(qrContent);
-          } else {
-               
-            // If code already generated then make
-            // again using same object
-            qrCode.makeCode(qrContent);
-          }
-        });
-    </script>
-    
-  </body>
-  </html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,16 +8,18 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 </head>
 <body>
 
 <div class="jumbotron text-center" style="background-color:DodgerBlue;"> 
-    
-  <p>A QR Code based promotion webpage!</p> 
+  <img src="/logo/Sanofi_logo.svg" height="30%"; width="30%"> 
+  <br>
+  <img src="/logo/Wits_logo.png" height="30%"; width="30%">
 
 </div>
 
-  <h1>Sanofi Promotion</h1>
+  <h5>Create campaign url</h5>
 <div class="container">
     <form action="/"
           id="qr-generation-form">
@@ -89,19 +30,21 @@
                placeholder="Enter QR content"
                autocomplete="off" />
         <input type="submit"
-               value="Generate QR Code" />
+               value="Insert URL to generate QR code" />
     </form><br />
     <div id="qr-code"></div>
 </div>
-  
+<h5>Redirect to campaign page.</h5>
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
-      <h3>Buy 1 Get 1 for Free</h3>
-      <p>This is the promotion description...</p>
+      <h3></h3>
+      <p>Scan above URL to campaign page automatically.</p>
     </div>
   </div>
 </div>
+
+<div style="width: 500px" id="reader"></div>
 
 <script>
     let qrContentInput = document.getElementById("qr-content");
@@ -136,6 +79,18 @@
         qrCode.makeCode(qrContent);
       }
     });
+</script>
+<script>
+    function onScanSuccess(decodedText, decodedResult) {
+      // Handle on success condition with the decoded text or result.
+      console.log(`Scan result: ${decodedText}`, decodedResult);
+      window.location.href = decodedText; 
+    } 
+
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+      "reader", { fps: 10, qrbox: 250 });
+      html5QrcodeScanner.render(onScanSuccess);
+ 
 </script>
 
 </body>
