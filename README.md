@@ -8,7 +8,6 @@ CalcuLabor is a real-time productivity calculation concetual tool let you to cal
   - username: test12345
   - password: tT!5
 
-
 ## Table of content
 * [Technologies](#technologies)
 * [Domain knowledge of efficiency calculation](#Domain-knowledge-of-efficiency-calculation)
@@ -31,7 +30,7 @@ CalcuLabor is a real-time productivity calculation concetual tool let you to cal
 * HTML
 * CSS
 * JavaScript
-* AJAX
+
 * 3rd party log in (Google/Apple)
 
 ### Barcode reading
@@ -54,9 +53,10 @@ CalcuLabor is a real-time productivity calculation concetual tool let you to cal
 * Chai
 * Artillery
 
-### CICD
 
-* Github Actions
+### CI/CD
+
+### CICD
 
 ### Others
 

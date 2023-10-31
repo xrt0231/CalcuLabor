@@ -80,3 +80,6 @@ midterm
 
 # https
 .well-known
+
+# for apple key
+key.txt

@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
+
+    <!-- Sign in with Google -->
+    <meta name="google-signin-client_id" content="813008326543-s88dl11p1j2meippp8vd4nrkb3jcpie3.apps.googleusercontent.com">
+
+    <!-- Sign in with apple -->
+    <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+
     <link rel="icon" href="/logo/logo_calculabor.png">
     <link rel="canonical" href="https://getbootstrap.com/docs/3.3/examples/carousel/">
 
-    <title>CalcuLabor</title>
+    <title>CCalcuLabor</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -30,12 +38,38 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/carousel.css" rel="stylesheet">
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MDQPTBN');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-202581170-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-202581170-1');
+    </script>
+
+
+
   </head>
 <!-- NAVBAR
 ================================================== -->
   <body>
-    <div class="navbar-wrapper">
-      <div class="container">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDQPTBN"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
+        <div class="navbar-wrapper">
+          <div class="container">
 
         <nav class="navbar navbar-inverse navbar-static-top">
           <div class="container">
@@ -56,6 +90,7 @@
                 <li><a href="/admin/production.html">Execute production</a></li>
                 <li><a href="/admin/hour.html">Working hour</a></li>
                 <li><a><div id="profile" style="font-size: large; color: white;"></div></a></li>
+                <li><a href="#" style="font-size: 20px;" onclick="signOut();">Sign out here</a></li>
                 <li class="dropdown">
                 </li>
                 
@@ -84,9 +119,9 @@
           <img class="first-slide" src="logo/p1.jpg" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Anytime, anywhere</h1>
-              <p>A real-time productivity web app, easy deployment.</p>
-              <p><a class="btn btn-lg btn-primary" href="signup.html" role="button">Sign up today</a></p>
+              <h1>Anytime and anywhere</h1>
+              <p>Easy for deployment.</p>
+              <p><a class="btn btn-lg btn-primary" href="signin.html" role="button">Sign in here</a></p>
             </div>
           </div>
         </div>
@@ -95,8 +130,8 @@
           <div class="container">
             <div class="carousel-caption">
               <h1>Scanner applied.</h1>
-              <p>No barcode reader, device native camera applied.</p>
-              <p><a class="btn btn-lg btn-primary" href="signup.html" role="button">Sign up today</a></p>
+              <p>Native camera applied.</p>
+              <p><a class="btn btn-lg btn-primary" href="signin.html" role="button">Sign in here</a></p>
             </div>
           </div>
         </div>
@@ -106,8 +141,8 @@
             <div class="carousel-caption">
               <h1>Quick response.</h1>
               <p>On-demand dashboard with real-time analysis.</p>
-              <p><a class="btn btn-lg btn-primary" href="signup.html" role="button">Sign up today</a></p>
-              
+              <p><a class="btn btn-lg btn-primary" href="signin.html" role="button">Sign in here</a></p>
+      
             </div>
             
           </div>
@@ -132,8 +167,13 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
     <div class="container marketing">
-
-      <!-- Three columns of text below the carousel -->
+    <!-- sign in with google button -->
+    <div style="display: flex; justify-content: center;" class="g-signin2" data-onsuccess="onSignIn" data-width="350" data-height="50" data-longtitle="true" data-theme="dark" data-border-radius="60"></div>
+    <br>
+    <!-- sign in with apple button -->
+    <div style="display: flex; justify-content: center;" id="appleid-signin" data-color="white" data-border="true" data-type="sign in" data-height=50px data-width="350px" data-border-radius="0"></div>
+      
+    <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
           <a href="/admin/schedule.html"><img src="/logo/bar-chart-steps1.svg" alt="Generic placeholder image" width="140" height="140"></a>
@@ -199,7 +239,7 @@
       <!-- FOOTER -->
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2020 CalcuLabor.  &middot; Developed by Jonathan Sun &middot; </p>
+        <p>&copy; 2023 CalcuLabor &middot; Developed by Jonathan Sun &middot; email: <a href="mailto:jtsw@protonmail.com">jtsw@protonmail.com</a></p>
       </footer>
 
     </div><!-- /.container -->
@@ -208,6 +248,10 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <!-- signin with gogole -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="/js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
@@ -215,5 +259,6 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/js/ie10-viewport-bug-workaround.js"></script>
     <script src="/js/index.js"></script>
+    
   </body>
 </html>
