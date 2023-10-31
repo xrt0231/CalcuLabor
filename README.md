@@ -1,9 +1,8 @@
 # CalcuLabor
 
-CalcuLabor calculates real-time productivity in any place on computer devices with customized efficiency
-formula to optimize the operation of organization.
+CalcuLabor is a real-time productivity calculation concetual tool let you to calculate labor hour and work efficiency.
 
-#### Website URL: [calculbor.online](https://calculabor.online/)
+#### Website URL: [calculbour.com](http://calculabour.com/)
 
 #### Test Account:
   - username: test12345
@@ -24,7 +23,7 @@ formula to optimize the operation of organization.
 
 * Node.js
 * Express.js
-* AWS EC2
+* AWS ECS fargate
 
 ### Frontend
 
@@ -39,14 +38,13 @@ formula to optimize the operation of organization.
 
 ### Database
 
-* MySQL
-* AWS RDS
+* AWS RDS (MySQL)
 
 ### Networking
 
 * HTTP & HTTPS
 * Domain Name System (DNS)
-* Nginx
+* ECS (EC2)
 * SSL Certificate
 
 ### Test
@@ -55,9 +53,10 @@ formula to optimize the operation of organization.
 * Chai
 * Artillery
 
+
 ### CI/CD
 
-* Jenkins Pipeline
+### CICD
 
 ### Others
 
